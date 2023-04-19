@@ -29,6 +29,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Project Structure
 The project structure must be organized in the following way:
 
+```
 app
 ├── core
 │   ├── components
@@ -87,3 +88,4 @@ app
 ├── app.component.ts
 ├── app.component.spec.ts
 ├── app.module.ts
+```
