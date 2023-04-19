@@ -25,3 +25,65 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Project Structure
+The project structure must be organized in the following way:
+
+app
+├── core
+│   ├── components
+│   │	├── header
+│   │	├── footer
+│   ├── modules
+│   │	├── material.module.ts
+│   ├── pages
+│   │	├── not-found
+│   ├── providers
+│   ├── services
+│   ├── guards
+├── shared
+│   ├── components
+│   ├── directives
+│   ├── models
+│   ├── pipes
+│   ├── validators
+├── redux
+│   ├── actions
+│   ├── effects
+│   ├── reducers
+│   ├── selectors
+│   ├── state.models.ts
+├── main
+│   ├── components
+│   ├── directives
+│   ├── models
+│   ├── pages
+│   ├── pipes
+│   ├── services
+├── booking
+│   ├── components
+│   ├── directives
+│   ├── models
+│   ├── pages
+│   ├── pipes
+│   ├── resolvers
+│   ├── services
+├── cart
+│   ├── components
+│   ├── directives
+│   ├── models
+│   ├── pages
+│   ├── pipes
+│   ├── services
+├── auth
+│   ├── components
+│   ├── models
+│   ├── pages
+│   ├── services
+│   ├── validators
+├── app-routing.module.ts
+├── app.component.html
+├── app.component.scss
+├── app.component.ts
+├── app.component.spec.ts
+├── app.module.ts
