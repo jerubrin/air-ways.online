@@ -1,1 +1,30 @@
+@use "theme";
 @import "~normalize.css";
+@import "variables";
+@import "mixins";
+@import "typography";
+@import "buttons";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  @include font();
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

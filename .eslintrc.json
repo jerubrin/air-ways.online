@@ -17,6 +17,7 @@
       ],
       "rules": {
         "class-methods-use-this": "off",
+        "import/no-extraneous-dependencies": "off",
         "no-return-assign": 0,
         "@angular-eslint/directive-selector": [
           "error",

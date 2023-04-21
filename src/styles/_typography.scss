@@ -1,0 +1,32 @@
+@import "mixins";
+
+.title-large {
+  @include font($font-size-24, $font-weight-700);
+}
+.title-medium {
+  @include font($font-size-20);
+}
+.title-xs-small {
+  @include font($font-size-16, $font-weight-500);
+}
+
+.subtitle-large {
+  @include font($font-size-30, $font-weight-700);
+}
+.subtitle-medium {
+  @include font($font-size-20, $font-weight-500);
+}
+
+.body-medium {
+  @include font($font-size-14);
+}
+.body-small {
+  @include font($font-size-12);
+}
+
+.label-medium {
+  @include font($font-size-14, $font-weight-500);
+}
+.label-small {
+  @include font($font-size-12);
+}

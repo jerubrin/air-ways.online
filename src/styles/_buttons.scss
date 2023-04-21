@@ -1,0 +1,6 @@
+@import "mixins";
+@import "variables";
+
+.button {
+  @include font($font-size-16, $font-weight-500);
+}
