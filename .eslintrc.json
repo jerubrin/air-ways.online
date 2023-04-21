@@ -1,13 +1,9 @@
 {
   "root": true,
-  "ignorePatterns": [
-    "projects/**/*"
-  ],
+  "ignorePatterns": ["projects/**/*"],
   "overrides": [
     {
-      "files": [
-        "*.ts"
-      ],
+      "files": ["*.ts"],
       "parserOptions": {
         "project": ["tsconfig(.app|.spec|).json"]
       },
@@ -22,7 +18,6 @@
       "rules": {
         "class-methods-use-this": "off",
         "no-return-assign": 0,
-        "no-console": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -42,12 +37,8 @@
       }
     },
     {
-      "files": [
-        "*.html"
-      ],
-      "extends": [
-        "plugin:@angular-eslint/template/recommended"
-      ],
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
     }
   ]
