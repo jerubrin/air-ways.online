@@ -20,6 +20,9 @@
         "airbnb-typescript/base"
       ],
       "rules": {
+        "class-methods-use-this": "off",
+        "no-return-assign": 0,
+        "no-console": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
