@@ -1,0 +1,31 @@
+@import "variables";
+
+:host {
+  .header {
+    height: 8.8rem;
+    .container {
+      justify-content: space-between;
+    }
+    .btn {
+      color: inherit;
+    }
+    &__menu {
+      gap: 4rem;
+    }
+  }
+
+  .header.main {
+    background-color: $color-neutral-70;
+    color: $color-white;
+  }
+
+  .header.booking {
+    background-color: $color-white;
+    color: $color-neutral-10;
+  }
+
+  .header.shopping-cart {
+    background-color: $color-white;
+    color: $color-primary;
+  }
+}

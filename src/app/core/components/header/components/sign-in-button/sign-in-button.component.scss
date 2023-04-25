@@ -1,0 +1,20 @@
+@import "variables";
+
+:host-context(.main) .btn {
+  color: $color-white;
+  img {
+    filter: $filter-white;
+  }
+}
+:host-context(.booking) .btn {
+  color: $color-neutral-10;
+  img {
+    filter: $filter-grey;
+  }
+}
+:host-context(.shopping-cart) .btn {
+  color: $color-primary;
+  img {
+    filter: $filter-blue;
+  }
+}

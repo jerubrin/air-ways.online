@@ -2,6 +2,7 @@ $color-primary: #11397e;
 $color-error: #b3261e;
 $color-red: rgba(179, 38, 30, 0.3);
 $color-black: #000000;
+$color-white: #ffffff;
 
 $color-secondary: #0090bd;
 $color-secondary-10: #7abfd4;
@@ -32,6 +33,12 @@ $color-highlight-gradient: linear-gradient(
   #0090bd 59.91%,
   #073590 95.36%
 );
+
+$filter-white: brightness(0) invert(1);
+$filter-grey: invert(26%) sepia(0%) saturate(1075%) hue-rotate(121deg)
+  brightness(98%) contrast(86%); // #49454F
+$filter-blue: invert(18%) sepia(84%) saturate(1149%) hue-rotate(193deg)
+  brightness(96%) contrast(100%); // #11397E
 
 $font-weight-100: 100;
 $font-weight-300: 300;

@@ -1,0 +1,15 @@
+@import "variables";
+
+::ng-deep .currency-menu {
+  min-width: unset !important;
+  width: 64px;
+}
+:host-context(.main) .btn {
+  color: $color-white;
+}
+:host-context(.booking) .btn {
+  color: $color-neutral-10;
+}
+:host-context(.shopping-cart) .btn {
+  color: $color-primary;
+}

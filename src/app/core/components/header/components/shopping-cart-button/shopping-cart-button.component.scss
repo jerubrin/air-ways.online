@@ -1,0 +1,27 @@
+@import "variables";
+
+:host {
+  .btn-shopping-cart {
+    background-color: inherit;
+    border: none;
+    cursor: pointer;
+    img {
+      width: 24px;
+      height: 19px;
+    }
+    :hover {
+      transition-duration: 0.5s;
+      transform: scale(1.5);
+    }
+  }
+}
+
+:host-context(.main) .btn-shopping-cart img {
+  filter: $filter-white;
+}
+:host-context(.booking) .btn-shopping-cart img {
+  filter: $filter-grey;
+}
+:host-context(.shopping-cart) .btn-shopping-cart img {
+  filter: $filter-blue;
+}
