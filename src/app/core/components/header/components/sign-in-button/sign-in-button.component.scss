@@ -12,7 +12,7 @@
     filter: $filter-grey;
   }
 }
-:host-context(.shopping-cart) .btn {
+:host-context(.cart) .btn {
   color: $color-primary;
   img {
     filter: $filter-blue;

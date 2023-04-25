@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import RoutesPath from '../../models/RoutesPath';
+import RoutesPath from '../../data/enams/RoutesPath';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export default class HeaderComponent implements OnInit, OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
   isShowStepper = false;
 
   isShowBookFlights = true;
@@ -24,18 +24,22 @@ export default class HeaderComponent implements OnInit, OnDestroy {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           const currentUrl = event.url;
-          if (currentUrl.includes(RoutesPath.mainPage)) {
+          if (currentUrl.includes(RoutesPath.MainPage)) {
             this.isShowStepper = false;
             this.isShowBookFlights = true;
-            this.headerClass = RoutesPath.mainPage;
-          } else if (currentUrl.includes(RoutesPath.bookingPage)) {
+            this.headerClass = RoutesPath.MainPage;
+          } else if (currentUrl.includes(RoutesPath.BookingPage)) {
             this.isShowStepper = true;
             this.isShowBookFlights = false;
-            this.headerClass = RoutesPath.bookingPage;
-          } else if (currentUrl.includes(RoutesPath.shoppingCartPage)) {
+            this.headerClass = RoutesPath.BookingPage;
+          } else if (currentUrl.includes(RoutesPath.CartPage)) {
             this.isShowStepper = false;
             this.isShowBookFlights = false;
-            this.headerClass = RoutesPath.shoppingCartPage;
+            this.headerClass = RoutesPath.CartPage;
+          } else {
+            this.isShowStepper = false;
+            this.isShowBookFlights = true;
+            this.headerClass = RoutesPath.MainPage;
           }
         }
       })

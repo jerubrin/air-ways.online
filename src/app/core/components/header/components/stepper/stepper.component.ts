@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './stepper.component.html',
   styleUrls: ['./stepper.component.scss'],
 })
-export default class StepperComponent {}
+export class StepperComponent {}

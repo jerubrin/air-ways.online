@@ -5,4 +5,4 @@ import { Component } from '@angular/core';
   templateUrl: './sign-in-button.component.html',
   styleUrls: ['./sign-in-button.component.scss'],
 })
-export default class SignInButtonComponent {}
+export class SignInButtonComponent {}

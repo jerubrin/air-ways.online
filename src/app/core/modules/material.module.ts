@@ -11,4 +11,4 @@ const materialModules = [MatButtonModule, MatBadgeModule, MatMenuModule];
   imports: [CommonModule, ...materialModules],
   exports: [...materialModules],
 })
-export default class MaterialModule {}
+export class MaterialModule {}

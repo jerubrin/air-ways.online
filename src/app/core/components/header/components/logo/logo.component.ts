@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import RoutesPath from '../../../../models/RoutesPath';
+import RoutesPath from 'src/app/core/data/enams/RoutesPath';
 
 @Component({
   selector: 'app-logo',
   templateUrl: './logo.component.html',
   styleUrls: ['./logo.component.scss'],
 })
-export default class LogoComponent {
-  public mainPageRouterLink: string = RoutesPath.mainPage;
+export class LogoComponent {
+  public pageRouterLink = RoutesPath;
 }

@@ -7,9 +7,10 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { reducers, metaReducers } from './redux';
-import AppComponent from './app.component';
-import AppRoutingModule from './app-routing.module';
-import CoreModule from './core/core.module';
+
+import { AppComponent } from './app.component';
+import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,4 +29,4 @@ import CoreModule from './core/core.module';
   providers: [],
   bootstrap: [AppComponent],
 })
-export default class AppModule {}
+export class AppModule {}
