@@ -4,16 +4,16 @@
   height: 100%;
   position: relative;
   padding: 6rem 0 1rem;
-  &__background {
-    content: " ";
-    position: absolute;
-    top: -$header-height;
-    height: 100%;
-    width: 100%;
-    background-image: url("../../../../assets/Background.png");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-size: 100% auto;
-    z-index: -1;
-  }
+}
+.background {
+  content: " ";
+  position: absolute;
+  top: -$header-height;
+  height: 100%;
+  width: 100%;
+  background-image: url("../../../../assets/Background.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% auto;
+  z-index: -1;
 }

@@ -1,8 +1,8 @@
 <header class="header flex-center" [class]="headerClass" (scroll)="onWindowScroll()">
-  <div class="container flex-center header__container">
+  <div class="container flex-center">
     <app-logo></app-logo>
     <span class="spacer"></span>
-    <div class="header__menu flex-center">
+    <div class="menu flex-center">
       <p *ngIf="isShowBookFlights">Book flights</p>
       <app-stepper *ngIf="isShowStepper"></app-stepper>
       <app-date-format-menu></app-date-format-menu>

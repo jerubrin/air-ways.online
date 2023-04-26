@@ -7,10 +7,10 @@
     z-index: 999px;
     width: 100%;
     height: $header-height;
-    &__menu {
-      gap: 4rem;
-    }
     transition: all 0.2s;
+  }
+  .menu {
+    gap: 4rem;
   }
   .header.main {
     background-color: $color-neutral-70;

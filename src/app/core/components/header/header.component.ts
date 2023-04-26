@@ -25,22 +25,26 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
           const currentUrl = event.url;
-          if (currentUrl.includes(RoutesPath.MainPage)) {
-            this.isShowStepper = false;
-            this.isShowBookFlights = true;
-            this.headerClass = RoutesPath.MainPage;
-          } else if (currentUrl.includes(RoutesPath.BookingPage)) {
-            this.isShowStepper = true;
-            this.isShowBookFlights = false;
-            this.headerClass = RoutesPath.BookingPage;
-          } else if (currentUrl.includes(RoutesPath.CartPage)) {
-            this.isShowStepper = false;
-            this.isShowBookFlights = false;
-            this.headerClass = RoutesPath.CartPage;
-          } else {
-            this.isShowStepper = false;
-            this.isShowBookFlights = true;
-            this.headerClass = RoutesPath.MainPage;
+          switch (currentUrl.split('/')[1]) {
+            case RoutesPath.MainPage:
+              this.isShowStepper = false;
+              this.isShowBookFlights = true;
+              this.headerClass = RoutesPath.MainPage;
+              break;
+            case RoutesPath.BookingPage:
+              this.isShowStepper = true;
+              this.isShowBookFlights = false;
+              this.headerClass = RoutesPath.BookingPage;
+              break;
+            case RoutesPath.CartPage:
+              this.isShowStepper = false;
+              this.isShowBookFlights = false;
+              this.headerClass = RoutesPath.CartPage;
+              break;
+            default:
+              this.isShowStepper = false;
+              this.isShowBookFlights = true;
+              this.headerClass = RoutesPath.MainPage;
           }
         }
       })
