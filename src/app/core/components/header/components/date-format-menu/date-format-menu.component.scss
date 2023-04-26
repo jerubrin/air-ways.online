@@ -1,0 +1,29 @@
+@import "variables";
+
+::ng-deep .date-format-menu {
+  width: 184px;
+  .mdc-list-item__primary-text {
+    display: flex;
+    gap: 22px;
+  }
+}
+:host-context(.main) .btn {
+  background: $color-neutral-90;
+  border-color: $color-neutral-60;
+  color: $color-white;
+  img {
+    filter: $filter-white;
+  }
+}
+:host-context(.booking) .btn {
+  color: $color-neutral-10;
+  img {
+    filter: $filter-grey;
+  }
+}
+:host-context(.cart) .btn {
+  color: $color-primary;
+  img {
+    filter: $filter-blue;
+  }
+}

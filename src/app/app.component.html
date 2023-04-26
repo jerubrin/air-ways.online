@@ -1,4 +1,7 @@
-<p class='title-large'>{{title}}</p>
-<button mat-raised-button color="primary" class="button">Just test</button>
-<button mat-raised-button color="accent" class="button">Just test</button>
-<router-outlet></router-outlet>
+<div class="wrapper">
+  <app-header></app-header>
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <app-footer></app-footer>
+</div>

@@ -1,6 +1,11 @@
 @import "mixins";
 @import "variables";
 
-.button {
+.btn {
   @include font($font-size-16, $font-weight-500);
+  .mdc-button__label {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+  }
 }

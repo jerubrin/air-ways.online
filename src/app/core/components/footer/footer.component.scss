@@ -1,0 +1,16 @@
+@import "variables";
+:host {
+  .footer {
+    height: $footer-height;
+    border-top: 1px solid $color-secondary-40;
+  }
+  .payment-method {
+    gap: 2.7rem;
+    ul {
+      gap: 1.6rem;
+    }
+  }
+  .developers-info {
+    gap: 2.7rem;
+  }
+}

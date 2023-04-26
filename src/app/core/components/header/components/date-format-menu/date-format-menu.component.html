@@ -1,0 +1,7 @@
+<button class="btn" mat-stroked-button [matMenuTriggerFor]="dateFormatMenu">{{selectedDateFormatItem}}<img
+    src="./assets/icon_arrow_drop_down.svg" alt="icon arrow"></button>
+<mat-menu class="date-format-menu" #dateFormatMenu="matMenu">
+  <button mat-menu-item *ngFor="let dateFormatItem of dateFormatMenuItems"
+    (click)="clickDateFormatMenuItem(dateFormatItem.text)">{{dateFormatItem.text}}<img *ngIf="dateFormatItem.isActive"
+      src="./assets/icon_check_small.svg" alt="icon check"></button>
+</mat-menu>
