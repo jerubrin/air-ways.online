@@ -20,6 +20,7 @@ $color-neutral-40: rgba(116, 118, 122, 0.6);
 $color-neutral-50: rgba(0, 0, 0, 0.25);
 $color-neutral-60: #cecece;
 $color-neutral-70: rgba(116, 118, 122, 0.2);
+$color-neutral-75: rgba(168, 171, 177);
 $color-neutral-80: #f5f5f5;
 $color-neutral-90: rgba(241, 243, 246, 0.15);
 $color-neutral-100: #ffffff;
@@ -36,9 +37,9 @@ $color-highlight-gradient: linear-gradient(
 
 $filter-white: brightness(0) invert(1);
 $filter-grey: invert(26%) sepia(0%) saturate(1075%) hue-rotate(121deg)
-  brightness(98%) contrast(86%); // #49454F
+  brightness(98%) contrast(86%);
 $filter-blue: invert(18%) sepia(84%) saturate(1149%) hue-rotate(193deg)
-  brightness(96%) contrast(100%); // #11397E
+  brightness(96%) contrast(100%);
 
 $font-weight-100: 100;
 $font-weight-300: 300;
@@ -52,3 +53,6 @@ $font-size-16: 16px;
 $font-size-20: 20px;
 $font-size-24: 24px;
 $font-size-30: 30px;
+
+$header-height: 8.8rem;
+$footer-height: 9.2rem;

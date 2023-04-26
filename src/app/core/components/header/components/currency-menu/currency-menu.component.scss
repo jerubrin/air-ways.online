@@ -5,6 +5,8 @@
   width: 64px;
 }
 :host-context(.main) .btn {
+  background: $color-neutral-90;
+  border-color: $color-neutral-60;
   color: $color-white;
 }
 :host-context(.booking) .btn {

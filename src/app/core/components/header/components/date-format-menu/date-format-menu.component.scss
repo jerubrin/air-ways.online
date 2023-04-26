@@ -8,6 +8,8 @@
   }
 }
 :host-context(.main) .btn {
+  background: $color-neutral-90;
+  border-color: $color-neutral-60;
   color: $color-white;
   img {
     filter: $filter-white;

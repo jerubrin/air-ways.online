@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+// eslint-disable-next-line object-curly-newline
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import RoutesPath from '../../data/enams/RoutesPath';
@@ -48,5 +49,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onWindowScroll() {
+    const element = document.querySelector('.header') as HTMLElement;
+    if (window.pageYOffset > element.clientHeight) {
+      element.classList.add('active');
+    } else {
+      element.classList.remove('active');
+    }
   }
 }

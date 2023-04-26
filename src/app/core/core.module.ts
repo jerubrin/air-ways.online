@@ -10,6 +10,7 @@ import { StepperComponent } from './components/header/components/stepper/stepper
 import { HeaderComponent } from './components/header/header.component';
 import { MaterialModule } from './modules/material.module';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,8 +22,9 @@ import { NotFoundPageComponent } from './page/not-found-page/not-found-page.comp
     SignInButtonComponent,
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
+    FooterComponent,
   ],
   imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [MaterialModule, HeaderComponent],
+  exports: [MaterialModule, HeaderComponent, FooterComponent],
 })
 export class CoreModule {}

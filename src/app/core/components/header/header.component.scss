@@ -2,28 +2,33 @@
 
 :host {
   .header {
-    height: 8.8rem;
-    .container {
+    position: fixed;
+    top: 0;
+    z-index: 999px;
+    width: 100%;
+    height: $header-height;
+    &__container {
+      width: 100%;
       justify-content: space-between;
-    }
-    .btn {
-      color: inherit;
     }
     &__menu {
       gap: 4rem;
     }
+    transition: all 0.2s;
   }
-
   .header.main {
     background-color: $color-neutral-70;
     color: $color-white;
+    &.active {
+      background-color: aqua;
+      background-color: $color-neutral-75;
+      z-index: 999;
+    }
   }
-
   .header.booking {
     background-color: $color-white;
     color: $color-neutral-10;
   }
-
   .header.cart {
     background-color: $color-white;
     color: $color-primary;

@@ -1,5 +1,5 @@
-<header class="header flex-center" [class]="headerClass">
-  <div class="container flex-center">
+<header class="header flex-center" [class]="headerClass" (scroll)="onWindowScroll()">
+  <div class="container flex-center header__container">
     <app-logo></app-logo>
     <div class="header__menu flex-center">
       <p *ngIf="isShowBookFlights">Book flights</p>
