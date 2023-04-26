@@ -7,10 +7,6 @@
     z-index: 999px;
     width: 100%;
     height: $header-height;
-    &__container {
-      width: 100%;
-      justify-content: space-between;
-    }
     &__menu {
       gap: 4rem;
     }

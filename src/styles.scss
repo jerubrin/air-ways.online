@@ -30,15 +30,22 @@ main {
   padding-top: $header-height;
 }
 .container {
-  // width: 100%;
+  width: 100%;
   // height: 100%;
   max-width: 117rem;
   padding: 0 3rem;
   margin: 0 auto;
   overflow: hidden;
 }
+li {
+  list-style: none;
+}
 
 .flex-center {
   display: flex;
   align-items: center;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

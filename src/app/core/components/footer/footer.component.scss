@@ -4,9 +4,13 @@
     height: $footer-height;
     border-top: 1px solid $color-secondary-40;
   }
-}
-
-nav {
-  display: flex;
-  gap: 3rem;
+  .payment-method {
+    gap: 2.7rem;
+    ul {
+      gap: 1.6rem;
+    }
+  }
+  .developers-info {
+    gap: 2.7rem;
+  }
 }
