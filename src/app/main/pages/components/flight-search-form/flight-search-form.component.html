@@ -1,0 +1,47 @@
+<div class="form-container">
+
+  <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-radio-group class="radio-group-container flex-center" aria-label="Select an option"
+      formControlName="typeOfFlights">
+      <mat-radio-button value="round-trip" color="primary">Round
+        Trip</mat-radio-button>
+      <mat-radio-button value="one-way">One Way</mat-radio-button>
+    </mat-radio-group>
+
+    <div class="destinations-container">
+      <mat-form-field class="form-field" appearance="fill">
+        <mat-label>From </mat-label>
+        <input type="text" matInput formControlName="fromWhere" [matAutocomplete]="auto1"
+          placeholder="Choose departure city" required>
+        <mat-autocomplete class="autocomplete" #auto1="matAutocomplete" autoActiveFirstOption [displayWith]="displayFn">
+          <mat-option style="height:56px" *ngFor="let option of filteredOptionsFromWhere | async | orderBy: 'city'"
+            [value]="option">
+            <span style="color:#1C1B1F">{{ option.city }}</span>
+            <br>
+            <span style="color: #74767A">{{ option.airport }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Destination</mat-label>
+        <input type="text" matInput formControlName="destination" [matAutocomplete]="auto2"
+          placeholder="Choose your destination" required>
+        <mat-autocomplete class="autocomplete" #auto2="matAutocomplete" autoActiveFirstOption [displayWith]="displayFn">
+          <mat-option style="height:56px" class="multiline-mat-option"
+            *ngFor="let option of filteredOptionsDestination | async | orderBy: 'city'" [value]="option">
+            <span style="color:#1C1B1F">{{ option.city }}</span>
+            <br>
+            <span style="color: #74767A">{{ option.airport }}</span>
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </div>
+
+
+    <div class="button-container flex-center">
+      <button class="btn btn-search" mat-flat-button color="primary" type="submit"
+        [disabled]="!form.valid">Search</button>
+    </div>
+  </form>
+</div>
