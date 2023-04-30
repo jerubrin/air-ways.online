@@ -20,6 +20,8 @@ export class DateFormatMenuComponent {
     this.selectedDateFormatItem = selectedItem;
 
     this.dateFormatMenuItems = this.createDateFormatArray(selectedItem);
+    // FIXME add to store, delete console.log
+    console.log(this.selectedDateFormatItem);
   }
 
   private createDateFormatArray(selectedItem: string): {

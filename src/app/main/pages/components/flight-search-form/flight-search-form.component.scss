@@ -1,56 +1,120 @@
 @import "variables";
 @import "mixins";
 
-:host {
-  .form-container {
-    background: $color-neutral-65;
-    border-radius: 8px;
-    padding: 2.8rem 2.4rem;
-    width: 58rem;
-  }
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    width: 100%;
-  }
-  .radio-group-container {
-    gap: 3rem;
-  }
-  .destinations-container {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .button-container {
-    justify-content: flex-end;
-  }
+.form-container {
+  background: $color-neutral-65;
+  border-radius: 8px;
+  padding: 2.8rem 2.4rem;
+  width: 58rem;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
 
+  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: $color-secondary-90;
+    border-radius: 4px;
+    border: 1px solid $color-secondary-40;
+  }
+}
+
+.radio-group-container {
+  gap: 3rem;
+}
+
+:host {
   ::ng-deep .mat-mdc-radio-button .mdc-form-field {
     @include font($font-size-16, $font-weight-500);
     color: $color-primary;
   }
   ::ng-deep
     .mat-mdc-radio-button
-    .mdc-radio:hover
-    .mdc-radio__native-control:enabled:checked
-    + .mdc-radio__background {
-    .mdc-radio__outer-circle,
+    .mdc-radio
+    .mdc-radio__native-control:enabled
+    + .mdc-radio__background
     .mdc-radio__inner-circle {
-      border-color: $color-primary;
-    }
+    border-color: $color-primary;
   }
-  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: $color-secondary-90;
-    border-radius: 4px;
-    border: 1px solid $color-secondary-40;
+  ::ng-deep
+    .mat-mdc-radio-button
+    .mdc-radio
+    .mdc-radio__native-control:enabled:checked
+    + .mdc-radio__background
+    .mdc-radio__outer-circle {
+    border-color: $color-primary;
   }
-  ::ng-deep .mat-mdc-form-field-bottom-align::before {
-    content: "";
+}
+
+.destinations-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  ::ng-deep
+    .mat-mdc-form-field:not(.mat-form-field-invalid)
+    .mat-mdc-form-field-subscript-wrapper {
     height: 0px;
   }
-  ::ng-deep .mat-mdc-form-field-subscript-wrapper,
-  .mat-mdc-form-field-bottom-align::before {
-    line-height: 0px;
+  .btn-reverse {
+    position: absolute;
+    top: 50%;
+    left: 90%;
+    z-index: 999;
+    transform: translate(0, -50%);
+    &[disabled] {
+      cursor: not-allowed;
+    }
+    &:not([disabled]) {
+    }
+  }
+}
+
+.date-range-form-field {
+  width: 311px;
+}
+::ng-deep.mat-datepicker-content {
+  margin-top: 2rem;
+}
+
+.passengers-form-field {
+  width: 200px;
+  height: 81px;
+  .passengers-form-menu-container {
+    width: 200px;
+  }
+  .passengers-form-value {
+    input {
+      max-width: 100%;
+      display: inline-block;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+::ng-deep .mat-mdc-menu-panel.mat-mdc-menu-panel {
+  width: 200px;
+  padding: 1rem;
+  margin-top: 1px;
+  margin-left: -16px;
+}
+
+.submit-btn-container {
+  justify-content: flex-end;
+}
+
+.btn-reverse {
+  background-color: inherit;
+  border: none;
+  cursor: pointer;
+  img {
+    width: 40px;
+    height: 40px;
+  }
+  :hover {
+    transition-duration: 0.5s;
+    transform: scale(1.2);
   }
 }
