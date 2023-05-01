@@ -30,6 +30,7 @@
 }
 .label-small {
   @include font($font-size-12);
+  color: $color-neutral-10;
 }
 .copyright-text {
   @include font($font-size-14);

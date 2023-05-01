@@ -9,3 +9,12 @@
     gap: 13px;
   }
 }
+.btn-search {
+  width: 12.6rem !important;
+  height: 6rem !important;
+}
+.btn-counter {
+  mat-icon {
+    transform: scale(0.8);
+  }
+}
