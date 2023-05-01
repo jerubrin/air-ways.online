@@ -317,64 +317,6 @@ export class FlightSearchFormComponent implements OnInit {
     if (this.searchForm.invalid) {
       return;
     }
-    // FIXME disable rule
-    // eslint-disable-next-line max-len
-    console.log(this.searchForm.value);
     this.router.navigate([RoutesPath.BookingPage]);
   }
 }
-
-// FIXME might come in handy
-// get fromWhereControl(): FormControl {
-//   return this.searchForm?.get(this.fromWhereControlName) as FormControl;
-// }
-
-// get destinationControl(): FormControl {
-//   return this.searchForm?.get(this.destinationControlName) as FormControl;
-// }
-
-// get typeOfFlightsControl(): FormControl {
-//   return this.searchForm?.get(this.typeOfFlightsControlName) as FormControl;
-// }
-
-// get dateRangeFormGroup(): FormGroup {
-//   return this.searchForm?.get('dateRangeForm') as FormGroup;
-// }
-
-// get dateRangeStartControl(): FormControl {
-//   return this.dateRangeFormGroup?.get(
-//     this.dateRangeStartControlName
-//   ) as FormControl;
-// }
-
-// get dateRangeEndControl(): FormControl {
-//   return this.dateRangeFormGroup?.get(
-//     this.dateRangeEndControlName
-//   ) as FormControl;
-// }
-
-// get departureDateControl(): FormControl {
-//   return this.searchForm?.get('departureDate') as FormControl;
-// }
-
-// get passengerCountsFormGroup(): FormGroup {
-//   return this.searchForm?.get('passengerCountsForm') as FormGroup;
-// }
-
-// get adultsControl(): FormControl {
-//   return this.passengerCountsFormGroup.get(
-//     this.adultsControlName
-//   ) as FormControl;
-// }
-
-// get adultsControlName(): FormControl {
-//   return this.passengerCountsFormGroup.get(
-//     this.childrenControlName
-//   ) as FormControl;
-// }
-
-// get infantsControl(): FormControl {
-//   return this.passengerCountsFormGroup.get(
-//     this.infantsControlName
-//   ) as FormControl;
-// }

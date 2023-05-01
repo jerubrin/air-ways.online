@@ -63,11 +63,6 @@
     left: 90%;
     z-index: 999;
     transform: translate(0, -50%);
-    &[disabled] {
-      cursor: not-allowed;
-    }
-    &:not([disabled]) {
-    }
   }
 }
 
@@ -113,8 +108,11 @@
     width: 40px;
     height: 40px;
   }
-  :hover {
+  :hover :not([disabled]) {
     transition-duration: 0.5s;
     transform: scale(1.2);
+  }
+  &[disabled] {
+    cursor: not-allowed;
   }
 }

@@ -1,3 +1,4 @@
+// FIXME disable rule
 // eslint-disable-next-line object-curly-newline
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
