@@ -6,9 +6,10 @@ import { MainRoutingModule } from './main-routing.module';
 import { FlightSearchFormComponent } from './pages/components/flight-search-form/flight-search-form.component';
 import { MaterialModule } from '../core/modules/material.module';
 import { CoreModule } from '../core/core.module';
+import { SignInComponent } from './pages/components/sign-in/sign-in.component';
 
 @NgModule({
-  declarations: [MainPageComponent, FlightSearchFormComponent],
+  declarations: [MainPageComponent, FlightSearchFormComponent, SignInComponent],
   imports: [
     CommonModule,
     MainRoutingModule,

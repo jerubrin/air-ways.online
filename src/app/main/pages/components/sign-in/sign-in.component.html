@@ -1,0 +1,54 @@
+<style>
+  .mdc-notched-outline__notch {
+    padding-left: 0 !important;
+    padding-right: 8px !important;
+    /* border-top: none; */
+  }
+</style>
+
+<mat-button-toggle-group
+  class="switch"
+  [(ngModel)]="switch"
+  name="fontStyle"
+  aria-label="Font Style"
+>
+  <mat-button-toggle class="switch__item" value="login"
+    >Log in</mat-button-toggle
+  >
+  <mat-button-toggle class="switch__item" value="signup"
+    >Sign up</mat-button-toggle
+  >
+</mat-button-toggle-group>
+<button class="auth-button" mat-stroked-button>
+  <img
+    class="auth-button__img"
+    src="./assets/icon_google.svg"
+    alt="google"
+  /><span class="auth-button__text">Continue with Google</span>
+</button>
+<button class="auth-button" mat-stroked-button>
+  <img
+    class="auth-button__img"
+    src="./assets/icon_facebbok.svg"
+    alt="facebook"
+  /><span class="auth-button__text">Continue with Facebook</span>
+</button>
+<div class="or-message">
+  <hr class="or-message__hr" />
+  <span class="or-message__text">or log in with your email</span>
+  <hr class="or-message__hr" />
+</div>
+<mat-form-field class="form__element" appearance="outline">
+  <mat-label>Email</mat-label>
+  <input type="email" matInput formControlName="email" required />
+  <!-- <mat-error *ngIf="form.controls['email'].errors?.['required']"
+    >Please enter your email</mat-error
+  >
+  <mat-error *ngIf="form.controls['email'].errors?.['email']"
+    >Email is invalid</mat-error
+  > -->
+</mat-form-field>
+
+<div class="close">
+  <img src="./assets/icon_close.svg" alt="close" />
+</div>

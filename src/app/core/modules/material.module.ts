@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 const materialModules = [
   MatButtonModule,
+  MatButtonToggleModule,
   MatBadgeModule,
   MatMenuModule,
   MatFormFieldModule,
