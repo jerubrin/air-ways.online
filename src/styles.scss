@@ -44,3 +44,15 @@ li {
 .spacer {
   flex: 1 1 auto;
 }
+
+::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 10rem;
+  overflow-y: scroll;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $color-primary;
+  border-radius: 1куь;
+  height: 21rem;
+}

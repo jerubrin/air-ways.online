@@ -9,6 +9,13 @@
     gap: 13px;
   }
 }
+.btn-date-format-menu {
+  @include font($font-size-16, $font-weight-400);
+  width: 16.2rem;
+}
+.btn-currency-menu {
+  width: 6.2rem;
+}
 .btn-search {
   width: 12.6rem !important;
   height: 6rem !important;

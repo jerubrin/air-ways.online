@@ -1,7 +1,9 @@
-@import "variables";
+@import 'variables';
 
 ::ng-deep .date-format-menu {
   width: 184px;
+  right: 11px;
+
   .mdc-list-item__primary-text {
     display: flex;
     gap: 22px;
