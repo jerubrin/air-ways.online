@@ -28,7 +28,17 @@ import { SecondMenuComponent } from './components/second-menu/second-menu.compon
     OrderByPipe,
     SecondMenuComponent,
   ],
-  imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [MaterialModule, HeaderComponent, FooterComponent, OrderByPipe],
+  imports: [
+    CommonModule,
+    MaterialModule,
+    RouterModule,
+  ],
+  exports: [
+    MaterialModule,
+    HeaderComponent,
+    FooterComponent,
+    OrderByPipe,
+    SecondMenuComponent,
+  ],
 })
 export class CoreModule {}
