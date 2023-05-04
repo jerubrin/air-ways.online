@@ -13,10 +13,14 @@
   gap: 3rem;
   width: 100%;
 
-  ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  ::ng-deep .mdc-text-field--filled {
     background-color: $color-secondary-90;
     border-radius: 4px;
     border: 1px solid $color-secondary-40;
+  }
+  ::ng-deep .mdc-text-field--focused {
+    background-color: $color-secondary-50;
+    border: 1px solid $color-secondary;
   }
 }
 

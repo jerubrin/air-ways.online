@@ -68,9 +68,9 @@
         <mat-label class="label-small">Dates</mat-label>
         <mat-date-range-input [rangePicker]="picker" [min]="today">
           <input matStartDate [formControlName]="departureDateControlName" #inputDeparture1 placeholder="Departure Date"
-            (dateChange)="onDateChanged()" (blur)="onDateChanged()"class="my-datepicker-input-departure" />
+            (dateChange)="onDateChanged()" (blur)="onDateChanged()" class="my-datepicker-input-departure" />
           <input matEndDate [formControlName]="returnDateControlName" placeholder="Return date" #inputReturn
-            (dateChange)="onDateChanged()" (blur)="onDateChanged()"class="my-datepicker-input-return" />
+            (dateChange)="onDateChanged()" (blur)="onDateChanged()" class="my-datepicker-input-return" />
         </mat-date-range-input>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-hint>{{ selectedDateFormat }} - {{ selectedDateFormat }}</mat-hint>
@@ -206,4 +206,3 @@
     </div>
   </form>
 </div>
-<!-- *ngIf="isOneWay()" -->
