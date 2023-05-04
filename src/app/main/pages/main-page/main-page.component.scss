@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 .main-page {
   min-height: calc(100vh - $header-height - $footer-height);
@@ -6,12 +6,12 @@
   padding: 6rem 0 1rem;
 }
 .background {
-  content: " ";
+  content: ' ';
   position: absolute;
   top: -$header-height;
   height: 100%;
   width: 100%;
-  background-image: url("../../../../assets/Background.png");
+  background-image: url('../../../../assets/Background.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% auto;
