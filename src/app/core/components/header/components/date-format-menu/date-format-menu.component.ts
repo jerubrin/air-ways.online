@@ -1,31 +1,48 @@
-import { Component } from '@angular/core';
-import DateFormatMenuItems from 'src/app/core/data/constants/DateFormatMenuItems';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { DateFormatMenuItems } from 'src/app/core/data/constants/DateFormatMenuItems';
+import { DateFormatService } from 'src/app/core/services/date-format.service';
+import { DateFormatType } from 'src/app/core/types/DateFormatType';
 
 @Component({
   selector: 'app-date-format-menu',
   templateUrl: './date-format-menu.component.html',
-  styleUrls: ['./date-format-menu.component.scss'],
+  styleUrls: ['./date-format-menu.component.scss']
 })
-export class DateFormatMenuComponent {
-  dateFormat: readonly string[] = DateFormatMenuItems;
+export class DateFormatMenuComponent implements OnInit, OnDestroy {
+  dateFormat: readonly DateFormatType[] = DateFormatMenuItems;
 
-  selectedDateFormatItem: string = this.dateFormat[0];
+  selectedDateFormat!: DateFormatType;
 
-  dateFormatMenuItems: {
-    text: string;
+  dateFormatMenuItems!: {
+    text: DateFormatType;
     isActive: boolean;
-  }[] = this.createDateFormatArray(this.selectedDateFormatItem);
+  }[];
 
-  clickDateFormatMenuItem(selectedItem: string) {
-    this.selectedDateFormatItem = selectedItem;
+  private subscriptions: Subscription[] = [];
 
-    this.dateFormatMenuItems = this.createDateFormatArray(selectedItem);
-    // FIXME add to store, delete console.log
-    console.log(this.selectedDateFormatItem);
+  constructor(private dateFormatService: DateFormatService) {}
+
+  ngOnInit(): void {
+    this.subscriptions.push(
+      this.dateFormatService.selectedDateFormat$.subscribe((value) => {
+        this.selectedDateFormat = value;
+
+        this.dateFormatMenuItems = this.createDateFormatArray(value);
+      })
+    );
   }
 
-  private createDateFormatArray(selectedItem: string): {
-    text: string;
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  clickDateFormatMenuItem(selectedItem: DateFormatType): void {
+    this.dateFormatService.setSelectedDateFormat(selectedItem);
+  }
+
+  private createDateFormatArray(selectedItem: DateFormatType): {
+    text: DateFormatType;
     isActive: boolean;
   }[] {
     return this.dateFormat.map((item) => {
