@@ -1,13 +1,5 @@
 import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, startWith, Subscription } from 'rxjs';
@@ -21,6 +13,9 @@ import { SearchFlight } from 'src/app/shared/interfaces/SearchFlight';
 import { DateFormatService } from 'src/app/core/services/date-format.service';
 import { DateFormatType } from 'src/app/shared/types/DateFormatType';
 import { PassengerType } from 'src/app/shared/types/PassengerType';
+import { minDateValidator } from '../../validators/minDateValidator';
+import { dateRangeValidator } from '../../validators/dateRangeValidator';
+import { autocompleteObjectValidator } from '../../validators/autocompleteObjectValidator';
 
 @Component({
   selector: 'app-flight-search-form',
@@ -82,29 +77,6 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   selectedDateFormat!: DateFormatType;
 
-  validation_msgs = {
-    destinationsControl: {
-      required: 'required',
-      requiredMessage: 'Please enter the city',
-      matchOption: 'matchOption',
-      matchOptionMessage: 'City name not recognized. Click one of the autocomplete options'
-    },
-    departureDateControl: {
-      required: 'required',
-      requiredMessage: 'Please enter the departure date',
-      minDate: 'minDate',
-      minDateMessage: 'Departure date must not be earlier than today'
-    },
-    returnDateControl: {
-      required: 'required',
-      requiredMessage: 'Please enter the return date',
-      minDate: 'minDate',
-      minDateMessage: 'Return date must not be earlier than today',
-      dateRange: 'dateRange',
-      dateRangeMessage: 'The return date must be after the departure date'
-    }
-  };
-
   private options: Airport[] = MockAirports;
 
   private subscriptions: Subscription[] = [];
@@ -143,15 +115,22 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
   private createForm(): void {
     this.searchForm = this.fb.group({
       [this.typeOfFlightsControlName]: [this.typeOfFlightsControlInitialValue],
-      [this.fromWhereControlName]: ['', [Validators.required, this.autocompleteObjectValidator()]],
+      [this.fromWhereControlName]: [
+        '',
+        [Validators.required, autocompleteObjectValidator(this.options)]
+      ],
       [this.destinationControlName]: [
         '',
-        [Validators.required, this.autocompleteObjectValidator()]
+        [Validators.required, autocompleteObjectValidator(this.options)]
       ],
-      [this.departureDateControlName]: [null, [Validators.required, this.minDateValidator()]],
+      [this.departureDateControlName]: [null, [Validators.required, minDateValidator()]],
       [this.returnDateControlName]: [
         null,
-        [Validators.required, this.minDateValidator(), this.dateRangeValidator()]
+        [
+          Validators.required,
+          minDateValidator(),
+          dateRangeValidator(this.searchForm?.get(this.departureDateControlName)?.value)
+        ]
       ],
       [this.passengerCountsFormGroupName]: this.fb.group({
         [this.adultsControlName]: [
@@ -192,8 +171,8 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
         const validators: ValidatorFn[] = [
           Validators.required,
-          this.minDateValidator(),
-          this.dateRangeValidator()
+          minDateValidator(),
+          dateRangeValidator(this.departureDateControl.value)
         ];
         if (value === 'roundTrip') {
           this.returnDateControl.setValidators(validators);
@@ -222,18 +201,6 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
       return this.options.filter((opt) => opt.city.toLowerCase().includes(value.toLowerCase()));
     }
     return this.options;
-  }
-
-  private autocompleteObjectValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (typeof control.value === 'string') {
-        const selectedOption = this.options.find(
-          (option) => `${option.city} (${option.key})` === control.value
-        );
-        return selectedOption ? null : { matchOption: true };
-      }
-      return null;
-    };
   }
 
   switchDestinationsFields() {
@@ -273,28 +240,6 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   private formatDate(date: Date | null, format: string): string {
     return moment(date).format(format.replace('MM', 'M').replace('DD', 'D').replace('YYYY', 'Y'));
-  }
-
-  private minDateValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const selectedDate = moment(control.value);
-      const today = moment().startOf('day');
-      if (selectedDate.isBefore(today)) {
-        return { minDate: true };
-      }
-      return null;
-    };
-  }
-
-  private dateRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const returnDate = moment(control.value);
-      const departureDate = moment(this.searchForm?.get('departureDate')?.value);
-      if (returnDate.isValid() && departureDate.isValid() && returnDate.isBefore(departureDate)) {
-        return { dateRange: true };
-      }
-      return null;
-    };
   }
 
   displayPassengerCount(): string {

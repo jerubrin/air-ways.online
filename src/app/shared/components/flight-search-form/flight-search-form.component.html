@@ -46,13 +46,9 @@
           </mat-option>
         </mat-autocomplete>
 
-        <mat-error *ngIf="fromWhereControl.hasError(validation_msgs.destinationsControl.required)">
-          {{ validation_msgs.destinationsControl.requiredMessage }}
-        </mat-error>
-        <mat-error
-          *ngIf="fromWhereControl.hasError(validation_msgs.destinationsControl.matchOption)"
-        >
-          {{ validation_msgs.destinationsControl.matchOptionMessage }}
+        <mat-error *ngIf="fromWhereControl.hasError('required')">Please enter the city </mat-error>
+        <mat-error *ngIf="fromWhereControl.hasError('matchOption')">
+          City name not recognized. Click one of the autocomplete options
         </mat-error>
       </mat-form-field>
 
@@ -83,15 +79,11 @@
             <span style="color: #74767a">{{ option.name }}, {{ option.country }}</span>
           </mat-option>
         </mat-autocomplete>
-        <mat-error
-          *ngIf="destinationControl.hasError(validation_msgs.destinationsControl.required)"
-        >
-          {{ validation_msgs.destinationsControl.requiredMessage }}
+        <mat-error *ngIf="destinationControl.hasError('required')">
+          Please enter the city
         </mat-error>
-        <mat-error
-          *ngIf="destinationControl.hasError(validation_msgs.destinationsControl.matchOption)"
-        >
-          {{ validation_msgs.destinationsControl.matchOptionMessage }}
+        <mat-error *ngIf="destinationControl.hasError('matchOption')">
+          City name not recognized. Click one of the autocomplete options
         </mat-error>
       </mat-form-field>
     </div>
@@ -104,7 +96,6 @@
           <input
             matStartDate
             [formControlName]="departureDateControlName"
-            #inputDeparture1
             placeholder="Departure Date"
             (dateChange)="onDateChanged()"
             (blur)="onDateChanged()"
@@ -114,7 +105,6 @@
             matEndDate
             [formControlName]="returnDateControlName"
             placeholder="Return date"
-            #inputReturn
             (dateChange)="onDateChanged()"
             (blur)="onDateChanged()"
             class="my-datepicker-input-return"
@@ -123,27 +113,20 @@
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-hint>{{ selectedDateFormat }} - {{ selectedDateFormat }}</mat-hint>
         <mat-date-range-picker #picker></mat-date-range-picker>
-        <mat-error
-          *ngIf="departureDateControl.hasError(validation_msgs.departureDateControl.required)"
-        >
-          {{ validation_msgs.departureDateControl.requiredMessage }}
+        <mat-error *ngIf="departureDateControl.hasError('required')">
+          Please enter the departure date
         </mat-error>
-        <mat-error
-          *ngIf="departureDateControl.hasError(validation_msgs.departureDateControl.minDate)"
-        >
-          {{ validation_msgs.departureDateControl.minDateMessage }}
+        <mat-error *ngIf="departureDateControl.hasError('minDate')">
+          Departure date must not be earlier than today
         </mat-error>
-        <mat-error *ngIf="returnDateControl.hasError(validation_msgs.returnDateControl.required)">
-          {{ validation_msgs.returnDateControl.requiredMessage }}
+        <mat-error *ngIf="returnDateControl.hasError('required')">
+          Please enter the return date
         </mat-error>
-        <mat-error *ngIf="returnDateControl.hasError(validation_msgs.returnDateControl.minDate)">
-          {{ validation_msgs.returnDateControl.minDateMessage }}
+        <mat-error *ngIf="returnDateControl.hasError('minDate')">
+          Return date must not be earlier than today
         </mat-error>
-        <mat-error *ngIf="returnDateControl.hasError(validation_msgs.returnDateControl.dateRange)">
-          {{ validation_msgs.returnDateControl.dateRangeMessage }}
-        </mat-error>
-        <mat-error *ngIf="returnDateControl.hasError('invalidDateFormat')">
-          'invalidDateFormat'
+        <mat-error *ngIf="returnDateControl.hasError('dateRange')">
+          The return date must be after the departure date
         </mat-error>
       </mat-form-field>
 
@@ -153,7 +136,6 @@
           matInput
           [matDatepicker]="departureDatepicker"
           [formControlName]="departureDateControlName"
-          #inputDeparture2
           placeholder="Departure Date"
           [min]="today"
           (dateChange)="onDateChanged()"
@@ -163,15 +145,11 @@
         <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
         <mat-hint>{{ selectedDateFormat }}</mat-hint>
         <mat-datepicker #departureDatepicker></mat-datepicker>
-        <mat-error
-          *ngIf="departureDateControl.hasError(validation_msgs.departureDateControl.required)"
-        >
-          {{ validation_msgs.departureDateControl.requiredMessage }}
+        <mat-error *ngIf="departureDateControl.hasError('required')">
+          Please enter the departure date
         </mat-error>
-        <mat-error
-          *ngIf="departureDateControl.hasError(validation_msgs.departureDateControl.minDate)"
-        >
-          {{ validation_msgs.departureDateControl.minDateMessage }}
+        <mat-error *ngIf="departureDateControl.hasError('minDate')">
+          Departure date must not be earlier than today
         </mat-error>
       </mat-form-field>
       <span class="spacer"></span>
