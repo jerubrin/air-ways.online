@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CurrencyMenuComponent } from './components/header/components/currency-menu/currency-menu.component';
 import { DateFormatMenuComponent } from './components/header/components/date-format-menu/date-format-menu.component';
 import { LogoComponent } from './components/header/components/logo/logo.component';
@@ -24,9 +25,16 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
     FooterComponent,
-    OrderByPipe,
+    OrderByPipe
   ],
-  imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [MaterialModule, HeaderComponent, FooterComponent, OrderByPipe],
+  imports: [CommonModule, MaterialModule, RouterModule, FormsModule, ReactiveFormsModule],
+  exports: [
+    MaterialModule,
+    HeaderComponent,
+    FooterComponent,
+    OrderByPipe,
+    FormsModule,
+    ReactiveFormsModule
+  ]
 })
 export class CoreModule {}
