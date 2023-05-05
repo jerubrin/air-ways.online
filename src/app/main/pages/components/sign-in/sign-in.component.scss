@@ -17,11 +17,11 @@
 
 //border above input label fix
 ::ng-deep.mdc-notched-outline__notch {
-  border-top: 1px solid $color-neutral-40 !important;
+  border-top: .1rem solid $color-neutral-40 !important;
 }
 ::ng-deep.mat-focused[ng-reflect-appearance="outline"] {
   .mdc-notched-outline__notch {
-    border-top: 1px solid $color-primary !important;
+    border-top: .1rem solid $color-primary !important;
   }
   //input focus background
   .mat-mdc-text-field-wrapper {
@@ -36,31 +36,28 @@
 
 //input text lowering
 ::ng-deep.mat-mdc-form-field-infix {
-  padding-top: 23px !important;
-  padding-bottom: 9px !important;
+  padding-top: 2.3rem !important;
+  padding-bottom: .9rem !important;
 }
 
 //label text lowering
 ::ng-deep.mat-mdc-text-field-wrapper.mdc-text-field--outlined
   .mdc-notched-outline--upgraded
   .mdc-floating-label--float-above {
-  --mat-mdc-form-field-label-transform: translateY(-21px) scale(0.7);
+  --mat-mdc-form-field-label-transform: translateY(-2.1rem) scale(0.7);
 }
 
 :host {
-  position: absolute;
-  top: 90px;
-  left: 200px;
-  width: 494px;
+  position: relative;
+  left: -11rem;
+  width: 49.4rem;
   background-color: $color-white;
-  border-radius: 8px;
-  margin: 10px auto 0 auto;
-  padding: 32px 24px 34px 24px;
+  border-radius: .8rem;
+  margin: 1rem 0 4rem;
+  padding: 3.2rem 2.4rem;
   display: flex;
   flex-direction: column;
-  z-index: 1000;
-  left: 66%;
-  transform: translateX(calc(-66% - 16px));
+  z-index: 999;
 
   //input borders on focus
   ::ng-deep.mdc-text-field--focused .mdc-notched-outline__leading,
@@ -74,10 +71,10 @@
 .close {
   position: absolute;
   cursor: pointer;
-  right: -24px;
-  top: -14px;
-  width: 24px;
-  height: 24px;
+  right: -2.4rem;
+  top: -1.4rem;
+  width: 2.4rem;
+  height: 2.4rem;
   display: flex;
   position: absolute;
   align-items: center;
@@ -96,12 +93,12 @@
 }
 
 .auth-action {
-  border: 1px solid $color-neutral-60 !important;
-  margin-bottom: 36px;
+  border: .1rem solid $color-neutral-60 !important;
+  margin-bottom: 3.6rem;
 
   &__item {
     width: 100%;
-    height: 48px;
+    height: 4.8rem;
     border: none !important;
     color: $color-neutral-10 !important;
   }
@@ -116,28 +113,28 @@
   .mat-button-toggle-checked::after {
     content: "";
     width: 100%;
-    height: 2px;
+    height: .2rem;
     background-color: $color-primary;
     position: absolute;
-    bottom: 0px;
-    left: 0px;
+    bottom: 0;
+    left: 0;
   }
 }
 
 .auth-button {
-  margin-bottom: 16px;
-  height: 56px;
+  margin-bottom: 1.6rem;
+  height: 5.6rem;
   background-color: $color-secondary-90;
-  border: 1px solid $color-neutral-60;
+  border: .1rem solid $color-neutral-60;
   color: $color-neutral-0;
   &__img {
     display: block;
     float: left;
-    margin-right: 10px;
+    margin-right: 1rem;
   }
   &__text {
-    letter-spacing: 0.1px;
-    line-height: 20px;
+    letter-spacing: .01rem;
+    line-height: 2rem;
   }
 }
 
@@ -145,37 +142,37 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 16px 0 24px 0;
-  letter-spacing: 0.4px;
+  margin: 1.6rem 0 2.4rem 0;
+  letter-spacing: .04rem;
 
   &__line {
-    height: 0px;
-    border: 1px solid $color-secondary-50;
+    height: 0;
+    border: .1rem solid $color-secondary-50;
     width: 100%;
   }
 
   &__text {
-    padding: 0 12px;
+    padding: 0 1.2rem;
     background-color: $color-white;
     white-space: nowrap;
   }
 }
 
 .gender {
-  margin-bottom: 20px;
+  margin-bottom: 2rem;
 
   ::ng-deep.mat-button-toggle-label-content {
-    line-height: 40px !important;
+    line-height: 4rem !important;
   }
   &__item {
     width: 100%;
-    height: 40px;
+    height: 4rem;
   }
   ::ng-deep.mat-button-toggle-label-content {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 1rem;
   }
   .mat-button-toggle-checked {
     color: $color-primary;
@@ -189,20 +186,20 @@
 .tel-inputs {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: .8rem;
   &__item {
     width: 100%;
   }
 }
 //dropdown menu arrow fix
 ::ng-deep.mat-mdc-select-arrow-wrapper {
-  margin-top: -10px;
+  margin-top: -1rem;
 }
 
 .checkbox {
-  margin-bottom: 28px;
+  margin-bottom: 2.8rem;
   &__text-wrap {
-    margin-left: 8px;
+    margin-left: .8rem;
   }
 }
 
@@ -212,11 +209,11 @@
 }
 
 .forgot-pass {
-  margin: 4px 0 20px 0;
-  line-height: 20px;
+  margin: .4rem 0 2rem 0;
+  line-height: 2rem;
   text-align: right;
 }
 
 .submit-btn {
-  height: 44px;
+  height: 4.4rem;
 }

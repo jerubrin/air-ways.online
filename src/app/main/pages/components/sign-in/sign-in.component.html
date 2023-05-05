@@ -4,26 +4,22 @@
   name="fontStyle"
   aria-label="Font Style"
 >
-  <mat-button-toggle class="auth-action__item" [value]="authAction.Login"
-    >Log in</mat-button-toggle
-  >
+  <mat-button-toggle class="auth-action__item" [value]="authAction.Login">Log in</mat-button-toggle>
   <mat-button-toggle class="auth-action__item" [value]="authAction.Signup"
     >Sign up</mat-button-toggle
   >
 </mat-button-toggle-group>
 <button class="auth-button title-xs-small" mat-stroked-button>
-  <img
-    class="auth-button__img"
-    src="./assets/icon_google.svg"
-    alt="google"
-  /><span class="auth-button__text">Continue with Google</span>
+  <img class="auth-button__img" src="./assets/icon_google.svg" alt="google" /><span
+    class="auth-button__text"
+    >Continue with Google</span
+  >
 </button>
 <button class="auth-button title-xs-small" mat-stroked-button>
-  <img
-    class="auth-button__img"
-    src="./assets/icon_facebbok.svg"
-    alt="facebook"
-  /><span class="auth-button__text">Continue with Facebook</span>
+  <img class="auth-button__img" src="./assets/icon_facebbok.svg" alt="facebook" /><span
+    class="auth-button__text"
+    >Continue with Facebook</span
+  >
 </button>
 
 <!-- LOGIN -->
@@ -101,10 +97,7 @@
     <mat-form-field class="tel-inputs__item" appearance="outline">
       <mat-label>Country code</mat-label>
       <mat-select [(value)]="firstCountryCode">
-        <mat-option
-          *ngFor="let countryCode of countryCodes"
-          [value]="countryCode"
-        >
+        <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
           {{ countryCode.name }} ({{ countryCode.code }})
         </mat-option>
       </mat-select>
@@ -119,10 +112,7 @@
   <mat-form-field appearance="outline">
     <mat-label>Citizenship</mat-label>
     <mat-select>
-      <mat-option
-        *ngFor="let countryCode of countryCodes"
-        [value]="countryCode"
-      >
+      <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
         {{ countryCode.name }}
       </mat-option>
     </mat-select>
