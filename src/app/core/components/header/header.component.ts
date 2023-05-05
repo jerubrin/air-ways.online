@@ -20,7 +20,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(public router: Router, public readonly authService: AuthService) {}
+  constructor(
+    public router: Router,
+    public readonly authService: AuthService
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
