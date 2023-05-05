@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PriceList } from '../../models/prices.model';
 
 @Component({
   selector: 'app-top-date-cards',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-date-cards.component.scss']
 })
 export class TopDateCardsComponent {
+  @Input() date?: Date;
 
+  @Input() prices?: PriceList;
+
+  @Input() avaible?: number;
 }

@@ -6,5 +6,6 @@
   [persons]="3"
 ></app-second-menu>
 <div class="container">
-  <p>booking-page works!</p>
+  <app-flight-container [flight]="mockFlights[0]" [isForward]="true"></app-flight-container>
+  <app-flight-container [flight]="mockFlights[1]" [isForward]="false"></app-flight-container>
 </div>

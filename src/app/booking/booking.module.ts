@@ -10,6 +10,7 @@ import { FlightInfoComponent } from './components/flight-info/flight-info.compon
 import { FlightPriceAndSeatsComponent } from './components/flight-price-and-seats/flight-price-and-seats.component';
 import { FlightContainerComponent } from './components/flight-container/flight-container.component';
 import { CoreModule } from '../core/core.module';
+import { FlightBlockComponent } from './components/flight-block/flight-block.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CoreModule } from '../core/core.module';
     FlightInfoComponent,
     FlightPriceAndSeatsComponent,
     FlightContainerComponent,
+    FlightBlockComponent,
   ],
   imports: [
     CommonModule,

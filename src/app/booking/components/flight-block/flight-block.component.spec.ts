@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DirectionTitleComponent } from './direction-title.component';
+import { FlightBlockComponent } from './flight-block.component';
 
-describe('DirectionTitleComponent', () => {
-  let component: DirectionTitleComponent;
-  let fixture: ComponentFixture<DirectionTitleComponent>;
+describe('FlightBlockComponent', () => {
+  let component: FlightBlockComponent;
+  let fixture: ComponentFixture<FlightBlockComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DirectionTitleComponent ]
+      declarations: [ FlightBlockComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(DirectionTitleComponent);
+    fixture = TestBed.createComponent(FlightBlockComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Flight } from '../../models/flight.model';
 
 @Component({
   selector: 'app-flight-container',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./flight-container.component.scss']
 })
 export class FlightContainerComponent {
+  @Input() flight?: Flight;
 
+  @Input() isForward?: boolean;
 }

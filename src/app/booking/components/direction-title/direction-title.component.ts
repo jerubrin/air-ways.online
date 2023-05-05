@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-direction-title',
@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./direction-title.component.scss']
 })
 export class DirectionTitleComponent {
+  @Input() fromCityName?: string;
 
+  @Input() toCityName?: string;
+
+  @Input() isForward?: boolean;
 }
