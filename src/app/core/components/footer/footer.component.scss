@@ -1,8 +1,8 @@
-@import "variables";
+@import 'variables';
 :host {
   .footer {
     height: $footer-height;
-    border-top: 1px solid $color-secondary-40;
+    border-top: 0.1rem solid $color-secondary-40;
   }
   .payment-method {
     gap: 2.7rem;

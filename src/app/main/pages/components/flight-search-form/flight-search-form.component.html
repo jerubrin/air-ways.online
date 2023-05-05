@@ -19,7 +19,7 @@
           placeholder="Choose departure city" />
         <mat-autocomplete class="autocomplete" #auto1="matAutocomplete" autoActiveFirstOption
           [displayWith]="displayCityFn">
-          <mat-option style="height: 56px" *ngFor="let option of filteredOptionsFromWhere | async | orderBy : 'city'"
+          <mat-option style="height: 5.6rem" *ngFor="let option of filteredOptionsFromWhere | async | orderBy : 'city'"
             [value]="option">
             <span style="color: #1c1b1f">
               {{ option.city }} ({{ option.key }})
@@ -44,7 +44,7 @@
           placeholder="Choose your destination" />
         <mat-autocomplete class="autocomplete" #auto2="matAutocomplete" autoActiveFirstOption
           [displayWith]="displayCityFn">
-          <mat-option style="height: 56px" class="multiline-mat-option" *ngFor="
+          <mat-option style="height: 5.6rem" class="multiline-mat-option" *ngFor="
               let option of filteredOptionsDestination
                 | async
                 | orderBy : 'city'" [value]="option">

@@ -3,7 +3,7 @@
 
 .form-container {
   background: $color-neutral-65;
-  border-radius: 8px;
+  border-radius: 0.8rem;
   padding: 2.8rem 2.4rem;
   width: 58rem;
 }
@@ -15,12 +15,12 @@
 
   ::ng-deep .mdc-text-field--filled {
     background-color: $color-secondary-90;
-    border-radius: 4px;
-    border: 1px solid $color-secondary-40;
+    border-radius: 0.4rem;
+    border: 0.1rem solid $color-secondary-40;
   }
   ::ng-deep .mdc-text-field--focused {
     background-color: $color-secondary-50;
-    border: 1px solid $color-secondary;
+    border: 0.1rem solid $color-secondary;
   }
 }
 
@@ -55,9 +55,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 0.4rem;
   ::ng-deep .mat-mdc-form-field:not(.mat-form-field-invalid) .mat-mdc-form-field-subscript-wrapper {
-    height: 0px;
+    height: 0rem;
   }
   .btn-reverse {
     position: absolute;
@@ -69,15 +69,15 @@
 }
 
 .date-range-form-field {
-  width: 311px;
+  width: 31.1rem;
 }
 ::ng-deep.mat-datepicker-content {
   margin-top: 2rem;
 }
 
 .passengers-form-field {
-  width: 200px;
-  height: 81px;
+  width: 20rem;
+  height: 8.1rem;
   .passengers-form-value {
     input {
       max-width: 100%;
@@ -89,10 +89,10 @@
   }
 }
 ::ng-deep .passengers-form-menu-container.mat-mdc-menu-panel.mat-mdc-menu-panel {
-  width: 200px;
+  width: 20rem;
   padding: 1rem;
-  margin-top: 1px;
-  margin-left: -16px;
+  margin-top: 0.1rem;
+  margin-left: -1.6rem;
   .mat-mdc-menu-content {
     display: flex;
     flex-direction: column;
@@ -109,8 +109,8 @@
   border: none;
   cursor: pointer;
   img {
-    width: 40px;
-    height: 40px;
+    width: 4rem;
+    height: 4rem;
   }
   :hover :not([disabled]) {
     transition-duration: 0.5s;

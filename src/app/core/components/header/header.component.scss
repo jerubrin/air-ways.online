@@ -1,10 +1,10 @@
-@import "variables";
+@import 'variables';
 
 :host {
   .header {
     position: fixed;
     top: 0;
-    z-index: 999px;
+    z-index: 999;
     width: 100%;
     height: $header-height;
     transition: all 0.2s;
