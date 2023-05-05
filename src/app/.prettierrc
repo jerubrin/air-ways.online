@@ -16,7 +16,6 @@
       }
     }
   ],
-
   "object-curly-newline": {
     "ObjectExpression": "consistent",
     "ObjectPattern": { "multiline": true }

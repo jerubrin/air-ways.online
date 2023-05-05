@@ -1,21 +1,37 @@
-import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.scss']
+  styleUrls: ['./stepper.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: { displayDefaultIndicatorType: false }
+    }
+  ]
 })
 export class StepperComponent {
-  firstFormGroup = this.fb.group({
-    firstCtrl: ['', Validators.required]
-  });
+  @Output() activeStep = new EventEmitter<string>();
 
-  secondFormGroup = this.fb.group({
-    secondCtrl: ''
-  });
+  isPassengersStepAvailable = false;
 
-  isOptional = false;
+  isReviewStepAvailable = false;
 
-  constructor(private fb: FormBuilder) {}
+  stepChanged(event: any) {
+    switch (event.selectedIndex) {
+      case 0:
+        this.activeStep.emit('flights');
+        break;
+      case 1:
+        this.activeStep.emit('passengers');
+        break;
+      case 2:
+        this.activeStep.emit('review');
+        break;
+      default:
+        break;
+    }
+  }
 }
