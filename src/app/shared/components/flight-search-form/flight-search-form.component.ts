@@ -12,15 +12,15 @@ import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { map, Observable, startWith, Subscription } from 'rxjs';
 
-import MockAirports from 'src/app/core/data/constants/MockAirports';
-import RoutesPath from 'src/app/core/data/enams/RoutesPath';
+import MockAirports from 'src/app/shared/data/constants/MockAirports';
+import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
-import { Airport } from 'src/app/core/interfaces/Airport';
-import { Passengers } from 'src/app/core/interfaces/Passengers';
-import { SearchFlight } from 'src/app/core/interfaces/SearchFlight';
+import { Airport } from 'src/app/shared/interfaces/Airport';
+import { Passengers } from 'src/app/shared/interfaces/Passengers';
+import { SearchFlight } from 'src/app/shared/interfaces/SearchFlight';
 import { DateFormatService } from 'src/app/core/services/date-format.service';
-import { DateFormatType } from 'src/app/core/types/DateFormatType';
-import { PassengerType } from 'src/app/core/types/PassengerType';
+import { DateFormatType } from 'src/app/shared/types/DateFormatType';
+import { PassengerType } from 'src/app/shared/types/PassengerType';
 
 @Component({
   selector: 'app-flight-search-form',

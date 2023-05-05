@@ -6,7 +6,7 @@
       aria-label="Select an option"
       [formControlName]="typeOfFlightsControlName"
     >
-      <mat-radio-button value="roundTrip" color="primary">Round Trip</mat-radio-button>
+      <mat-radio-button value="roundTrip" color="primary"> Round Trip </mat-radio-button>
       <mat-radio-button value="oneWay">One Way</mat-radio-button>
     </mat-radio-group>
 
@@ -52,8 +52,8 @@
         <mat-error
           *ngIf="fromWhereControl.hasError(validation_msgs.destinationsControl.matchOption)"
         >
-          {{ validation_msgs.destinationsControl.matchOptionMessage }}</mat-error
-        >
+          {{ validation_msgs.destinationsControl.matchOptionMessage }}
+        </mat-error>
       </mat-form-field>
 
       <!-- SECTION - Destination -->
@@ -140,8 +140,8 @@
           {{ validation_msgs.returnDateControl.minDateMessage }}
         </mat-error>
         <mat-error *ngIf="returnDateControl.hasError(validation_msgs.returnDateControl.dateRange)">
-          {{ validation_msgs.returnDateControl.dateRangeMessage }}</mat-error
-        >
+          {{ validation_msgs.returnDateControl.dateRangeMessage }}
+        </mat-error>
         <mat-error *ngIf="returnDateControl.hasError('invalidDateFormat')">
           'invalidDateFormat'
         </mat-error>
@@ -217,8 +217,9 @@
                 [ngStyle]="{
                   color: passengerCountsFormGroup.value.children > 0 ? '#11397e' : '#1C1B1F'
                 }"
-                >Child</span
               >
+                Child
+              </span>
               <br />
               <span class="body-medium" style="color: #74767a">2-14 years</span>
             </div>
@@ -237,8 +238,9 @@
                 [ngStyle]="{
                   color: passengerCountsFormGroup.value.children > 0 ? '#11397e' : '#74767A'
                 }"
-                >{{ passengerCountsFormGroup.value.children }}</span
               >
+                {{ passengerCountsFormGroup.value.children }}
+              </span>
               <button
                 class="btn-counter"
                 mat-icon-button
@@ -255,8 +257,9 @@
                 [ngStyle]="{
                   color: passengerCountsFormGroup.value.infants > 0 ? '#11397e' : '#1C1B1F'
                 }"
-                >Infant</span
               >
+                Infant
+              </span>
               <br />
               <span class="body-medium" style="color: #74767a">0-2 years</span>
             </div>
@@ -275,8 +278,9 @@
                 [ngStyle]="{
                   color: passengerCountsFormGroup.value.infants > 0 ? '#11397e' : '#74767A'
                 }"
-                >{{ passengerCountsFormGroup.value.infants }}</span
               >
+                {{ passengerCountsFormGroup.value.infants }}
+              </span>
               <button
                 class="btn-counter"
                 mat-icon-button
