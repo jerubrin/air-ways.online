@@ -12,7 +12,7 @@ import CountryCodes from 'src/app/core/data/constants/CountryCodes';
 export class SignInComponent {
   authAction = AuthAction;
 
-  authActionValue: AuthAction = this.authAction.Signup;
+  authActionValue: AuthAction = this.authAction.Login;
 
   gender = Gender;
 

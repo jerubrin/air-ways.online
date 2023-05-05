@@ -12,6 +12,7 @@ import { MaterialModule } from './modules/material.module';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,9 @@ import { OrderByPipe } from './pipes/order-by.pipe';
     NotFoundPageComponent,
     FooterComponent,
     OrderByPipe,
+    SignInComponent,
   ],
   imports: [CommonModule, MaterialModule, RouterModule],
-  exports: [MaterialModule, HeaderComponent, FooterComponent, OrderByPipe],
+  exports: [MaterialModule, HeaderComponent, FooterComponent, SignInComponent, OrderByPipe],
 })
 export class CoreModule {}

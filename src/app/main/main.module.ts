@@ -6,17 +6,16 @@ import { MainRoutingModule } from './main-routing.module';
 import { FlightSearchFormComponent } from './pages/components/flight-search-form/flight-search-form.component';
 import { MaterialModule } from '../core/modules/material.module';
 import { CoreModule } from '../core/core.module';
-import { SignInComponent } from './pages/components/sign-in/sign-in.component';
 
 @NgModule({
-  declarations: [MainPageComponent, FlightSearchFormComponent, SignInComponent],
+  declarations: [MainPageComponent, FlightSearchFormComponent],
   imports: [
     CommonModule,
     MainRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    CoreModule,
-  ],
+    CoreModule
+  ]
 })
 export class MainModule {}
