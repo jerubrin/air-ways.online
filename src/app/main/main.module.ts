@@ -15,7 +15,7 @@ import { CoreModule } from '../core/core.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    CoreModule
-  ]
+    CoreModule,
+  ],
 })
 export class MainModule {}
