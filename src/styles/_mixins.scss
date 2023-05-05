@@ -15,3 +15,13 @@ $font-family-base: Roboto, "Helvetica Neue", sans-serif;
 $font-size-base: $font-size-16;
 $font-weight-base: $font-weight-400;
 $font-color-base: $color-black;
+
+@mixin icon($size: $icon-size-deafult) {
+  width: $size;
+  height: $size;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+$icon-size-deafult: 24px

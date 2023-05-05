@@ -9,6 +9,7 @@ import { DateCardComponent } from './components/date-card/date-card.component';
 import { FlightInfoComponent } from './components/flight-info/flight-info.component';
 import { FlightPriceAndSeatsComponent } from './components/flight-price-and-seats/flight-price-and-seats.component';
 import { FlightContainerComponent } from './components/flight-container/flight-container.component';
+import { CoreModule } from '../core/core.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,10 @@ import { FlightContainerComponent } from './components/flight-container/flight-c
     FlightPriceAndSeatsComponent,
     FlightContainerComponent,
   ],
-  imports: [CommonModule, BookingRoutingModule],
+  imports: [
+    CommonModule,
+    CoreModule,
+    BookingRoutingModule,
+  ],
 })
 export class BookingModule {}

@@ -9,12 +9,28 @@
     gap: 13px;
   }
 }
+
 .btn-search {
   width: 12.6rem !important;
   height: 6rem !important;
 }
+
 .btn-counter {
   mat-icon {
     transform: scale(0.8);
+  }
+}
+
+.btn-flat {
+  padding: 4px 8px;
+  color: $color-primary;
+  background-color: $color-secondary-90;
+  border: none;
+  border-radius: 4px;
+  &:hover {
+    background-color: $color-secondary-50;
+  }
+  &:active {
+    background-color: $color-secondary-10;
   }
 }
