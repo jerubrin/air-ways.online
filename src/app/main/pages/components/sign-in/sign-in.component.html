@@ -1,54 +1,145 @@
-<style>
-  .mdc-notched-outline__notch {
-    padding-left: 0 !important;
-    padding-right: 8px !important;
-    /* border-top: none; */
-  }
-</style>
-
 <mat-button-toggle-group
-  class="switch"
-  [(ngModel)]="switch"
+  class="auth-action label-medium"
+  [(value)]="authActionValue"
   name="fontStyle"
   aria-label="Font Style"
 >
-  <mat-button-toggle class="switch__item" value="login"
+  <mat-button-toggle class="auth-action__item" [value]="authAction.Login"
     >Log in</mat-button-toggle
   >
-  <mat-button-toggle class="switch__item" value="signup"
+  <mat-button-toggle class="auth-action__item" [value]="authAction.Signup"
     >Sign up</mat-button-toggle
   >
 </mat-button-toggle-group>
-<button class="auth-button" mat-stroked-button>
+<button class="auth-button title-xs-small" mat-stroked-button>
   <img
     class="auth-button__img"
     src="./assets/icon_google.svg"
     alt="google"
   /><span class="auth-button__text">Continue with Google</span>
 </button>
-<button class="auth-button" mat-stroked-button>
+<button class="auth-button title-xs-small" mat-stroked-button>
   <img
     class="auth-button__img"
     src="./assets/icon_facebbok.svg"
     alt="facebook"
   /><span class="auth-button__text">Continue with Facebook</span>
 </button>
-<div class="or-message">
-  <hr class="or-message__hr" />
-  <span class="or-message__text">or log in with your email</span>
-  <hr class="or-message__hr" />
-</div>
-<mat-form-field class="form__element" appearance="outline">
-  <mat-label>Email</mat-label>
-  <input type="email" matInput formControlName="email" required />
-  <!-- <mat-error *ngIf="form.controls['email'].errors?.['required']"
-    >Please enter your email</mat-error
-  >
-  <mat-error *ngIf="form.controls['email'].errors?.['email']"
-    >Email is invalid</mat-error
-  > -->
-</mat-form-field>
 
-<div class="close">
+<!-- LOGIN -->
+<ng-container *ngIf="authActionValue === authAction.Login">
+  <div class="or-message body-small">
+    <span class="or-message__line"></span>
+    <span class="or-message__text">or log in with your email</span>
+    <span class="or-message__line"></span>
+  </div>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput required />
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput required />
+  </mat-form-field>
+
+  <a class="forgot-pass link label-medium" routerLink="">Forgot password?</a>
+
+  <button class="submit-btn" mat-flat-button color="primary">Log in</button>
+</ng-container>
+
+<!-- SIGNUP -->
+<ng-container *ngIf="authActionValue === authAction.Signup">
+  <div class="or-message body-small">
+    <span class="or-message__line"></span>
+    <span class="or-message__text">or sign up with your email</span>
+    <span class="or-message__line"></span>
+  </div>
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input type="email" matInput required />
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput required />
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>First name</mat-label>
+    <input type="text" matInput required />
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input type="text" matInput required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date of birth</mat-label>
+    <input matInput [matDatepicker]="picker" required />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-button-toggle-group
+    class="gender label-medium"
+    name="fontStyle"
+    [(value)]="genderValue"
+    aria-label="Font Style"
+  >
+    <mat-button-toggle class="gender__item" [value]="gender.Male"
+      ><img src="./assets/icon_tick.svg" alt="tick" />
+      Male</mat-button-toggle
+    >
+    <mat-button-toggle class="gender__item" [value]="gender.Female"
+      ><img src="./assets/icon_tick.svg" alt="tick" />
+      Female</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+
+  <div class="tel-inputs">
+    <mat-form-field class="tel-inputs__item" appearance="outline">
+      <mat-label>Country code</mat-label>
+      <mat-select [(value)]="firstCountryCode">
+        <mat-option
+          *ngFor="let countryCode of countryCodes"
+          [value]="countryCode"
+        >
+          {{ countryCode.name }} ({{ countryCode.code }})
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="tel-inputs__item" appearance="outline">
+      <mat-label>Mobile phone number</mat-label>
+      <input type="tel" matInput required />
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Citizenship</mat-label>
+    <mat-select>
+      <mat-option
+        *ngFor="let countryCode of countryCodes"
+        [value]="countryCode"
+      >
+        {{ countryCode.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-checkbox class="checkbox" color="primary"
+    ><p class="checkbox__text-wrap label-medium">
+      I agree to <a class="link" routerLink="">Airway's Privacy</a> Policy and
+      <a class="link" routerLink="">Terms of Use</a>
+    </p></mat-checkbox
+  >
+
+  <button class="submit-btn" mat-flat-button color="primary">Sign up</button>
+</ng-container>
+
+<div class="close" (click)="authService.hideAuthModal()">
   <img src="./assets/icon_close.svg" alt="close" />
 </div>

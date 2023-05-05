@@ -5,4 +5,4 @@
     
   </div>
 </section>
-<app-sign-in></app-sign-in>
+<app-sign-in *ngIf="authService.isAuthModalVisible"></app-sign-in>

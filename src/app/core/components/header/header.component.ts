@@ -4,6 +4,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import RoutesPath from '../../data/enams/RoutesPath';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -19,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(public router: Router) {}
+  constructor(public router: Router, public readonly authService: AuthService) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
