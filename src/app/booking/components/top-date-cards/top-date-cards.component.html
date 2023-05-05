@@ -1,1 +1,7 @@
-<p>top-date-cards works!</p>
+<div class="top-date-cards">
+  <app-date-card
+    *ngIf="prices"
+    [price]="prices['-2']"
+    [date]="date"
+  ></app-date-card>
+</div>
