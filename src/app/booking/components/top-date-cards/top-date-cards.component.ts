@@ -1,7 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { Subscription } from 'rxjs';
-import { PriceList } from '../../models/prices.model';
+import { Seats } from '../../models/seats.model';
+import { Flights } from '../../models/flights.model';
+import { Flight } from '../../models/flight.model';
 
 const DAY_IN_MILISECONDS = 1000 * 60 * 60 * 24;
 
@@ -13,9 +15,11 @@ const DAY_IN_MILISECONDS = 1000 * 60 * 60 * 24;
 export class TopDateCardsComponent implements OnInit, OnDestroy {
   @Input() date?: Date;
 
-  @Input() prices?: PriceList;
+  @Input() flights?: Flights;
 
-  @Input() avaible?: number | undefined;
+  @Input() flight?: Flight;
+
+  @Input() seats?: Seats;
 
   twoDaysBefore?: Date;
 

@@ -4,8 +4,11 @@
   [isForward]="isForward"
 ></app-direction-title>
 <app-top-date-cards
-  [avaible]="flight?.avaible"
+  [seats]="flight?.seats"
   [date]="date"
-  [prices]="flight?.prices"
+  [flights]="flight?.otherFlights"
+  [flight]="flight"
 ></app-top-date-cards>
-<app-flight-block></app-flight-block>
+<app-flight-block
+  [flight]="flight"
+></app-flight-block>

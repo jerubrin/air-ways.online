@@ -2,37 +2,36 @@
   <div class="card-hr"></div>
   <app-date-card
     class="card"
-    *ngIf="prices"
-    [price]="prices['-2']"
+    *ngIf="flights"
+    [price]="flights['-2']?.price"
     [date]="twoDaysBefore"
   ></app-date-card>
   <div class="card-hr"></div>
   <app-date-card
     class="card"
-    *ngIf="prices"
-    [price]="prices['-1']"
+    *ngIf="flights"
+    [price]="flights['-1']?.price"
     [date]="oneDayBefore"
   ></app-date-card>
   <div class="card-hr"></div>
   <app-date-card
     class="card"
-    *ngIf="prices"
-    [price]="prices['0']"
+    [price]="flight?.price"
     [date]="date"
-    [avaible]="avaible"
+    [seats]="seats"
   ></app-date-card>
   <div class="card-hr"></div>
   <app-date-card
     class="card"
-    *ngIf="prices"
-    [price]="prices['1']"
+    *ngIf="flights"
+    [price]="flights['1']?.price"
     [date]="oneDayAfter"
   ></app-date-card>
   <div class="card-hr"></div>
   <app-date-card
     class="card"
-    *ngIf="prices"
-    [price]="prices['2']"
+    *ngIf="flights"
+    [price]="flights['2']?.price"
     [date]="twoDaysAfter"
   ></app-date-card>
   <div class="card-hr"></div>

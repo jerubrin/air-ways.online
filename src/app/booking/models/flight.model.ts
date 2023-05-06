@@ -1,6 +1,8 @@
 import { Airport } from './airport.model';
+// eslint-disable-next-line import/no-cycle
+import { Flights } from './flights.model';
 import { Price } from './price.model';
-import { PriceList } from './prices.model';
+import { Seats } from './seats.model';
 
 export interface Flight {
   form: Airport;
@@ -8,8 +10,8 @@ export interface Flight {
   takeoffDate: string;
   landingDate: string;
   timeMins: number;
-  avaible: number;
+  seats: Seats;
   price: Price;
-  prices: PriceList;
+  otherFlights?: Flights;
   flightNumber: string;
 }

@@ -1,7 +1,7 @@
 <div [ngClass]="{
   'card': true,
-  'main-card': !!avaible,
-  'second-card': !avaible,
+  'main-card': !!seats?.avaible,
+  'second-card': !seats?.avaible,
   'card-disabled': !price,
 }">
   <h4>{{date | date:'dd MMM'}}</h4>

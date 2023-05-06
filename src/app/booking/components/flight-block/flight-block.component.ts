@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Flight } from '../../models/flight.model';
 
 @Component({
   selector: 'app-flight-block',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./flight-block.component.scss']
 })
 export class FlightBlockComponent {
-
+  @Input() flight?: Flight;
 }
