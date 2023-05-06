@@ -32,10 +32,10 @@ export class TopDateCardsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.twoDaysBefore = new Date(this.date?.getTime() ?? 0 - DAY_IN_MILISECONDS * 2);
-    this.oneDayBefore = new Date(this.date?.getTime() ?? 0 - DAY_IN_MILISECONDS);
-    this.oneDayAfter = new Date(this.date?.getTime() ?? 0 + DAY_IN_MILISECONDS);
-    this.twoDaysAfter = new Date(this.date?.getTime() ?? 0 + DAY_IN_MILISECONDS * 2);
+    this.twoDaysBefore = new Date((this.date?.getTime() ?? 0) - DAY_IN_MILISECONDS * 2);
+    this.oneDayBefore = new Date((this.date?.getTime() ?? 0) - DAY_IN_MILISECONDS);
+    this.oneDayAfter = new Date((this.date?.getTime() ?? 0) + DAY_IN_MILISECONDS);
+    this.twoDaysAfter = new Date((this.date?.getTime() ?? 0) + DAY_IN_MILISECONDS * 2);
   }
 
   ngOnDestroy(): void {
