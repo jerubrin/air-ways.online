@@ -1,8 +1,8 @@
-const DateFormatMenuItems: string[] = [
+import { DateFormatType } from '../../types/DateFormatType';
+
+export const DateFormatMenuItems: DateFormatType[] = [
   'MM/DD/YYYY',
   'DD/MM/YYYY',
   'YYYY/DD/MM',
-  'YYYY/MM/DD',
+  'YYYY/MM/DD'
 ];
-
-export default DateFormatMenuItems;

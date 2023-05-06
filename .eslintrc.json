@@ -22,6 +22,8 @@
         "import/no-extraneous-dependencies": "off",
         "no-return-assign": 0,
         "linebreak-style": 0,
+        "object-curly-newline": "off",
+        "operator-linebreak": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
