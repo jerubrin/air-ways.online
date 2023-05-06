@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: $color-white;
 }
 
 .main-card {
@@ -28,6 +29,9 @@
 .second-card {
   margin-top: 1.3rem;
 
+  transition: all .2s;
+  cursor: pointer;
+
   h4 {
     @include font($font-size-14, $font-weight-500, $color-secondary);
     line-height: 2rem;
@@ -41,6 +45,31 @@
   h3 {
     @include font($font-size-20, $font-weight-700, $color-primary);
     line-height: 2.6rem;
+  }
+
+  &:hover {
+    z-index: 1;
+    background-color: $color-neutral-80;
+    transform: scale(1.1);
+  }
+}
+
+.card-disabled {
+  cursor: default;
+
+  h4 {
+    @include font($font-size-14, $font-weight-500, $color-secondary-40);
+    line-height: 2rem;
+  }
+
+  p {
+    @include font($font-size-12, $font-weight-100, $color-neutral-30);
+    line-height: 1.2rem;
+  }
+
+  &:hover {
+    background-color: $color-white;
+    transform: none;
   }
 }
 
