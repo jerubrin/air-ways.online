@@ -1,7 +1,39 @@
 <div class="top-date-cards">
+  <div class="card-hr"></div>
   <app-date-card
+    class="card"
     *ngIf="prices"
     [price]="prices['-2']"
-    [date]="date"
+    [date]="twoDaysBefore"
   ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="prices"
+    [price]="prices['-1']"
+    [date]="oneDayBefore"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="prices"
+    [price]="prices['0']"
+    [date]="date"
+    [avaible]="avaible"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="prices"
+    [price]="prices['1']"
+    [date]="oneDayAfter"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="prices"
+    [price]="prices['2']"
+    [date]="twoDaysAfter"
+  ></app-date-card>
+  <div class="card-hr"></div>
 </div>

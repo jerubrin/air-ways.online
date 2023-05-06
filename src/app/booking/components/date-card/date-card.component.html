@@ -1,1 +1,11 @@
-<p>date-card works!</p>
+<div [ngClass]="{
+  'card': true,
+  'main-card': !!avaible,
+  'second-card': !avaible,
+  'card-disabled': !price,
+}">
+  <h4>{{date | date:'dd MMM'}}</h4>
+  <p>{{date | date:'EEEE'}}</p>
+  <h3 *ngIf="price">{{priceString}}</h3>
+  <div class="no-price" *ngIf="!price"></div>
+</div>

@@ -42,12 +42,6 @@ export class BookingPageComponent {
           rub: 22118.03,
           pln: 1147.52
         },
-        1: {
-          eur: 250,
-          usd: 275.79,
-          rub: 22118.03,
-          pln: 1147.52
-        },
         2: {
           eur: 250,
           usd: 275.79,
@@ -106,12 +100,6 @@ export class BookingPageComponent {
           pln: 1147.52
         },
         2: {
-          eur: 250,
-          usd: 275.79,
-          rub: 22118.03,
-          pln: 1147.52
-        },
-        '-2': {
           eur: 250,
           usd: 275.79,
           rub: 22118.03,

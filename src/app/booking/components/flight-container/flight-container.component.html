@@ -3,5 +3,9 @@
   [toCityName]="flight?.to?.city"
   [isForward]="isForward"
 ></app-direction-title>
-<app-top-date-cards></app-top-date-cards>
+<app-top-date-cards
+  [avaible]="flight?.avaible"
+  [date]="date"
+  [prices]="flight?.prices"
+></app-top-date-cards>
 <app-flight-block></app-flight-block>
