@@ -5,8 +5,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root'
 })
 export class FlightSearchService {
-  // private formValid = false;
-  private formValid = true;
+  private formValid = false;
 
   updateFormState(form: FormGroup): void {
     this.formValid = form.valid;
