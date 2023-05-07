@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { Router } from '@angular/router';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { MatStepper } from '@angular/material/stepper';
 import { StepperService } from 'src/app/core/services/stepper.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-stepper',
@@ -20,10 +20,6 @@ export class StepperComponent {
   @ViewChild('stepper') stepper!: MatStepper;
 
   routesPath = RoutesPath;
-
-  isFlightsFormSubmited = false;
-
-  isPassengersFormSubmited = false;
 
   constructor(private router: Router, private stepperService: StepperService) {}
 

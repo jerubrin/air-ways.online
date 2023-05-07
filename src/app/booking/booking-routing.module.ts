@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import RoutesPath from '../shared/data/enams/RoutesPath';
 import { FlightFormGuard } from './guards/flight-form.guard';
 import { PassengersFormGuard } from './guards/passengers-form.guard';
