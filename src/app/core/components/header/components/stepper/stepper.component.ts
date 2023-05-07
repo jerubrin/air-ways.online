@@ -1,5 +1,9 @@
-import { Component, EventEmitter, Output } from '@angular/core';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Component, ViewChild } from '@angular/core';
+import { StepperSelectionEvent, STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { Router } from '@angular/router';
+import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
+import { MatStepper } from '@angular/material/stepper';
+import { StepperService } from 'src/app/core/services/stepper.service';
 
 @Component({
   selector: 'app-stepper',
@@ -13,22 +17,38 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
   ]
 })
 export class StepperComponent {
-  @Output() activeStep = new EventEmitter<string>();
+  @ViewChild('stepper') stepper!: MatStepper;
 
-  isPassengersStepAvailable = false;
+  routesPath = RoutesPath;
 
-  isReviewStepAvailable = false;
+  isFlightsFormSubmited = false;
 
-  stepChanged(event: any) {
-    switch (event.selectedIndex) {
+  isPassengersFormSubmited = false;
+
+  constructor(private router: Router, private stepperService: StepperService) {}
+
+  ngAfterViewInit() {
+    this.stepperService.setStepper(this.stepper);
+  }
+
+  onStepSelected(event: StepperSelectionEvent): void {
+    const selectedStepIndex = event.selectedIndex;
+
+    switch (selectedStepIndex) {
       case 0:
-        this.activeStep.emit('flights');
+        this.router.navigate([
+          `/${this.routesPath.BookingPage}/${this.routesPath.BookingPageFlights}`
+        ]);
         break;
       case 1:
-        this.activeStep.emit('passengers');
+        this.router.navigate([
+          `/${this.routesPath.BookingPage}/${this.routesPath.BookingPagePassengers}`
+        ]);
         break;
       case 2:
-        this.activeStep.emit('review');
+        this.router.navigate([
+          `/${this.routesPath.BookingPage}/${this.routesPath.BookingPageReviewPayment}`
+        ]);
         break;
       default:
         break;
