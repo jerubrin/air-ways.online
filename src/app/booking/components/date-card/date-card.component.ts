@@ -16,6 +16,8 @@ export class DateCardComponent implements OnInit {
 
   @Input() seats?: Seats;
 
+  @Input() selected?: boolean;
+
   priceString = '';
 
   constructor(

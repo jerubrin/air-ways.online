@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { Subscription } from 'rxjs';
 import { Seats } from '../../models/seats.model';
@@ -20,6 +20,10 @@ export class TopDateCardsComponent implements OnInit, OnDestroy {
   @Input() flight?: Flight;
 
   @Input() seats?: Seats;
+
+  @Output() selectEmitter = new EventEmitter<number>();
+
+  selected = 0;
 
   twoDaysBefore?: Date;
 
@@ -44,5 +48,12 @@ export class TopDateCardsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.localStorageServiceSubs$$?.unsubscribe();
+  }
+
+  clickHandler(value: number) {
+    if ((this.flights && this.flights[value]) || value === 0) {
+      this.selectEmitter.emit(value);
+      this.selected = value;
+    }
   }
 }

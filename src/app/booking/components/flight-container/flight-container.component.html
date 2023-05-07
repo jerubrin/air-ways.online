@@ -8,7 +8,8 @@
   [date]="date"
   [flights]="flight?.otherFlights"
   [flight]="flight"
+  (selectEmitter)="select($event)"
 ></app-top-date-cards>
 <app-flight-block
-  [flight]="flight"
+  [flight]="selectedFlight"
 ></app-flight-block>
