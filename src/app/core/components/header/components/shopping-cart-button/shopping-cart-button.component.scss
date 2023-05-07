@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 :host {
   .btn-shopping-cart {
@@ -6,8 +6,8 @@
     border: none;
     cursor: pointer;
     img {
-      width: 24px;
-      height: 19px;
+      width: 2.4rem;
+      height: 1.9rem;
     }
     :hover {
       transition-duration: 0.5s;

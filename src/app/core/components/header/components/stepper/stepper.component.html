@@ -1,1 +1,13 @@
-<p>stepper works!</p>
+<mat-horizontal-stepper linear class="stepper">
+  <mat-step (selectionChange)="stepChanged($event)">
+    <ng-template matStepLabel>Flights</ng-template>
+  </mat-step>
+
+  <mat-step [optional]="isPassengersStepAvailable" (selectionChange)="stepChanged($event)">
+    <ng-template matStepLabel>Passengers</ng-template>
+  </mat-step>
+
+  <mat-step (selectionChange)="stepChanged($event)">
+    <ng-template matStepLabel>Review & Payment</ng-template>
+  </mat-step>
+</mat-horizontal-stepper>

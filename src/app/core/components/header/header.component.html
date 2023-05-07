@@ -1,10 +1,12 @@
-<header class="header flex-center" [class]="headerClass" (scroll)="onWindowScroll()">
+<header class="header flex-center" [ngClass]="headerClass" (scroll)="onWindowScroll()">
   <div class="container flex-center">
-    <app-logo></app-logo>
-    <span class="spacer"></span>
-    <div class="menu flex-center">
-      <p *ngIf="isShowBookFlights">Book flights</p>
+    <div class="left-side flex-center">
+      <app-logo></app-logo>
       <app-stepper *ngIf="isShowStepper"></app-stepper>
+    </div>
+    <span class="spacer"></span>
+    <div class="right-side flex-center">
+      <p *ngIf="isShowBookFlights">Book flights</p>
       <app-date-format-menu></app-date-format-menu>
       <app-currency-menu></app-currency-menu>
       <app-sign-in-button></app-sign-in-button>

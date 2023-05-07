@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import CurrencyMenuItems from 'src/app/core/data/constants/CurrencyMenuItems';
+import CurrencyMenuItems from 'src/app/shared/data/constants/CurrencyMenuItems';
 
 @Component({
   selector: 'app-currency-menu',
   templateUrl: './currency-menu.component.html',
-  styleUrls: ['./currency-menu.component.scss'],
+  styleUrls: ['./currency-menu.component.scss']
 })
 export class CurrencyMenuComponent {
   currencyMenuItems: readonly string[] = CurrencyMenuItems;
