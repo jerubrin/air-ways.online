@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Params, Router } from '@angular/router';
 
 import { StepperService } from 'src/app/core/services/stepper.service';
 
@@ -13,7 +13,7 @@ import { FlightsService } from '../../services/flights.service';
   styleUrls: ['./flights.component.scss']
 })
 export class FlightsComponent {
-  nameForm!: FormGroup;
+  form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -27,8 +27,8 @@ export class FlightsComponent {
   }
 
   createForm() {
-    this.nameForm = this.fb.group({
-      name: ['', Validators.required]
+    this.form = this.fb.group({
+      flights: ['', Validators.required]
     });
   }
 
@@ -37,12 +37,19 @@ export class FlightsComponent {
   }
 
   onSubmit(): void {
-    if (this.nameForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
 
+    const queryParams: Params = { flights: this.form.value.flights };
+
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
+
     this.stepperService.next();
 
-    this.flightsService.updateFormState(this.nameForm);
+    this.flightsService.updateFormState(this.form);
   }
 }

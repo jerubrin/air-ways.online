@@ -15,7 +15,7 @@ export class StepperService {
     this.stepper.next();
   }
 
-  back() {
+  previous() {
     this.stepper.previous();
   }
 }

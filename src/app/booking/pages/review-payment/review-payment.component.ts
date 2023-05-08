@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { ReviewPaymentService } from '../../services/review-payment.service';
@@ -11,34 +11,50 @@ import { ReviewPaymentService } from '../../services/review-payment.service';
   styleUrls: ['./review-payment.component.scss']
 })
 export class ReviewPaymentComponent {
-  nameForm!: FormGroup;
+  form!: FormGroup;
+
+  flights: any;
+
+  passengers: any;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private reviewPaymentService: ReviewPaymentService,
-    private stepperService: StepperService
+    private stepperService: StepperService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.createForm();
+
+    this.flights = this.route.snapshot.queryParams['flights'];
+
+    this.passengers = this.route.snapshot.queryParams['passengers'];
   }
 
   createForm() {
-    this.nameForm = this.fb.group({
-      name: ['', Validators.required]
+    this.form = this.fb.group({
+      review: ['', Validators.required]
     });
   }
 
   goBack() {
-    this.stepperService.back();
+    const queryParams: Params = { flights: this.flights, passengers: this.passengers };
+
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
+
+    this.stepperService.previous();
   }
 
   onSubmit() {
-    if (this.nameForm.invalid) {
+    if (this.form.invalid) {
       return;
     }
-    this.reviewPaymentService.updateFormState(this.nameForm);
+    this.reviewPaymentService.updateFormState(this.form);
 
     this.router.navigate([RoutesPath.CartPage]);
   }

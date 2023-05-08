@@ -10,12 +10,14 @@
   ::ng-deep.mat-horizontal-content-container {
     padding: 0 !important;
   }
+  ::ng-deep .mat-step-header {
+    pointer-events: none;
+  }
   ::ng-deep.mat-step-header .mat-step-icon-selected,
   ::ng-deep.mat-step-header .mat-step-icon-state-edit,
   ::ng-deep.mat-step-header .mat-step-icon-state-done {
     background-color: $color-secondary;
   }
-
   ::ng-deep .mat-step-header[aria-selected='false']:not([ng-reflect-state='done']) {
     pointer-events: none;
     opacity: 0.5;
