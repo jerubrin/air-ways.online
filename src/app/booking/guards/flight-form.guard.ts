@@ -11,6 +11,7 @@ export class FlightFormGuard implements CanActivate {
 
   canActivate(): boolean {
     const isFormValid = this.flightsService.isFormValid();
+
     if (!isFormValid) {
       this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`]);
     }

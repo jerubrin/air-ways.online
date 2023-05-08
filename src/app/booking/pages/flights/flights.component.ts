@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 import { StepperService } from 'src/app/core/services/stepper.service';
 
@@ -15,15 +15,30 @@ import { FlightsService } from '../../services/flights.service';
 export class FlightsComponent {
   form!: FormGroup;
 
+  currentParams: any;
+
+  fromWhere!: string;
+
+  to!: string;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private flightsService: FlightsService,
-    private stepperService: StepperService
+    private stepperService: StepperService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.createForm();
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.currentParams = params;
+      this.fromWhere = params['fromKey'];
+      this.to = params['toKey'];
+
+      console.log(this.currentParams);
+    });
   }
 
   createForm() {

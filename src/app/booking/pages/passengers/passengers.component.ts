@@ -37,7 +37,7 @@ export class PassengersComponent {
   }
 
   goBack() {
-    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`]);
+    window.history.back();
 
     this.stepperService.previous();
   }
@@ -47,7 +47,7 @@ export class PassengersComponent {
       return;
     }
 
-    const queryParams: Params = { flights: this.flights, passengers: this.form.value.passengers };
+    const queryParams: Params = { passengers2: this.form.value.passengers };
 
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageReviewPayment}`], {
       queryParams,

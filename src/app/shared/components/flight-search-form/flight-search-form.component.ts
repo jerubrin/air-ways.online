@@ -282,7 +282,7 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
     const { fromWhere, destination, departureDate, returnDate, passengerCounts } =
       this.searchForm.value;
 
-    const flightSearch: FlightSearch = {
+    const queryParams: FlightSearch = {
       fromKey: fromWhere.key,
       toKey: destination.key,
       forwardDate: new Date(departureDate).toISOString(),
@@ -290,8 +290,13 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
       passengers: passengerCounts
     };
 
+    this.flightSearchService.updateFlightSearchParams(queryParams);
+
     this.flightSearchService.updateFormState(this.searchForm);
 
-    this.router.navigate([RoutesPath.BookingPage]);
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`], {
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 }
