@@ -3,4 +3,5 @@ export interface Airport {
   country: string;
   city: string;
   name: string;
+  gmt?: string;
 }

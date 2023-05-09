@@ -3,5 +3,7 @@ export interface FlightSearch {
   toKey: string;
   forwardDate: string;
   backDate?: string;
-  passengers: string;
+  adults: number,
+  children: number,
+  infants: number
 }

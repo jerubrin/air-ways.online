@@ -1,4 +1,4 @@
-import { Airport } from './airport.model';
+import { Airport } from 'src/app/shared/interfaces/airport.model';
 // eslint-disable-next-line import/no-cycle
 import { Flights } from './flights.model';
 import { Price } from './price.model';

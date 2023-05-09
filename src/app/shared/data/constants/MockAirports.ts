@@ -1,4 +1,4 @@
-import { Airport } from '../../interfaces/Airport';
+import { Airport } from '../../interfaces/airport.model';
 
 const MockAirports: Airport[] = [
   {
