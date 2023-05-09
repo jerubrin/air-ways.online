@@ -9,10 +9,11 @@ import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
 import { Airport } from 'src/app/shared/interfaces/Airport';
 import { Passengers } from 'src/app/shared/interfaces/Passengers';
-import { SearchFlight } from 'src/app/shared/interfaces/SearchFlight';
+import { FlightSearch } from 'src/app/shared/interfaces/FlightSearch';
 import { DateFormatService } from 'src/app/core/services/date-format.service';
 import { DateFormatType } from 'src/app/shared/types/DateFormatType';
 import { PassengerType } from 'src/app/shared/types/PassengerType';
+import { FlightSearchService } from 'src/app/core/services/flight-search.service';
 import { minDateValidator } from '../../validators/minDateValidator';
 import { dateRangeValidator } from '../../validators/dateRangeValidator';
 import { autocompleteObjectValidator } from '../../validators/autocompleteObjectValidator';
@@ -85,7 +86,8 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private elementRef: ElementRef,
     private router: Router,
-    private dateFormatService: DateFormatService
+    private dateFormatService: DateFormatService,
+    private flightSearchService: FlightSearchService
   ) {}
 
   ngOnInit(): void {
@@ -280,7 +282,7 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
     const { fromWhere, destination, departureDate, returnDate, passengerCounts } =
       this.searchForm.value;
 
-    const searchFlight: SearchFlight = {
+    const queryParams: FlightSearch = {
       fromKey: fromWhere.key,
       toKey: destination.key,
       forwardDate: new Date(departureDate).toISOString(),
@@ -288,6 +290,13 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
       passengers: passengerCounts
     };
 
-    this.router.navigate([RoutesPath.BookingPage]);
+    this.flightSearchService.updateFlightSearchParams(queryParams);
+
+    this.flightSearchService.updateFormState(this.searchForm);
+
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`], {
+      queryParams,
+      queryParamsHandling: 'merge'
+    });
   }
 }

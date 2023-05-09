@@ -1,5 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { MatStepper } from '@angular/material/stepper';
+import { StepperService } from 'src/app/core/services/stepper.service';
 
 @Component({
   selector: 'app-stepper',
@@ -13,25 +15,11 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
   ]
 })
 export class StepperComponent {
-  @Output() activeStep = new EventEmitter<string>();
+  @ViewChild('stepper') stepper!: MatStepper;
 
-  isPassengersStepAvailable = false;
+  constructor(private stepperService: StepperService) {}
 
-  isReviewStepAvailable = false;
-
-  stepChanged(event: any) {
-    switch (event.selectedIndex) {
-      case 0:
-        this.activeStep.emit('flights');
-        break;
-      case 1:
-        this.activeStep.emit('passengers');
-        break;
-      case 2:
-        this.activeStep.emit('review');
-        break;
-      default:
-        break;
-    }
+  ngAfterViewInit() {
+    this.stepperService.setStepper(this.stepper);
   }
 }
