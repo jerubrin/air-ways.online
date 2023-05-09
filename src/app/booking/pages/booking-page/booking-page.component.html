@@ -7,6 +7,8 @@
     [persons]="3"
   ></app-second-menu>
   <div class="container">
+    <router-outlet></router-outlet>
+    <!-- ТУТ -->
     <app-flight-container [flight]="mockFlights[0]" [isForward]="true"></app-flight-container>
     <app-flight-container [flight]="mockFlights[1]" [isForward]="false"></app-flight-container>
   </div>

@@ -1,0 +1,15 @@
+<h1>flights works!</h1>
+<h3>FROM ---> {{ fromWhere }}</h3>
+<h3>TO ---> {{ to }}</h3>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Flights</mat-label>
+    <input matInput formControlName="flights" required />
+    <mat-error *ngIf="form?.get('flights')?.invalid">The field is required</mat-error>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button (click)="goBack()">Back</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid">Next</button>
+  </div>
+</form>

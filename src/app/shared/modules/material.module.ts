@@ -11,6 +11,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 const materialModules = [
   MatButtonModule,
@@ -24,11 +26,13 @@ const materialModules = [
   MatNativeDateModule,
   MatIconModule,
   MatSelectModule,
+  MatStepperModule,
+  MatSnackBarModule
 ];
 
 @NgModule({
   declarations: [],
   imports: [CommonModule, ...materialModules],
-  exports: [...materialModules],
+  exports: [...materialModules]
 })
 export class MaterialModule {}

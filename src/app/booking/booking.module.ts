@@ -11,6 +11,10 @@ import { FlightPriceAndSeatsComponent } from './components/flight-price-and-seat
 import { FlightContainerComponent } from './components/flight-container/flight-container.component';
 import { CoreModule } from '../core/core.module';
 import { FlightBlockComponent } from './components/flight-block/flight-block.component';
+import { FlightsComponent } from './pages/flights/flights.component';
+import { PassengersComponent } from './pages/passengers/passengers.component';
+import { ReviewPaymentComponent } from './pages/review-payment/review-payment.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -23,10 +27,14 @@ import { FlightBlockComponent } from './components/flight-block/flight-block.com
     FlightPriceAndSeatsComponent,
     FlightContainerComponent,
     FlightBlockComponent,
+    FlightsComponent,
+    PassengersComponent,
+    ReviewPaymentComponent
   ],
   imports: [
     CommonModule,
     CoreModule,
+    SharedModule,
     BookingRoutingModule,
   ],
 })

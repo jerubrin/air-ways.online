@@ -1,16 +1,16 @@
-@import "variables";
+@import 'variables';
 
 :host {
   .header {
     position: fixed;
     top: 0;
-    z-index: 999px;
+    z-index: 999;
     width: 100%;
     height: $header-height;
     transition: all 0.2s;
   }
-  .menu {
-    gap: 4rem;
+  .left-side {
+    gap: 1.7rem;
   }
   .header.main {
     background-color: $color-neutral-70;
@@ -19,13 +19,22 @@
       background-color: $color-neutral-75;
       z-index: 999;
     }
+    .right-side {
+      gap: 4rem;
+    }
   }
   .header.booking {
     background-color: $color-white;
     color: $color-neutral-10;
+    .right-side {
+      gap: 1.7rem;
+    }
   }
   .header.cart {
     background-color: $color-white;
     color: $color-primary;
+    .right-side {
+      gap: 4rem;
+    }
   }
 }

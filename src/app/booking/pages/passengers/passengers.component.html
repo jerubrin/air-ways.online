@@ -1,0 +1,14 @@
+<h1>passengers works!</h1>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Passengers</mat-label>
+    <input matInput formControlName="passengers" required />
+    <mat-error *ngIf="form?.get('passengers')?.invalid">The field is required</mat-error>
+  </mat-form-field>
+
+  <div>
+    <button mat-raised-button (click)="goBack()">Back</button>
+    <button type="submit" mat-raised-button color="primary" [disabled]="form.invalid">Next</button>
+  </div>
+</form>

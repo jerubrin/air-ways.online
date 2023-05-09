@@ -5,7 +5,7 @@ import { LocalStorageService } from 'src/app/core/services/local-storage.service
 @Component({
   selector: 'app-currency-menu',
   templateUrl: './currency-menu.component.html',
-  styleUrls: ['./currency-menu.component.scss'],
+  styleUrls: ['./currency-menu.component.scss']
 })
 export class CurrencyMenuComponent {
   constructor(
