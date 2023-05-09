@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { CurrencyEnum } from '../data/constants/CurrencyMenuItems';
+import { CurrencyEnum } from '../../shared/data/constants/CurrencyMenuItems';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
 
 @Injectable({

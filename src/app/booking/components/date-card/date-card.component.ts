@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrencyEnum, CurrencySymbolsEnum } from 'src/app/core/data/constants/CurrencyMenuItems';
+import { CurrencyEnum, CurrencySymbolsEnum } from 'src/app/shared/data/constants/CurrencyMenuItems';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { Price } from '../../models/price.model';
 import { Seats } from '../../models/seats.model';

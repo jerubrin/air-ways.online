@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import CurrencyMenuItems from 'src/app/core/data/constants/CurrencyMenuItems';
+import CurrencyMenuItems from 'src/app/shared/data/constants/CurrencyMenuItems';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 
 @Component({

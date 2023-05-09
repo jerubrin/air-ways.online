@@ -9,8 +9,6 @@ import { StepperComponent } from './components/header/components/stepper/stepper
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { OrderByPipe } from './pipes/order-by.pipe';
-import { SecondMenuComponent } from './components/second-menu/second-menu.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -24,21 +22,14 @@ import { SharedModule } from '../shared/shared.module';
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
     FooterComponent,
-    OrderByPipe,
-    SecondMenuComponent,
   ],
   imports: [
     CommonModule,
-    MaterialModule,
-    RouterModule,
-    SharedModule
+    SharedModule,
   ],
   exports: [
-    MaterialModule,
     HeaderComponent,
     FooterComponent,
-    OrderByPipe,
-    SecondMenuComponent,
   ],
 })
 export class CoreModule {}
