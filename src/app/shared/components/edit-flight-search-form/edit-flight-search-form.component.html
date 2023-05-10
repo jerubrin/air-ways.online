@@ -1,0 +1,40 @@
+<div class="form-container">
+  <form class="form flex-center" [formGroup]="editSearchForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Flights</mat-label>
+      <input matInput formControlName="flights1" />
+      <mat-error *ngIf="editSearchForm?.get('flights1')?.invalid">The field is required</mat-error>
+    </mat-form-field>
+
+    <span class="spacer"></span>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Flights</mat-label>
+      <input matInput formControlName="flights2" />
+      <mat-error *ngIf="editSearchForm?.get('flights2')?.invalid">The field is required</mat-error>
+    </mat-form-field>
+    <span class="spacer"></span>
+
+    <span class="spacer"></span>
+
+    <!-- SECTION - Date -->
+    <app-datepicker [initialValue]="forwardDateInitialValues"></app-datepicker>
+
+    <span class="spacer"></span>
+
+    <!-- SECTION - Passengers -->
+    <app-passengers-form-field
+      [initialValues]="passengerCountsInitialValues"
+    ></app-passengers-form-field>
+
+    <button
+      class="btn btn-search"
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!editSearchForm.valid"
+    >
+      Edit
+    </button>
+  </form>
+</div>

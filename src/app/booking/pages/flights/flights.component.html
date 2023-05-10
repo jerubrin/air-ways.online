@@ -2,6 +2,8 @@
 <h3>FROM ---> {{ fromWhere }}</h3>
 <h3>TO ---> {{ to }}</h3>
 
+<app-edit-flight-search-form></app-edit-flight-search-form>
+
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="fill">
     <mat-label>Flights</mat-label>

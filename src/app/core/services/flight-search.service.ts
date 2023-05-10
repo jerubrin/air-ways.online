@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { FlightSearch } from 'src/app/shared/interfaces/FlightSearch';
+import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +12,12 @@ export class FlightSearchService {
     toKey: '',
     forwardDate: '',
     backDate: '',
-    passengers: ''
+    adults: 1,
+    children: 0,
+    infants: 0
   });
 
-  private formValid = false;
+  private formValid = true;
 
   updateFlightSearchParams(searchParams: FlightSearch): void {
     this.flightSearchParamsSubject.next(searchParams);

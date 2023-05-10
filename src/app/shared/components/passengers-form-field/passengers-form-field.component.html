@@ -1,0 +1,103 @@
+<mat-form-field class="passengers-form-field" [formGroup]="passengerCountsFormGroup">
+  <mat-label class="label-small">Passengers *</mat-label>
+  <div class="passengers-form-value flex-center" [matMenuTriggerFor]="passengerCountsMenu">
+    <input matInput type="text" readonly [value]="displayPassengerCount()" />
+    <img src="./assets/icon_arrow_drop_down.svg" alt="icon arrow" />
+  </div>
+  <mat-menu class="passengers-form-menu-container" #passengerCountsMenu="matMenu">
+    <div class="flex-center" (click)="onMenuItemClick($event)">
+      <div>
+        <span style="color: #11397e">Adult</span>
+        <br />
+        <span class="body-medium" style="color: #74767a">14+ years</span>
+      </div>
+      <span class="spacer"></span>
+      <span class="flex-center">
+        <button
+          class="btn-counter"
+          mat-icon-button
+          (click)="decrementPassengersCount('adults')"
+          [disabled]="passengerCountsFormGroup.value.adults === 1"
+        >
+          <mat-icon>remove</mat-icon>
+        </button>
+        <span class="body-medium">{{ passengerCountsFormGroup.value.adults }}</span>
+        <button class="btn-counter" mat-icon-button (click)="incrementPassengersCount('adults')">
+          <mat-icon>add</mat-icon>
+        </button>
+      </span>
+    </div>
+
+    <div class="flex-center" (click)="onMenuItemClick($event)">
+      <div>
+        <span
+          [ngStyle]="{
+            color: passengerCountsFormGroup.value.children > 0 ? '#11397e' : '#1C1B1F'
+          }"
+        >
+          Child
+        </span>
+        <br />
+        <span class="body-medium" style="color: #74767a">2-14 years</span>
+      </div>
+      <span class="spacer"></span>
+      <span class="flex-center">
+        <button
+          class="btn-counter"
+          mat-icon-button
+          (click)="decrementPassengersCount('children')"
+          [disabled]="passengerCountsFormGroup.value.children === 0"
+        >
+          <mat-icon>remove</mat-icon>
+        </button>
+        <span
+          class="body-medium"
+          [ngStyle]="{
+            color: passengerCountsFormGroup.value.children > 0 ? '#11397e' : '#74767A'
+          }"
+        >
+          {{ passengerCountsFormGroup.value.children }}
+        </span>
+        <button class="btn-counter" mat-icon-button (click)="incrementPassengersCount('children')">
+          <mat-icon>add</mat-icon>
+        </button>
+      </span>
+    </div>
+
+    <div class="flex-center" (click)="onMenuItemClick($event)">
+      <div>
+        <span
+          [ngStyle]="{
+            color: passengerCountsFormGroup.value.infants > 0 ? '#11397e' : '#1C1B1F'
+          }"
+        >
+          Infant
+        </span>
+        <br />
+        <span class="body-medium" style="color: #74767a">0-2 years</span>
+      </div>
+      <span class="spacer"></span>
+      <span class="flex-center">
+        <button
+          class="btn-counter"
+          mat-icon-button
+          (click)="decrementPassengersCount('infants')"
+          [disabled]="passengerCountsFormGroup.value.infants === 0"
+        >
+          <mat-icon>remove</mat-icon>
+        </button>
+        <span
+          class="body-medium"
+          [ngStyle]="{
+            color: passengerCountsFormGroup.value.infants > 0 ? '#11397e' : '#74767A'
+          }"
+        >
+          {{ passengerCountsFormGroup.value.infants }}
+        </span>
+        <button class="btn-counter" mat-icon-button (click)="incrementPassengersCount('infants')">
+          <mat-icon>add</mat-icon>
+        </button>
+      </span>
+    </div>
+  </mat-menu>
+</mat-form-field>

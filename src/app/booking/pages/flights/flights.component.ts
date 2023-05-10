@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { FlightSearchService } from 'src/app/core/services/flight-search.service';
 
 import { StepperService } from 'src/app/core/services/stepper.service';
 
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
+import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { FlightsService } from '../../services/flights.service';
 
 @Component({
@@ -21,10 +23,13 @@ export class FlightsComponent {
 
   to!: string;
 
+  params!: FlightSearch;
+
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private flightsService: FlightsService,
+    private flightSearchService: FlightSearchService,
     private stepperService: StepperService,
     private activatedRoute: ActivatedRoute
   ) {}
@@ -36,8 +41,10 @@ export class FlightsComponent {
       this.currentParams = params;
       this.fromWhere = params['fromKey'];
       this.to = params['toKey'];
+    });
 
-      console.log(this.currentParams);
+    this.flightSearchService.getFlightSearchParams().subscribe((patam) => {
+      this.params = patam;
     });
   }
 
@@ -48,7 +55,15 @@ export class FlightsComponent {
   }
 
   goBack(): void {
-    this.router.navigate([RoutesPath.MainPage]);
+    // let params = null;
+
+    // this.flightSearchService.getFlightSearchParams().subscribe((patam) => {
+    //   params = patam;
+    // });
+
+    this.router.navigate([RoutesPath.MainPage], {
+      queryParams: this.params
+    });
   }
 
   onSubmit(): void {
@@ -56,10 +71,10 @@ export class FlightsComponent {
       return;
     }
 
-    const queryParams: Params = { flights: this.form.value.flights };
+    const queryParamsdffdf: Params = { flights: this.form.value.flights };
 
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
-      queryParams,
+      queryParams: queryParamsdffdf,
       queryParamsHandling: 'merge'
     });
 
