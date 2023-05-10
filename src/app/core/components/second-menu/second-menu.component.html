@@ -1,0 +1,33 @@
+<div class="second-menu">
+  <div class="container">
+    <div class="direction">
+      <p class="city-name">{{fromCityName}}</p>
+      <div 
+        class="trip-icon"
+        [ngClass]="{
+          'return-trip-icon': backDate,
+          'one-way-trip-icon': !backDate
+        }"
+      ></div>
+      <p class="city-name">{{toCityName}}</p>
+    </div>
+  
+    <div class="dates">
+      <p>{{backDate ? 'Return' : 'One Way'}}</p>
+      <div class="circle"></div>
+      <p>
+        {{forwardDate | date:'d MMM'}}
+        <ng-template [ngIf]="!!backDate">
+          - {{backDate | date:'d MMM'}}
+        </ng-template>
+      </p>
+      <div class="circle"></div>
+      <p>
+        <span>{{persons}}</span>
+        <span class="account-icon"></span>
+      </p>
+    </div>
+  
+    <button class="btn btn-flat">Edit</button>
+  </div>
+</div>

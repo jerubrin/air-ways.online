@@ -1,4 +1,12 @@
-<div class="container">
-  <p>header with current info and edit</p>
-  <router-outlet></router-outlet>
+<div class="booking-page">
+  <app-second-menu
+    fromCityName="Dublin"
+    toCityName="Warsaw Modlin"
+    [forwardDate]="forwardDateMock"
+    [backDate]="backDateMock"
+    [persons]="3"
+  ></app-second-menu>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
 </div>

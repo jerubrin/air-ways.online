@@ -9,19 +9,38 @@
     gap: 1.3rem;
   }
 }
+
 .btn-date-format-menu {
   @include font($font-size-16, $font-weight-400);
   width: 16.2rem;
 }
+
 .btn-currency-menu {
   width: 6.2rem;
 }
+
 .btn-search {
   width: 12.6rem !important;
   height: 6rem !important;
 }
+
 .btn-counter {
   mat-icon {
     transform: scale(0.8);
+  }
+}
+
+.btn-flat {
+  padding: 4px 8px;
+  color: $color-primary;
+  background-color: $color-secondary-90;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-secondary-50;
+  }
+  &:active {
+    background-color: $color-secondary-10;
   }
 }

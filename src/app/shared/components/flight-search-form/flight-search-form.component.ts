@@ -7,9 +7,9 @@ import { map, Observable, startWith, Subscription } from 'rxjs';
 import MockAirports from 'src/app/shared/data/constants/MockAirports';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
-import { Airport } from 'src/app/shared/interfaces/Airport';
-import { Passengers } from 'src/app/shared/interfaces/Passengers';
-import { FlightSearch } from 'src/app/shared/interfaces/FlightSearch';
+import { Airport } from 'src/app/shared/interfaces/airport.model';
+import { Passengers } from 'src/app/shared/interfaces/passengers.model';
+import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { DateFormatService } from 'src/app/core/services/date-format.service';
 import { DateFormatType } from 'src/app/shared/types/DateFormatType';
 import { PassengerType } from 'src/app/shared/types/PassengerType';
@@ -287,7 +287,9 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
       toKey: destination.key,
       forwardDate: new Date(departureDate).toISOString(),
       backDate: new Date(returnDate).toISOString(),
-      passengers: passengerCounts
+      adults: passengerCounts.adults,
+      children: passengerCounts.children,
+      infants: passengerCounts.infants
     };
 
     this.flightSearchService.updateFlightSearchParams(queryParams);
