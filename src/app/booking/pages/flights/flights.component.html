@@ -1,9 +1,7 @@
-<h1>flights works!</h1>
-<h3>FROM ---> {{ fromWhere }}</h3>
-<h3>TO ---> {{ to }}</h3>
+<app-flight-container [flight]="mockFlights[0]" [isForward]="true"></app-flight-container>
+<app-flight-container [flight]="mockFlights[1]" [isForward]="false"></app-flight-container>
 
 <app-edit-flight-search-form></app-edit-flight-search-form>
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field appearance="fill">
     <mat-label>Flights</mat-label>

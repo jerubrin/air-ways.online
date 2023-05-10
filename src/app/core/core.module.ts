@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { CurrencyMenuComponent } from './components/header/components/currency-menu/currency-menu.component';
 import { DateFormatMenuComponent } from './components/header/components/date-format-menu/date-format-menu.component';
 import { LogoComponent } from './components/header/components/logo/logo.component';
@@ -21,9 +22,16 @@ import { SharedModule } from '../shared/shared.module';
     SignInButtonComponent,
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
-    FooterComponent
+    FooterComponent,
   ],
-  imports: [CommonModule, SharedModule],
-  exports: [HeaderComponent, FooterComponent]
+  imports: [
+    CommonModule,
+    SharedModule,
+    HttpClientModule,
+  ],
+  exports: [
+    HeaderComponent,
+    FooterComponent,
+  ],
 })
 export class CoreModule {}

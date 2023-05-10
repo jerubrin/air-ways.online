@@ -5,4 +5,8 @@ import { Component } from '@angular/core';
   templateUrl: './booking-page.component.html',
   styleUrls: ['./booking-page.component.scss'],
 })
-export class BookingPageComponent {}
+export class BookingPageComponent {
+  forwardDateMock = new Date('06-07-2023');
+
+  backDateMock = new Date('08-17-2023');
+}

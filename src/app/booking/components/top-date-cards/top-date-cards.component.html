@@ -1,0 +1,52 @@
+<div class="top-date-cards">
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="flights"
+    [price]="flights['-2']?.price"
+    [date]="twoDaysBefore"
+    [seats]="flights['-2']?.seats"
+    [selected]="selected === -2"
+    (click)="clickHandler(-2)"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="flights"
+    [price]="flights['-1']?.price"
+    [date]="oneDayBefore"
+    [seats]="flights['-1']?.seats"
+    [selected]="selected === -1"
+    (click)="clickHandler(-1)"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    [price]="flight?.price"
+    [date]="date"
+    [seats]="flight?.seats"
+    [selected]="selected === 0"
+    (click)="clickHandler(0)"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="flights"
+    [price]="flights['1']?.price"
+    [date]="oneDayAfter"
+    [seats]="flights['1']?.seats"
+    [selected]="selected === 1"
+    (click)="clickHandler(1)"
+  ></app-date-card>
+  <div class="card-hr"></div>
+  <app-date-card
+    class="card"
+    *ngIf="flights"
+    [price]="flights['2']?.price"
+    [date]="twoDaysAfter"
+    [seats]="flights['2']?.seats"
+    [selected]="selected === 2"
+    (click)="clickHandler(2)"
+  ></app-date-card>
+  <div class="card-hr"></div>
+</div>
