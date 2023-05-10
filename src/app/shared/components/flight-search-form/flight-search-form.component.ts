@@ -1,17 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
-import { map, Observable, startWith, Subscription } from 'rxjs';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import MockAirports from 'src/app/shared/data/constants/MockAirports';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-
 import { Airport } from 'src/app/shared/interfaces/airport.model';
-import { Passengers } from 'src/app/shared/interfaces/passengers.model';
 import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { DateFormatType } from 'src/app/shared/types/DateFormatType';
-
 import { FlightSearchService } from 'src/app/core/services/flight-search.service';
+import { Subscription, take } from 'rxjs';
 import { PassengersFormFieldComponent } from '../passengers-form-field/passengers-form-field.component';
 import { DatepickerComponent } from '../datepicker/datepicker.component';
 import { DatepickerRangeComponent } from '../datepicker-range/datepicker-range.component';
@@ -37,58 +33,102 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   typeOfFlightsControl!: FormControl;
 
-  typeOfFlightsControlInitialValue = 'roundTrip';
-
-  passengerCountsInitialValues: Passengers = {
-    adults: 1,
-    children: 0,
-    infants: 0
-  };
-
-  fromWhereInitialValue = '';
-
-  destinationInitialValue = '';
-
-  today: Date = new Date();
-
-  weekLater = new Date(new Date().setDate(new Date().getDate() + 7));
-
-  // filteredOptionsFromWhere!: Observable<Airport[]>;
-
-  // filteredOptionsDestination!: Observable<Airport[]>;
-
   selectedDateFormat!: DateFormatType;
 
   options: Airport[] = MockAirports;
+
+  fromWhereInitialValue!: string;
+
+  toWhereInitialValue!: string;
+
+  departureDateInitialValue!: Date | null;
+
+  returnDateInitialValue!: Date | null;
+
+  adultsInitialValue!: number;
+
+  childrenInitialValue!: number;
+
+  infantsInitialValue!: number;
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private flightSearchService: FlightSearchService
   ) {}
 
   ngOnInit(): void {
     this.createForm();
 
-    // this.filteredOptionsFromWhere = this.fromWhereControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map((value) => this.filterCities(value || ''))
-    // );
-    // this.filteredOptionsDestination = this.destinationControl.valueChanges.pipe(
-    //   startWith(''),
-    //   map((value) => this.filterCities(value || ''))
-    // );
+    const { queryParams } = this.activatedRoute.snapshot;
+
+    this.subscriptions.push(
+      this.activatedRoute.queryParams.pipe(take(1)).subscribe((params) => {
+        // console.log(params);
+        this.setInitialValuesFromQueryParams(params);
+      })
+    );
+
+    this.setInitialValuesFromQueryParams(queryParams);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
+  ngAfterViewInit(): void {
+    if (this.fromWhere) {
+      this.subscriptions.push(
+        this.fromWhere.destinationControl.valueChanges.subscribe((value) => {
+          if (this.fromWhere.destinationControl.valid) {
+            this.fromWhere.destinationControl.markAsTouched();
+            this.updateQueryParam('fromKey', value.key);
+          }
+        })
+      );
+    }
+    if (this.destination) {
+      this.subscriptions.push(
+        this.destination.destinationControl.valueChanges.subscribe((value) => {
+          if (this.destination.destinationControl.valid) {
+            this.destination.destinationControl.markAsTouched();
+            this.updateQueryParam('toKey', value.key);
+          }
+        })
+      );
+    }
+  }
+
+  private setInitialValuesFromQueryParams(params: { [x: string]: any }): void {
+    this.fromWhereInitialValue = params['fromKey'] || '';
+    this.toWhereInitialValue = params['toKey'] || '';
+    this.departureDateInitialValue = params['forwardDate'] ? new Date(params['forwardDate']) : null;
+    this.returnDateInitialValue = params['backDate'] ? new Date(params['backDate']) : null;
+    this.adultsInitialValue = parseInt(params['adults'], 10) || 1;
+    this.childrenInitialValue = parseInt(params['children'], 10) || 0;
+    this.infantsInitialValue = parseInt(params['infants'], 10) || 0;
+  }
+
+  private updateQueryParam(param: string, value: any): void {
+    this.subscriptions.push(
+      this.activatedRoute.queryParams.subscribe((params) => {
+        const queryParams = { ...params };
+        if (queryParams[param]) {
+          queryParams[param] = value;
+        } else {
+          queryParams[param] = value;
+        }
+        this.router.navigate([], { queryParams, queryParamsHandling: 'merge' });
+      })
+    );
+  }
+
   private createForm(): void {
     this.searchForm = this.fb.group({
-      typeOfFlights: [this.typeOfFlightsControlInitialValue]
+      typeOfFlights: ['roundTrip']
     });
 
     this.typeOfFlightsControl = this.searchForm.get('typeOfFlights') as FormControl;
@@ -102,14 +142,7 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
     return this.typeOfFlightsControl.value === 'oneWay';
   }
 
-  // private filterCities(value: string): Airport[] {
-  //   if (typeof value === 'string') {
-  //     return this.options.filter((opt) => opt.city.toLowerCase().includes(value.toLowerCase()));
-  //   }
-  //   return this.options;
-  // }
-
-  switchDestinationsFields() {
+  switchDestinationsFields(): void {
     const fromWhereValue = this.fromWhere.destinationControl.value;
     const destinationValue = this.destination.destinationControl.value;
 

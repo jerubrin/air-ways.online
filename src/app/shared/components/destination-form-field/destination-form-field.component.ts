@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { map, Observable, startWith } from 'rxjs';
 import { Airport } from '../../interfaces/airport.model';
 import { autocompleteObjectValidator } from '../../validators/autocompleteObjectValidator';
 
@@ -15,6 +16,8 @@ export class DestinationFormFieldComponent implements OnInit {
 
   @Input() options!: Airport[];
 
+  filteredOptions!: Observable<Airport[]>;
+
   destinationControl!: FormControl;
 
   ngOnInit(): void {
@@ -22,6 +25,18 @@ export class DestinationFormFieldComponent implements OnInit {
       Validators.required,
       autocompleteObjectValidator(this.options)
     ]);
+
+    this.filteredOptions = this.destinationControl.valueChanges.pipe(
+      startWith(''),
+      map((value: any) => this.filterCities(value || ''))
+    );
+  }
+
+  private filterCities(value: string): Airport[] {
+    if (typeof value === 'string') {
+      return this.options.filter((opt) => opt.city.toLowerCase().includes(value.toLowerCase()));
+    }
+    return this.options;
   }
 
   displayCityFn(city: Airport): string {

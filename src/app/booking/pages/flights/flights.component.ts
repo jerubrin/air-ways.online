@@ -39,12 +39,9 @@ export class FlightsComponent {
 
     this.activatedRoute.queryParams.subscribe((params) => {
       this.currentParams = params;
+
       this.fromWhere = params['fromKey'];
       this.to = params['toKey'];
-    });
-
-    this.flightSearchService.getFlightSearchParams().subscribe((patam) => {
-      this.params = patam;
     });
   }
 
@@ -55,14 +52,8 @@ export class FlightsComponent {
   }
 
   goBack(): void {
-    // let params = null;
-
-    // this.flightSearchService.getFlightSearchParams().subscribe((patam) => {
-    //   params = patam;
-    // });
-
     this.router.navigate([RoutesPath.MainPage], {
-      queryParams: this.params
+      queryParams: this.currentParams
     });
   }
 

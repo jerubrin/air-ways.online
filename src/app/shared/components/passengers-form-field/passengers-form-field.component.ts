@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Passengers } from '../../interfaces/passengers.model';
 import { PassengerType } from '../../types/PassengerType';
 
 @Component({
@@ -9,7 +8,11 @@ import { PassengerType } from '../../types/PassengerType';
   styleUrls: ['./passengers-form-field.component.scss']
 })
 export class PassengersFormFieldComponent {
-  @Input() initialValues!: Passengers;
+  @Input() adults!: number;
+
+  @Input() children!: number;
+
+  @Input() infants!: number;
 
   passengerCountsFormGroup!: FormGroup;
 
@@ -21,18 +24,9 @@ export class PassengersFormFieldComponent {
 
   private createForm(): void {
     this.passengerCountsFormGroup = this.fb.group({
-      adults: [
-        this.initialValues.adults,
-        [Validators.required, Validators.min(1), Validators.max(10)]
-      ],
-      children: [
-        this.initialValues.children,
-        [Validators.required, Validators.min(0), Validators.max(10)]
-      ],
-      infants: [
-        this.initialValues.infants,
-        [Validators.required, Validators.min(0), Validators.max(10)]
-      ]
+      adults: [this.adults, [Validators.required, Validators.min(1), Validators.max(10)]],
+      children: [this.children, [Validators.required, Validators.min(0), Validators.max(10)]],
+      infants: [this.infants, [Validators.required, Validators.min(0), Validators.max(10)]]
     });
   }
 

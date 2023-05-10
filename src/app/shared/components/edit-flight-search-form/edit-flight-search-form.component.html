@@ -1,19 +1,20 @@
 <div class="form-container">
   <form class="form flex-center" [formGroup]="editSearchForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>Flights</mat-label>
-      <input matInput formControlName="flights1" />
-      <mat-error *ngIf="editSearchForm?.get('flights1')?.invalid">The field is required</mat-error>
-    </mat-form-field>
+    <app-destination-form-field
+      #fromWhere
+      [initialValue]="fromWhereInitialValue"
+      [options]="options"
+      [label]="'From'"
+    ></app-destination-form-field>
 
     <span class="spacer"></span>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Flights</mat-label>
-      <input matInput formControlName="flights2" />
-      <mat-error *ngIf="editSearchForm?.get('flights2')?.invalid">The field is required</mat-error>
-    </mat-form-field>
-    <span class="spacer"></span>
+    <app-destination-form-field
+      #destination
+      [initialValue]="fromWhereInitialValue"
+      [options]="options"
+      [label]="'Destination'"
+    ></app-destination-form-field>
 
     <span class="spacer"></span>
 
@@ -24,10 +25,12 @@
 
     <!-- SECTION - Passengers -->
     <app-passengers-form-field
-      [initialValues]="passengerCountsInitialValues"
+      [adults]="1"
+      [children]="0"
+      [infants]="0"
     ></app-passengers-form-field>
 
-    <button
+    <!-- <button
       class="btn btn-search"
       mat-flat-button
       color="primary"
@@ -35,6 +38,6 @@
       [disabled]="!editSearchForm.valid"
     >
       Edit
-    </button>
+    </button> -->
   </form>
 </div>

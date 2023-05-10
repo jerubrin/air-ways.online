@@ -13,16 +13,16 @@
     autoActiveFirstOption
     [displayWith]="displayCityFn"
   >
-    <mat-option
+    <!-- <mat-option
       style="height: 5.6rem"
       *ngFor="let option of options | orderBy : 'city'"
       [value]="option"
-    >
-      <!-- <mat-option
-      style="height: 5.6rem"
-      *ngFor="let option of filteredOptionsFromWhere | async | orderBy : 'city'"
-      [value]="option"
     > -->
+    <mat-option
+      style="height: 5.6rem"
+      *ngFor="let option of filteredOptions | async | orderBy : 'city'"
+      [value]="option"
+    >
       <span style="color: #1c1b1f"> {{ option.city }} ({{ option.key }}) </span>
       <br />
       <span style="color: #74767a"> {{ option.name }}, {{ option.country }} </span>

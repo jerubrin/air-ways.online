@@ -8,7 +8,6 @@
       <mat-radio-button value="roundTrip" color="primary"> Round Trip </mat-radio-button>
       <mat-radio-button value="oneWay">One Way</mat-radio-button>
     </mat-radio-group>
-
     <div class="destinations-container">
       <button
         type="button"
@@ -20,38 +19,36 @@
       >
         <img src="./assets/button_reverse.svg" alt="button_reverse" />
       </button>
-
       <app-destination-form-field
         #fromWhere
         [initialValue]="fromWhereInitialValue"
         [options]="options"
         [label]="'From'"
       ></app-destination-form-field>
-
       <app-destination-form-field
         #destination
-        [initialValue]="fromWhereInitialValue"
+        [initialValue]="toWhereInitialValue"
         [options]="options"
         [label]="'Destination'"
       ></app-destination-form-field>
     </div>
-
     <div class="flex-center">
       <app-datepicker-range
         *ngIf="isRoundTrip()"
-        [departureDateInitialValue]="today"
-        [returnDateInitialValue]="weekLater"
+        [departureDateInitialValue]="departureDateInitialValue"
+        [returnDateInitialValue]="returnDateInitialValue"
       ></app-datepicker-range>
-
-      <app-datepicker *ngIf="isOneWay()" [initialValue]="today"></app-datepicker>
-
+      <app-datepicker
+        *ngIf="isOneWay()"
+        [initialValue]="departureDateInitialValue"
+      ></app-datepicker>
       <span class="spacer"></span>
-
       <app-passengers-form-field
-        [initialValues]="passengerCountsInitialValues"
+        [adults]="adultsInitialValue"
+        [children]="childrenInitialValue"
+        [infants]="infantsInitialValue"
       ></app-passengers-form-field>
     </div>
-
     <div class="submit-btn-container flex-center">
       <button class="btn btn-search" mat-flat-button color="primary" type="submit">Search</button>
     </div>
