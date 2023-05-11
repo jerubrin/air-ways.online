@@ -27,7 +27,7 @@ export class FlightsComponent {
         key: 'AMS',
         name: 'Amsterdam-Schiphol',
         city: 'Amsterdam',
-        gmt: '+1.0',
+        gmt: '+1.5',
         country: 'Netherlands'
       },
       to: {

@@ -15,6 +15,10 @@ export class FlightContainerComponent implements OnInit {
 
   selected = 0;
 
+  isSelected = false;
+
+  setSelection = (value: boolean) => this.isSelected = value;
+
   ngOnInit(): void {
     if (this.flight?.takeoffDate) {
       this.date = new Date(this.flight?.takeoffDate);

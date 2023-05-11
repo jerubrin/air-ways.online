@@ -21,6 +21,8 @@ export class TopDateCardsComponent implements OnInit, OnDestroy {
 
   @Input() seats?: Seats;
 
+  @Input() isSelected?: boolean;
+
   @Output() selectEmitter = new EventEmitter<number>();
 
   selected = 0;
