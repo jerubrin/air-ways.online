@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { map, Observable, startWith } from 'rxjs';
+import MockAirports from '../../data/constants/MockAirports';
 import { Airport } from '../../interfaces/airport.model';
 import { autocompleteObjectValidator } from '../../validators/autocompleteObjectValidator';
 
@@ -14,7 +15,7 @@ export class DestinationFormFieldComponent implements OnInit {
 
   @Input() label = '';
 
-  @Input() options!: Airport[];
+  options: Airport[] = MockAirports;
 
   filteredOptions!: Observable<Airport[]>;
 

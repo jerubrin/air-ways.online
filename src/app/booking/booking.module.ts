@@ -15,6 +15,7 @@ import { PassengersComponent } from './pages/passengers/passengers.component';
 import { ReviewPaymentComponent } from './pages/review-payment/review-payment.component';
 import { SharedModule } from '../shared/shared.module';
 import { SecondMenuComponent } from '../core/components/second-menu/second-menu.component';
+import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
 
 @NgModule({
   declarations: [
@@ -31,11 +32,8 @@ import { SecondMenuComponent } from '../core/components/second-menu/second-menu.
     PassengersComponent,
     ReviewPaymentComponent,
     SecondMenuComponent,
+    EditFlightSearchFormComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    BookingRoutingModule,
-  ],
+  imports: [CommonModule, SharedModule, BookingRoutingModule]
 })
 export class BookingModule {}

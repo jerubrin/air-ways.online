@@ -4,7 +4,11 @@
     <input matInput type="text" readonly [value]="displayPassengerCount()" />
     <img src="./assets/icon_arrow_drop_down.svg" alt="icon arrow" />
   </div>
-  <mat-menu class="passengers-form-menu-container" #passengerCountsMenu="matMenu">
+  <mat-menu
+    class="passengers-form-menu-container"
+    #passengerCountsMenu="matMenu"
+    (closed)="closeMenu()"
+  >
     <div class="flex-center" (click)="onMenuItemClick($event)">
       <div>
         <span style="color: #11397e">Adult</span>

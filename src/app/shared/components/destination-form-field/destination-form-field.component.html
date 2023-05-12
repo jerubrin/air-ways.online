@@ -13,24 +13,18 @@
     autoActiveFirstOption
     [displayWith]="displayCityFn"
   >
-    <!-- <mat-option
-      style="height: 5.6rem"
-      *ngFor="let option of options | orderBy : 'city'"
-      [value]="option"
-    > -->
-    <mat-option
-      style="height: 5.6rem"
-      *ngFor="let option of filteredOptions | async | orderBy : 'city'"
-      [value]="option"
-    >
+    <mat-option *ngFor="let option of filteredOptions | async | orderBy : 'city'" [value]="option">
       <span style="color: #1c1b1f"> {{ option.city }} ({{ option.key }}) </span>
       <br />
       <span style="color: #74767a"> {{ option.name }}, {{ option.country }} </span>
     </mat-option>
   </mat-autocomplete>
-
-  <mat-error *ngIf="destinationControl.hasError('required')">Please enter the city </mat-error>
-  <mat-error *ngIf="destinationControl.hasError('matchOption')">
-    City name not recognized. Click one of the autocomplete options
+  <mat-error *ngIf="destinationControl.hasError('required'); else matchOptionError"
+    >Please enter the city
   </mat-error>
+  <ng-template #matchOptionError>
+    <mat-error *ngIf="destinationControl.hasError('matchOption')">
+      City name not recognized
+    </mat-error>
+  </ng-template>
 </mat-form-field>

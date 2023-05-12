@@ -1,0 +1,31 @@
+<div class="form-container">
+  <div class="form flex-center">
+    <app-destination-form-field
+      #fromWhere
+      [initialValue]="fromWhereInitialValue"
+      [label]="'From'"
+    ></app-destination-form-field>
+    <span class="spacer"></span>
+    <app-destination-form-field
+      #destination
+      [initialValue]="toWhereInitialValue"
+      [label]="'Destination'"
+    ></app-destination-form-field>
+    <span class="spacer"></span>
+    <app-datepicker-range
+      *ngIf="isRoundTrip"
+      [departureDateInitialValue]="departureDateInitialValue"
+      [returnDateInitialValue]="returnDateInitialValue"
+    ></app-datepicker-range>
+    <app-datepicker
+      *ngIf="!isRoundTrip"
+      [initialValue]="departureDateInitialValue"
+    ></app-datepicker>
+    <span class="spacer"></span>
+    <app-passengers-form-field
+      [adultsInitialValue]="adultsInitialValue"
+      [childrenInitialValue]="childrenInitialValue"
+      [infantsInitialValue]="infantsInitialValue"
+    ></app-passengers-form-field>
+  </div>
+</div>

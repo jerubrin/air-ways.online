@@ -8,9 +8,9 @@ describe('FlightPriceAndSeatsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlightPriceAndSeatsComponent ]
+      declarations: [FlightPriceAndSeatsComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FlightPriceAndSeatsComponent);
     component = fixture.componentInstance;

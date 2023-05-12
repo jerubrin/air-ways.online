@@ -1,3 +1,8 @@
 .mat-mdc-form-field {
   width: 100%;
+  min-width: 25.5rem;
+}
+
+.mat-mdc-option.mdc-list-item {
+  height: 7rem;
 }
