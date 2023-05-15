@@ -57,9 +57,9 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
     if (currentDateValue) {
       const formattedDate = this.formatDate(currentDateValue, this.selectedDateFormat);
-      const inputDeparture = this.elementRef.nativeElement.querySelector(
-        '.my-datepicker-input-departure'
-      );
+
+      const inputDeparture = this.elementRef.nativeElement.querySelector('input');
+
       if (inputDeparture) {
         inputDeparture.value = formattedDate;
       }

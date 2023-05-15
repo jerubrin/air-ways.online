@@ -6,10 +6,8 @@
     [formControl]="departureDateControl"
     placeholder="Departure Date"
     [min]="minDate"
-    [value]="initialValue"
     (dateChange)="onDateChanged()"
     (blur)="onDateChanged()"
-    class="my-datepicker-input-departure"
   />
   <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
   <mat-hint>{{ selectedDateFormat }}</mat-hint>
