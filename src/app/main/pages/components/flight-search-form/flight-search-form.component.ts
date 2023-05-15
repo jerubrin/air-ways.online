@@ -149,6 +149,8 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
     }
     this.fromWhereComponent.destinationControl.setValue(this.destinationValue);
     this.destinationComponent.destinationControl.setValue(this.fromValue);
+    this.fromWhereComponent.isOptionSelected = true;
+    this.destinationComponent.isOptionSelected = true;
   }
 
   isFormValid(): boolean {

@@ -20,7 +20,7 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
 
   destinationControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
 
-  private isOptionSelected = false;
+  isOptionSelected = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -50,7 +50,11 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
           debounceTime(300),
           tap(() => {
             const searchValue: string = this.destinationControl.value || '';
+
             if (searchValue.trim().length >= 2 || searchValue.trim().length === 0) {
+              if (this.isOptionSelected) {
+                this.emitValidValue(searchValue);
+              }
               if (!this.isOptionSelected) {
                 this.subscriptions.push(
                   this.flightsService
@@ -88,11 +92,6 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
     this.destinationControl.setValue(`${option.city} ${option.key}`);
 
     this.options = [];
-
-    if (this.destinationControl.valid) {
-      const value = this.destinationControl.value || '';
-      this.emitValidValue(value);
-    }
   }
 
   getDepartureFromErrorMessage(): string {
