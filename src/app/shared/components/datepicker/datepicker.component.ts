@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -14,18 +22,20 @@ import { minDateValidator } from '../../validators/minDateValidator';
 export class DatepickerComponent implements OnInit, OnDestroy {
   @Input() initialValue!: Date | null;
 
+  @Output() validDate: EventEmitter<Date> = new EventEmitter();
+
   minDate: Date = new Date();
 
   selectedDateFormat!: DateFormatType;
 
   private subscriptions: Subscription[] = [];
 
-  dateControl!: FormControl;
+  departureDateControl!: FormControl;
 
   constructor(private dateFormatService: DateFormatService, private elementRef: ElementRef) {}
 
   ngOnInit(): void {
-    this.dateControl = new FormControl(this.initialValue, [
+    this.departureDateControl = new FormControl(this.initialValue, [
       Validators.required,
       minDateValidator()
     ]);
@@ -43,7 +53,7 @@ export class DatepickerComponent implements OnInit, OnDestroy {
   }
 
   onDateChanged(): void {
-    const currentDateValue = this.dateControl.value;
+    const currentDateValue = this.departureDateControl.value;
 
     if (currentDateValue) {
       const formattedDate = this.formatDate(currentDateValue, this.selectedDateFormat);
@@ -54,9 +64,18 @@ export class DatepickerComponent implements OnInit, OnDestroy {
         inputDeparture.value = formattedDate;
       }
     }
+
+    this.emitValidDate();
   }
 
   private formatDate(date: Date | null, format: string): string {
     return moment(date).format(format.replace('MM', 'M').replace('DD', 'D').replace('YYYY', 'Y'));
+  }
+
+  private emitValidDate(): void {
+    const selectedDate = this.departureDateControl.value;
+    if (this.departureDateControl.valid && selectedDate) {
+      this.validDate.emit(selectedDate);
+    }
   }
 }

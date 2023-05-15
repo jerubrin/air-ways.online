@@ -1,33 +1,28 @@
 <div class="form-container">
-  <form class="form" [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <form class="form" (ngSubmit)="onSubmit()">
     <mat-radio-group
       class="radio-group-container flex-center"
       aria-label="Select an option"
-      formControlName="typeOfFlights"
+      [formControl]="typeOfFlightsControl"
     >
       <mat-radio-button value="roundTrip" color="primary"> Round Trip </mat-radio-button>
       <mat-radio-button value="oneWay">One Way</mat-radio-button>
     </mat-radio-group>
     <div class="destinations-container">
-      <button
-        type="button"
-        class="btn-reverse flex-center"
-        (click)="switchDestinationsFields()"
-        [disabled]="
-          !fromWhere?.destinationControl?.valid || !destination?.destinationControl?.valid
-        "
-      >
+      <button type="button" class="btn-reverse flex-center" (click)="switchDestinationsFields()">
         <img src="./assets/button_reverse.svg" alt="button_reverse" />
       </button>
       <app-destination-form-field
         #fromWhere
-        [initialValue]="fromWhereInitialValue"
         [label]="'From'"
+        [initialValue]="fromWhereInitialValue"
+        (validValue)="handleValidValueFrom($event)"
       ></app-destination-form-field>
       <app-destination-form-field
         #destination
-        [initialValue]="toWhereInitialValue"
         [label]="'Destination'"
+        [initialValue]="toWhereInitialValue"
+        (validValue)="handleValidValueDestination($event)"
       ></app-destination-form-field>
     </div>
     <div class="flex-center">
@@ -35,16 +30,19 @@
         *ngIf="isRoundTrip()"
         [departureDateInitialValue]="departureDateInitialValue"
         [returnDateInitialValue]="returnDateInitialValue"
+        (validDateRange)="onValidDateRange($event)"
       ></app-datepicker-range>
       <app-datepicker
         *ngIf="isOneWay()"
         [initialValue]="departureDateInitialValue"
+        (validDate)="onValidDate($event)"
       ></app-datepicker>
       <span class="spacer"></span>
       <app-passengers-form-field
         [adultsInitialValue]="adultsInitialValue"
         [childrenInitialValue]="childrenInitialValue"
         [infantsInitialValue]="infantsInitialValue"
+        (validPassengerCount)="onPassengerCountChanged($event)"
       ></app-passengers-form-field>
     </div>
     <div class="submit-btn-container flex-center">

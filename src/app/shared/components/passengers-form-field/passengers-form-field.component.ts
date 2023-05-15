@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PassengerType } from '../../types/PassengerType';
 
@@ -13,6 +13,12 @@ export class PassengersFormFieldComponent implements OnInit {
   @Input() childrenInitialValue!: number;
 
   @Input() infantsInitialValue!: number;
+
+  @Output() validPassengerCount: EventEmitter<{
+    adults: number;
+    children: number;
+    infants: number;
+  }> = new EventEmitter();
 
   passengerCountsFormGroup!: FormGroup;
 
@@ -36,6 +42,14 @@ export class PassengersFormFieldComponent implements OnInit {
         this.infantsInitialValue,
         [Validators.required, Validators.min(0), Validators.max(10)]
       ]
+    });
+
+    this.passengerCountsFormGroup.valueChanges.subscribe(() => {
+      if (this.passengerCountsFormGroup.valid) {
+        const { adults, children, infants } = this.passengerCountsFormGroup.value;
+
+        this.validPassengerCount.emit({ adults, children, infants });
+      }
     });
   }
 

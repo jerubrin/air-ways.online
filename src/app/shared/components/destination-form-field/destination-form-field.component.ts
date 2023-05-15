@@ -1,46 +1,103 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { map, Observable, startWith } from 'rxjs';
-import MockAirports from '../../data/constants/MockAirports';
+import { debounceTime, Subscription, tap } from 'rxjs';
+import { FlightsService } from 'src/app/core/services/flights.service';
 import { Airport } from '../../interfaces/airport.model';
-import { autocompleteObjectValidator } from '../../validators/autocompleteObjectValidator';
 
 @Component({
   selector: 'app-destination-form-field',
   templateUrl: './destination-form-field.component.html',
   styleUrls: ['./destination-form-field.component.scss']
 })
-export class DestinationFormFieldComponent implements OnInit {
-  @Input() initialValue = '';
+export class DestinationFormFieldComponent implements OnInit, OnDestroy {
+  @Input() initialValue!: string;
 
-  @Input() label = '';
+  @Input() label!: string;
 
-  options: Airport[] = MockAirports;
+  @Output() validValue = new EventEmitter<string>();
 
-  filteredOptions!: Observable<Airport[]>;
+  options!: Airport[];
 
-  destinationControl!: FormControl;
+  destinationControl = new FormControl('', [Validators.required, Validators.minLength(2)]);
+
+  private isOptionSelected = false;
+
+  private subscriptions: Subscription[] = [];
+
+  constructor(private flightsService: FlightsService) {}
 
   ngOnInit(): void {
-    this.destinationControl = new FormControl(this.initialValue, [
-      Validators.required,
-      autocompleteObjectValidator(this.options)
-    ]);
+    if (this.initialValue) {
+      this.destinationControl.setValue(this.initialValue);
+      this.destinationControl.markAsTouched();
+      this.emitValidValue(this.initialValue);
+    } else {
+      this.subscriptions.push(
+        this.flightsService
+          .getAirportStream('')
+          .pipe(
+            tap((airports) => {
+              this.options = airports;
+            })
+          )
+          .subscribe()
+      );
+    }
 
-    this.filteredOptions = this.destinationControl.valueChanges.pipe(
-      startWith(''),
-      map((value: any) => this.filterCities(value || ''))
+    this.subscriptions.push(
+      this.destinationControl.valueChanges
+        .pipe(
+          debounceTime(300),
+          tap(() => {
+            const searchValue: string = this.destinationControl.value || '';
+            if (searchValue.trim().length >= 2 || searchValue.trim().length === 0) {
+              if (!this.isOptionSelected) {
+                this.subscriptions.push(
+                  this.flightsService
+                    .getAirportStream(searchValue)
+                    .pipe(
+                      tap((airports) => {
+                        if (airports.length === 0) {
+                          const errors = { required: true, notFound: true };
+                          this.destinationControl.setErrors(errors);
+                        } else {
+                          const errors = { required: true, notFound: false };
+                          this.destinationControl.setErrors(errors);
+                        }
+                        this.options = airports;
+                      })
+                    )
+                    .subscribe()
+                );
+              }
+              this.isOptionSelected = false;
+            }
+          })
+        )
+        .subscribe()
     );
   }
 
-  private filterCities(value: string): Airport[] {
-    if (typeof value === 'string') {
-      return this.options.filter((opt) => opt.city.toLowerCase().includes(value.toLowerCase()));
-    }
-    return this.options;
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
-  displayCityFn(city: Airport): string {
-    return city.city ? `${city.city} ${city.key}` : '';
+  onOptionSelected(option: Airport): void {
+    this.isOptionSelected = true;
+
+    this.destinationControl.setValue(`${option.city} ${option.key}`);
+
+    this.options = [];
+
+    if (this.destinationControl.valid) {
+      const value = this.destinationControl.value || '';
+      this.emitValidValue(value);
+    }
+  }
+
+  emitValidValue(value: string): void {
+    if (value !== null) {
+      this.validValue.emit(value);
+    }
   }
 }

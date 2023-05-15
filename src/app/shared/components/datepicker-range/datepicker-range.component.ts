@@ -1,4 +1,12 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
@@ -16,6 +24,9 @@ export class DatepickerRangeComponent implements OnInit, OnDestroy {
   @Input() departureDateInitialValue!: Date | null;
 
   @Input() returnDateInitialValue!: Date | null;
+
+  @Output() validDateRange: EventEmitter<{ departureDate: Date; returnDate: Date }> =
+    new EventEmitter();
 
   minDate: Date = new Date();
 
@@ -79,9 +90,20 @@ export class DatepickerRangeComponent implements OnInit, OnDestroy {
         inputReturn.value = formattedReturnDate;
       }
     }
+
+    this.emitValidDateRange();
   }
 
   private formatDate(date: Date | null, format: string): string {
     return moment(date).format(format.replace('MM', 'M').replace('DD', 'D').replace('YYYY', 'Y'));
+  }
+
+  emitValidDateRange(): void {
+    const departureDate = this.departureDateControl.value;
+    const returnDate = this.returnDateControl.value;
+
+    if (this.departureDateControl.valid && this.returnDateControl.valid) {
+      this.validDateRange.emit({ departureDate, returnDate });
+    }
   }
 }

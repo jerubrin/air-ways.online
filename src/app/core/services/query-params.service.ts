@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as moment from 'moment';
-import { take } from 'rxjs';
+import { BehaviorSubject, first, Observable } from 'rxjs';
 
 import { QueryParams } from 'src/app/shared/interfaces/query-params.model';
 
@@ -21,31 +21,65 @@ export class QueryParamsService {
     infants: '0'
   };
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  queryParamsSubject: BehaviorSubject<QueryParams> = new BehaviorSubject<QueryParams>(
+    {} as QueryParams
+  );
+
+  queryParams$: Observable<QueryParams> = this.queryParamsSubject.asObservable();
+
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+    const currentParams = this.getQueryParamsFromSessionStorage() || this.getQueryParams();
+
+    if (Object.keys(currentParams).length > 0) {
+      this.queryParamsSubject.next(currentParams as QueryParams);
+    } else {
+      this.setInitialQueryParams();
+    }
+  }
 
   setInitialQueryParams(): void {
-    this.router.navigate([], {
-      queryParams: this.queryParamsInitial,
-      queryParamsHandling: 'merge'
+    this.setQueryParams(this.queryParamsInitial);
+
+    this.queryParamsSubject.next(this.queryParamsInitial);
+
+    this.saveQueryParamsToSessionStorage(this.queryParamsInitial);
+  }
+
+  updateQueryParamsSubject(queryParamsToUpdate: Partial<QueryParams>): void {
+    this.queryParamsSubject.pipe(first()).subscribe((queryParams) => {
+      const updatedParams: QueryParams = { ...queryParams, ...queryParamsToUpdate };
+
+      this.queryParamsSubject.next(updatedParams);
+
+      this.saveQueryParamsToSessionStorage(updatedParams);
     });
   }
 
-  setQueryParamsToCurrentPage(params: QueryParams): void {
+  updateQueryParamOnCurrentPage(queryParamsToUpdate: Partial<QueryParams>): void {
+    this.updateQueryParamsSubject(queryParamsToUpdate);
+
+    this.queryParamsSubject.pipe(first()).subscribe((queryParams) => {
+      this.setQueryParams(queryParams);
+    });
+  }
+
+  getQueryParams(): QueryParams {
+    return this.activatedRoute.snapshot.queryParams as QueryParams;
+  }
+
+  private setQueryParams(params: QueryParams): void {
     this.router.navigate([], {
       queryParams: params,
       queryParamsHandling: 'merge'
     });
   }
 
-  hasQueryParams(queryParams: string[]): boolean {
-    const currentParams = this.activatedRoute.snapshot.queryParams;
-    return queryParams.some((param) => !!currentParams[param]);
+  private saveQueryParamsToSessionStorage(queryParams: QueryParams): void {
+    sessionStorage.setItem('queryParams', JSON.stringify(queryParams));
   }
 
-  updateQueryParam(params: { [param: string]: string }): void {
-    this.activatedRoute.queryParams.pipe(take(1)).subscribe((queryParams) => {
-      const updatedParams = { ...queryParams, ...params };
-      this.router.navigate([], { queryParams: updatedParams, queryParamsHandling: 'merge' });
-    });
+  private getQueryParamsFromSessionStorage(): QueryParams | null {
+    const storedParams = sessionStorage.getItem('queryParams');
+    return storedParams ? JSON.parse(storedParams) : null;
   }
 }

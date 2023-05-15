@@ -3,7 +3,7 @@
   <input
     matInput
     [matDatepicker]="departureDatepicker"
-    [formControl]="dateControl"
+    [formControl]="departureDateControl"
     placeholder="Departure Date"
     [min]="minDate"
     [value]="initialValue"
@@ -14,8 +14,10 @@
   <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
   <mat-hint>{{ selectedDateFormat }}</mat-hint>
   <mat-datepicker #departureDatepicker></mat-datepicker>
-  <mat-error *ngIf="dateControl.hasError('required')"> Please enter the departure date </mat-error>
-  <mat-error *ngIf="dateControl.hasError('minDate')">
+  <mat-error *ngIf="departureDateControl.hasError('required')">
+    Please enter the departure date
+  </mat-error>
+  <mat-error *ngIf="departureDateControl.hasError('minDate')">
     Departure date must not be earlier than today
   </mat-error>
 </mat-form-field>

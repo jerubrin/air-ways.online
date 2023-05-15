@@ -4,7 +4,7 @@ import RoutesPath from '../shared/data/enams/RoutesPath';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: RoutesPath.MainPage, pathMatch: 'full' },
+  { path: '', redirectTo: RoutesPath.MainPage, pathMatch: 'prefix' },
   {
     path: RoutesPath.MainPage,
     component: MainPageComponent
