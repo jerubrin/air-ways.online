@@ -14,10 +14,5 @@
   <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
   <mat-hint>{{ selectedDateFormat }}</mat-hint>
   <mat-datepicker #departureDatepicker></mat-datepicker>
-  <mat-error *ngIf="departureDateControl.hasError('required')">
-    Please enter the departure date
-  </mat-error>
-  <mat-error *ngIf="departureDateControl.hasError('minDate')">
-    Departure date must not be earlier than today
-  </mat-error>
+  <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
 </mat-form-field>

@@ -68,6 +68,16 @@ export class DatepickerComponent implements OnInit, OnDestroy {
     this.emitValidDate();
   }
 
+  getDepartureFromErrorMessage(): string {
+    if (this.departureDateControl.hasError('required')) {
+      return 'Please enter the departure date';
+    }
+    if (this.departureDateControl.hasError('minDate')) {
+      return 'Departure date must not be earlier than today';
+    }
+    return '';
+  }
+
   private formatDate(date: Date | null, format: string): string {
     return moment(date).format(format.replace('MM', 'M').replace('DD', 'D').replace('YYYY', 'Y'));
   }

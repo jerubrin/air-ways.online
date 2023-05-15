@@ -20,13 +20,5 @@
       </mat-option>
     </ng-container>
   </mat-autocomplete>
-  <mat-error *ngIf="destinationControl?.hasError('minlength')"
-    >Enter at least 2 characters</mat-error
-  >
-  <mat-error *ngIf="destinationControl?.hasError('notFound'); else required"
-    >No airports found. Choose from the list</mat-error
-  >
-  <ng-template #required>
-    <mat-error *ngIf="destinationControl?.hasError('required')">Please enter the city </mat-error>
-  </ng-template>
+  <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
 </mat-form-field>

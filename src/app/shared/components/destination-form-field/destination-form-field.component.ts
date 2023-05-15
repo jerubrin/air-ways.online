@@ -95,6 +95,19 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
     }
   }
 
+  getDepartureFromErrorMessage(): string {
+    if (this.destinationControl.hasError('notFound')) {
+      return 'No airports found. Choose from the list';
+    }
+    if (this.destinationControl.hasError('required')) {
+      return 'Please select from the list';
+    }
+    if (this.destinationControl.hasError('minlength')) {
+      return 'Enter at least 2 characters';
+    }
+    return '';
+  }
+
   emitValidValue(value: string): void {
     if (value !== null) {
       this.validValue.emit(value);

@@ -21,19 +21,5 @@
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-hint>{{ selectedDateFormat }} - {{ selectedDateFormat }}</mat-hint>
   <mat-date-range-picker #picker></mat-date-range-picker>
-  <mat-error *ngIf="departureDateControl.hasError('required')">
-    Please enter the departure date
-  </mat-error>
-  <mat-error *ngIf="departureDateControl.hasError('minDate')">
-    Departure date must not be earlier than today
-  </mat-error>
-  <mat-error *ngIf="returnDateControl.hasError('required')">
-    Please enter the return date
-  </mat-error>
-  <mat-error *ngIf="returnDateControl.hasError('minDate')">
-    Return date must not be earlier than today
-  </mat-error>
-  <mat-error *ngIf="returnDateControl.hasError('dateRange')">
-    The return date must be after the departure date
-  </mat-error>
+  <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
 </mat-form-field>
