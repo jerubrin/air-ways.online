@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 // import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // import { ActivatedRoute, Params, Router } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { Component } from '@angular/core';
 // import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 // import { FlightsService } from '../../services/flights.service';
 
+import { FlightSearchService } from 'src/app/core/services/flight-search.service';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -14,7 +15,19 @@ import { Flight } from '../../models/flight.model';
   templateUrl: './flights.component.html',
   styleUrls: ['./flights.component.scss']
 })
-export class FlightsComponent {
+export class FlightsComponent implements OnInit, OnDestroy {
+  constructor(
+    private flightSearchService: FlightSearchService,
+  ) {}
+
+  ngOnInit(): void {
+    this.flightSearchService.getFlightSearchParams();
+  }
+
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
+  }
+
   mockFlights: Flight[] = [
     {
       seats: {
