@@ -64,7 +64,7 @@ export class FlightSearchService {
   get flightsStream$(): Observable<Flight[]> {
     return this.queryParamsService.queryParams$.pipe(
       filter(
-        (params) => !!params.fromKey && !!params.toKey && !!params.forwardDate && !!params.backDate
+        (params) => !!params.fromKey && !!params.toKey && !!params.forwardDate
       ),
       map((params) => ({
         fromKey: params.fromKey,
