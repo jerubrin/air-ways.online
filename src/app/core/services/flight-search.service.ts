@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { BehaviorSubject, Observable, filter, map, switchMap, tap } from 'rxjs';
+import { BehaviorSubject, Observable, filter, map, switchMap } from 'rxjs';
 import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { Flight } from 'src/app/booking/models/flight.model';
 import { HttpClient } from '@angular/common/http';
@@ -23,10 +22,28 @@ export class FlightSearchService {
 
   private formValid = true;
 
+  selectedFlights = new Array<Flight | undefined>(2);
+
+  selected: boolean[] = [false, false];
+
+  hasBackDate?: boolean;
+
   constructor(
     private queryParamsService: QueryParamsService,
     private http: HttpClient,
   ) {}
+
+  get isValid(): boolean {
+    return !!(this.hasBackDate
+      ? !!this.selectedFlights[0]
+      : this.selectedFlights[0] && this.selectedFlights[1]);
+  }
+
+  selectFlight(num: number, flight?: Flight) {
+    this.selectedFlights[num] = flight;
+    this.selected[num] = !!flight;
+    this.updateFormState(this.isValid);
+  }
 
   updateFlightSearchParams(searchParams: FlightSearch): void {
     this.flightSearchParamsSubject.next(searchParams);
@@ -36,8 +53,8 @@ export class FlightSearchService {
     return this.flightSearchParamsSubject.asObservable();
   }
 
-  updateFormState(form: FormGroup): void {
-    this.formValid = form.valid;
+  updateFormState(isValid: boolean): void {
+    this.formValid = isValid;
   }
 
   isFormValid(): boolean {
@@ -46,7 +63,6 @@ export class FlightSearchService {
 
   get flightsStream$(): Observable<Flight[]> {
     return this.queryParamsService.queryParams$.pipe(
-      tap(console.log),
       filter(
         (params) => !!params.fromKey && !!params.toKey && !!params.forwardDate && !!params.backDate
       ),
@@ -57,7 +73,6 @@ export class FlightSearchService {
         backDate: params.backDate.substring(0, 10)
       })),
       switchMap((body) => this.http.post<Flight[]>(`${API_URL}${API_FLIGHT}`, body)),
-      tap(console.log),
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -11,11 +11,15 @@ export class FlightContainerComponent {
 
   @Input() isForward?: boolean;
 
+  @Output() selectEmitter = new EventEmitter<Flight | undefined>();
+
+  @Input() isSelected?: boolean;
+
   selected = 0;
 
-  isSelected = false;
-
-  setSelection = (value: boolean) => this.isSelected = value;
+  setSelection = (value: boolean) => {
+    this.selectEmitter.emit(value ? this.selectedFlight : undefined);
+  };
 
   select(value: number) {
     this.selected = value;

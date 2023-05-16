@@ -1,16 +1,23 @@
 <div class="flights-list">
-  <app-flight-container *ngIf="flights[0]" [flight]="flights[0]" [isForward]="true"></app-flight-container>
-  <app-flight-container *ngIf="flights[1]" [flight]="flights[1]" [isForward]="false"></app-flight-container>
+  <app-flight-container
+    *ngIf="flights[0]"
+    [flight]="flights[0]"
+    [isForward]="true"
+    (selectEmitter)="flightSearchService.selectFlight(0, $event)"
+    [isSelected]="!!flightSearchService.selectedFlights[0]">
+  </app-flight-container>
+  <app-flight-container
+    *ngIf="flights[1]"
+    [flight]="flights[1]"
+    [isForward]="false"
+    (selectEmitter)="flightSearchService.selectFlight(1, $event)"
+    [isSelected]="!!flightSearchService.selectedFlights[1]">
+  </app-flight-container>
 </div>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>Flights</mat-label>
-    <input matInput formControlName="flights" required />
-    <mat-error *ngIf="form?.get('flights')?.invalid">The field is required</mat-error>
-  </mat-form-field>
+<form (ngSubmit)="onSubmit()">
   <div>
     <button mat-raised-button (click)="goBack()">Back</button>
-    <button mat-raised-button color="primary" [disabled]="form.invalid">Next</button>
+    <button mat-raised-button color="primary" [disabled]="!flightSearchService.isValid">Next</button>
   </div>
 </form>
