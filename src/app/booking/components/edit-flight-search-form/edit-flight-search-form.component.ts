@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { Subscription } from 'rxjs';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
@@ -15,6 +15,8 @@ import { PassengersFormFieldComponent } from '../../../shared/components/passeng
   styleUrls: ['./edit-flight-search-form.component.scss']
 })
 export class EditFlightSearchFormComponent implements OnInit, OnDestroy {
+  @Input() showEditForm?: boolean;
+
   @ViewChild('fromWhere') fromWhereComponent!: DestinationFormFieldComponent;
 
   @ViewChild('destination') destinationComponent!: DestinationFormFieldComponent;
@@ -152,9 +154,7 @@ export class EditFlightSearchFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (!this.isFormValid()) {
-
-    }
+    // if (!this.isFormValid()) {}
     // NOTE - в сервисе bookingPage добавить флаг
   }
 }

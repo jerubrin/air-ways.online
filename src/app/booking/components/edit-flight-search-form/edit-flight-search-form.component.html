@@ -1,4 +1,4 @@
-<div class="form-container">
+<div [ngClass]="{'form-container': true, 'display-none': showEditForm}">
   <form class="form flex-center" (ngSubmit)="onSubmit()">
     <app-destination-form-field
       #fromWhere

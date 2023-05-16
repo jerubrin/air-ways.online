@@ -5,8 +5,10 @@
     [forwardDate]="forwardDateMock"
     [backDate]="backDateMock"
     [persons]="3"
+    (editClick)="editClick()"
   ></app-second-menu>
   <div class="container">
+    <app-edit-flight-search-form class="relative" [showEditForm]="showEditForm"></app-edit-flight-search-form>
     <router-outlet></router-outlet>
   </div>
 </div>

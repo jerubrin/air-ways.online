@@ -48,6 +48,8 @@ export class FlightsComponent implements OnInit, OnDestroy {
       this.fromWhere = params['fromKey'];
       this.to = params['toKey'];
     });
+
+    this.flightSearchService.getFlightSearchParams();
   }
 
   ngOnDestroy(): void {
@@ -58,7 +60,8 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.form = this.fb.group({
-      flights: ['', Validators.required]
+      flightOne: ['', Validators.required],
+      flightTwo: ['', Validators.required]
     });
   }
 
@@ -85,7 +88,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
     this.flightsService.updateFormState(this.form);
   }
 
-  // remove
+  // remove this shit
   mockFlights: Flight[] = [
     {
       seats: {
