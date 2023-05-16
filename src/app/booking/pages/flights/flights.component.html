@@ -1,2 +1,15 @@
+<app-edit-flight-search-form></app-edit-flight-search-form>
 <app-flight-container [flight]="mockFlights[0]" [isForward]="true"></app-flight-container>
 <app-flight-container [flight]="mockFlights[1]" [isForward]="false"></app-flight-container>
+
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field appearance="fill">
+    <mat-label>Flights</mat-label>
+    <input matInput formControlName="flights" required />
+    <mat-error *ngIf="form?.get('flights')?.invalid">The field is required</mat-error>
+  </mat-form-field>
+  <div>
+    <button mat-raised-button (click)="goBack()">Back</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid">Next</button>
+  </div>
+</form>

@@ -8,9 +8,9 @@ describe('FlightBlockComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FlightBlockComponent ]
+      declarations: [FlightBlockComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(FlightBlockComponent);
     component = fixture.componentInstance;

@@ -1,0 +1,36 @@
+<div class="form-container">
+  <form class="form flex-center" (ngSubmit)="onSubmit()">
+    <app-destination-form-field
+      #fromWhere
+      [label]="'From'"
+      [initialValue]="fromWhereInitialValue"
+      (validValue)="onValidValueFrom($event)"
+    ></app-destination-form-field>
+    <span class="spacer"></span>
+    <app-destination-form-field
+      #destination
+      [label]="'Destination'"
+      [initialValue]="toWhereInitialValue"
+      (validValue)="onValidValueDestination($event)"
+    ></app-destination-form-field>
+    <span class="spacer"></span>
+    <app-datepicker-range
+      *ngIf="isRoundTrip"
+      [departureDateInitialValue]="departureDateInitialValue"
+      [returnDateInitialValue]="returnDateInitialValue"
+      (validDateRange)="onValidDateRange($event)"
+    ></app-datepicker-range>
+    <app-datepicker
+      *ngIf="!isRoundTrip"
+      [initialValue]="departureDateInitialValue"
+      (validDate)="onValidDate($event)"
+    ></app-datepicker>
+    <span class="spacer"></span>
+    <app-passengers-form-field
+      [adultsInitialValue]="adultsInitialValue"
+      [childrenInitialValue]="childrenInitialValue"
+      [infantsInitialValue]="infantsInitialValue"
+      (validPassengerCount)="onPassengerCountChanged($event)"
+    ></app-passengers-form-field>
+  </form>
+</div>
