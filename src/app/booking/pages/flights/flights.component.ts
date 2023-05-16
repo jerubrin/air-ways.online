@@ -8,6 +8,7 @@ import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { FlightSearchService } from 'src/app/core/services/flight-search.service';
 import { Subscription } from 'rxjs';
+import { FlightsApiService } from 'src/app/core/services/flights-api.service';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -36,6 +37,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private queryParamsService: QueryParamsService,
     public flightSearchService: FlightSearchService,
+    public flightsApiService: FlightsApiService,
   ) {}
 
   ngOnInit() {
@@ -49,7 +51,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions.push(
-      this.flightSearchService.flightsStream$.subscribe((flights) => {
+      this.flightsApiService.flightsStream$.subscribe((flights) => {
         this.flightSearchService.selectFlight(0, undefined);
         this.flightSearchService.selectFlight(1, undefined);
         this.flights = flights;

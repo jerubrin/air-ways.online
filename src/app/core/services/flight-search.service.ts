@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, filter, map, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { Flight } from 'src/app/booking/models/flight.model';
-import { HttpClient } from '@angular/common/http';
-import { QueryParamsService } from './query-params.service';
-import { API_FLIGHT, API_URL } from '../data/uri/api-url.constants';
 
 @Injectable({
   providedIn: 'root'
@@ -27,11 +24,6 @@ export class FlightSearchService {
   selected: boolean[] = [false, false];
 
   hasBackDate?: boolean;
-
-  constructor(
-    private queryParamsService: QueryParamsService,
-    private http: HttpClient,
-  ) {}
 
   get isValid(): boolean {
     return !!(this.hasBackDate
@@ -59,20 +51,5 @@ export class FlightSearchService {
 
   isFormValid(): boolean {
     return this.formValid;
-  }
-
-  get flightsStream$(): Observable<Flight[]> {
-    return this.queryParamsService.queryParams$.pipe(
-      filter(
-        (params) => !!params.fromKey && !!params.toKey && !!params.forwardDate
-      ),
-      map((params) => ({
-        fromKey: params.fromKey,
-        toKey: params.toKey,
-        forwardDate: params.forwardDate.substring(0, 10),
-        backDate: params.backDate.substring(0, 10)
-      })),
-      switchMap((body) => this.http.post<Flight[]>(`${API_URL}${API_FLIGHT}`, body)),
-    );
   }
 }
