@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 
