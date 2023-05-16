@@ -11,9 +11,9 @@ export class SecondMenuComponent {
 
   @Input() toCityName?: string;
 
-  @Input() forwardDate?: Date;
+  @Input() forwardDate?: Date | null;
 
-  @Input() backDate?: Date;
+  @Input() backDate?: Date | null;
 
   @Input() persons?: number;
 

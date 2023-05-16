@@ -1,6 +1,5 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import * as moment from 'moment';
-import { Subscription } from 'rxjs';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 
 import { Passengers } from 'src/app/shared/interfaces/passengers.model';
@@ -14,7 +13,8 @@ import { PassengersFormFieldComponent } from '../../../shared/components/passeng
   templateUrl: './edit-flight-search-form.component.html',
   styleUrls: ['./edit-flight-search-form.component.scss']
 })
-export class EditFlightSearchFormComponent implements OnInit, OnDestroy {
+
+export class EditFlightSearchFormComponent {
   @Input() showEditForm?: boolean;
 
   @ViewChild('fromWhere') fromWhereComponent!: DestinationFormFieldComponent;
@@ -27,21 +27,21 @@ export class EditFlightSearchFormComponent implements OnInit, OnDestroy {
 
   @ViewChild(PassengersFormFieldComponent) passengers!: PassengersFormFieldComponent;
 
-  isRoundTrip!: boolean;
+  @Input() isRoundTrip!: boolean;
 
-  fromWhereInitialValue!: string;
+  @Input() fromWhereInitialValue!: string;
 
-  toWhereInitialValue!: string;
+  @Input() toWhereInitialValue!: string;
 
-  departureDateInitialValue!: Date | null;
+  @Input() departureDateInitialValue!: Date | null;
 
-  returnDateInitialValue!: Date | null;
+  @Input() returnDateInitialValue!: Date | null;
 
-  adultsInitialValue!: number;
+  @Input() adultsInitialValue!: number;
 
-  childrenInitialValue!: number;
+  @Input() childrenInitialValue!: number;
 
-  infantsInitialValue!: number;
+  @Input() infantsInitialValue!: number;
 
   fromValue = '';
 
@@ -59,35 +59,7 @@ export class EditFlightSearchFormComponent implements OnInit, OnDestroy {
 
   infantsValue = '';
 
-  private subscriptions: Subscription[] = [];
-
   constructor(private queryParamsService: QueryParamsService) {}
-
-  ngOnInit() {
-    this.subscriptions.push(
-      this.queryParamsService.queryParams$.subscribe((params) => {
-        this.setInitialValuesFromQueryParams(params);
-      })
-    );
-  }
-
-  private setInitialValuesFromQueryParams(params: any): void {
-    this.isRoundTrip = Boolean(params.backDate);
-
-    this.fromWhereInitialValue =
-      params.fromWhere && params.fromKey ? `${params.fromWhere} ${params.fromKey}` : '';
-    this.toWhereInitialValue =
-      params.toWhere && params.toKey ? `${params.toWhere} ${params.toKey}` : '';
-    this.departureDateInitialValue = params.forwardDate ? new Date(params.forwardDate) : null;
-    this.returnDateInitialValue = params.backDate ? new Date(params.backDate) : null;
-    this.adultsInitialValue = params.adults ? Number(params.adults) : 1;
-    this.childrenInitialValue = params.children ? Number(params.children) : 0;
-    this.infantsInitialValue = params.infants ? Number(params.infants) : 0;
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((s) => s.unsubscribe());
-  }
 
   onValidValueFrom(value: string): void {
     this.fromValue = value;
