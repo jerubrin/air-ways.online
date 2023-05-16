@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, Subscription, tap } from 'rxjs';
-import { FlightsService } from 'src/app/core/services/flights.service';
+import { FlightsQueryParamsService } from 'src/app/core/services/flights.service';
 import { Airport } from '../../interfaces/airport.model';
 
 @Component({
@@ -24,7 +24,7 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(private flightsService: FlightsQueryParamsService) {}
 
   ngOnInit(): void {
     if (this.initialValue) {

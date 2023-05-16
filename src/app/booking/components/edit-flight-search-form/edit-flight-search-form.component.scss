@@ -1,15 +1,11 @@
 @import 'variables';
 .form-container {
-  position: absolute;
-  top: 0;
   background: $color-neutral-65;
   border-radius: 0.8rem;
   padding: 2rem;
   border: 1px solid $color-secondary-40;
 }
 .form {
-  gap: 0.5rem;
-
   ::ng-deep .mdc-text-field--filled {
     background-color: $color-secondary-90;
     border-radius: 0.4rem;
@@ -23,7 +19,3 @@
     height: 0rem;
   }
 }
-
-// .display-none {
-//   display: none;
-// }

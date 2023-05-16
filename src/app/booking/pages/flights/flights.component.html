@@ -1,6 +1,6 @@
 <div class="flights-list">
-  <app-flight-container [flight]="mockFlights[0]" [isForward]="true"></app-flight-container>
-  <app-flight-container [flight]="mockFlights[1]" [isForward]="false"></app-flight-container>
+  <app-flight-container *ngIf="flights[0]" [flight]="flights[0]" [isForward]="true"></app-flight-container>
+  <app-flight-container *ngIf="flights[1]" [flight]="flights[1]" [isForward]="false"></app-flight-container>
 </div>
 
 <form [formGroup]="form" (ngSubmit)="onSubmit()">

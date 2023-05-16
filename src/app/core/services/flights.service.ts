@@ -6,20 +6,25 @@ import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { Airport } from 'src/app/shared/interfaces/airport.model';
 import { ReplaySubject, debounceTime, switchMap, catchError, throwError } from 'rxjs';
 import { API_AIRPORT, API_FLIGHT, API_URL } from '../data/uri/api-url.constants';
+import { FlightSearchService } from './flight-search.service';
 
 const DEBOUNCE_TIME = 500;
 
 @Injectable({
   providedIn: 'root'
 })
-export class FlightsService {
+export class FlightsQueryParamsService {
   searchForm: Partial<FlightSearch> = {};
 
   private from$ = new ReplaySubject<string>(1);
 
   private destination$ = new ReplaySubject<string>(1);
 
-  constructor(route: ActivatedRoute, private http: HttpClient) {
+  constructor(
+    route: ActivatedRoute,
+    private http: HttpClient,
+    private flightSearchService: FlightSearchService
+  ) {
     route.queryParams.subscribe((queryParams) => {
       this.searchForm.fromKey = queryParams?.['fromKey'];
       this.searchForm.toKey = queryParams?.['toKey'];
@@ -53,8 +58,6 @@ export class FlightsService {
     );
   }
 
-  // NOTE  Из этого сервиса я использую только ЭТО
-  // (этого метода мне достаточно, добавила на вход данные из query или которые были введены в поле и обработчик ошибок)
   getAirportStream(searchText: string) {
     return this.http.get<Airport[]>(`${API_URL}${API_AIRPORT}?q=${searchText}`).pipe(
       debounceTime(DEBOUNCE_TIME),

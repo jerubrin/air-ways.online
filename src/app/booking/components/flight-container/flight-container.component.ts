@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -6,24 +6,16 @@ import { Flight } from '../../models/flight.model';
   templateUrl: './flight-container.component.html',
   styleUrls: ['./flight-container.component.scss']
 })
-export class FlightContainerComponent implements OnInit {
+export class FlightContainerComponent {
   @Input() flight?: Flight;
 
   @Input() isForward?: boolean;
-
-  date?: Date;
 
   selected = 0;
 
   isSelected = false;
 
   setSelection = (value: boolean) => this.isSelected = value;
-
-  ngOnInit(): void {
-    if (this.flight?.takeoffDate) {
-      this.date = new Date(this.flight?.takeoffDate);
-    }
-  }
 
   select(value: number) {
     this.selected = value;
