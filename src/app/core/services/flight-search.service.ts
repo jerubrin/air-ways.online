@@ -35,8 +35,8 @@ export class FlightSearchService {
 
   get isValid(): boolean {
     return !!(this.hasBackDate
-      ? !!this.selectedFlights[0]
-      : this.selectedFlights[0] && this.selectedFlights[1]);
+      ? this.selectedFlights[0] && this.selectedFlights[1]
+      : !!this.selectedFlights[0]);
   }
 
   selectFlight(num: number, flight?: Flight) {

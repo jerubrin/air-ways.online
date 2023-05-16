@@ -44,6 +44,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
         this.currentParams = params;
         this.fromWhere = params['fromKey'];
         this.to = params['toKey'];
+        this.flightSearchService.hasBackDate = !!params['backDate'];
       })
     );
 
