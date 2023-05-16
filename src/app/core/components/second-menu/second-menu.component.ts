@@ -11,17 +11,15 @@ export class SecondMenuComponent {
 
   @Input() toCityName?: string;
 
-  @Input() forwardDate?: Date;
+  @Input() forwardDate?: Date | null;
 
-  @Input() backDate?: Date;
+  @Input() backDate?: Date | null;
 
   @Input() persons?: number;
 
   @Input() isShowingEditButton?: boolean;
 
-  constructor(
-    private router: Router,
-  ) {}
+  constructor(private router: Router) {}
 
   editButtonHandler() {
     // TODO: show edit component
