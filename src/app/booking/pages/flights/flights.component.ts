@@ -1,13 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-// import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-// import { ActivatedRoute, Params, Router } from '@angular/router';
-
-// import { StepperService } from 'src/app/core/services/stepper.service';
-
-// import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-// import { FlightsService } from '../../services/flights.service';
-
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { StepperService } from 'src/app/core/services/stepper.service';
+import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
+import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
+import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { FlightSearchService } from 'src/app/core/services/flight-search.service';
+import { Subscription } from 'rxjs';
+import { FlightsService } from '../../services/flights.service';
+
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -16,18 +17,75 @@ import { Flight } from '../../models/flight.model';
   styleUrls: ['./flights.component.scss']
 })
 export class FlightsComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
+
+  form!: FormGroup;
+
+  currentParams: any;
+
+  fromWhere!: string;
+
+  to!: string;
+
+  params!: FlightSearch;
+
   constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private flightsService: FlightsService,
+    private stepperService: StepperService,
+    private activatedRoute: ActivatedRoute,
+    private queryParamsService: QueryParamsService,
     private flightSearchService: FlightSearchService,
   ) {}
 
-  ngOnInit(): void {
-    this.flightSearchService.getFlightSearchParams();
+  ngOnInit() {
+    this.createForm();
+
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.currentParams = params;
+
+      this.fromWhere = params['fromKey'];
+      this.to = params['toKey'];
+    });
   }
 
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    this.subscriptions.forEach((subs) => {
+      subs.unsubscribe();
+    });
   }
 
+  createForm() {
+    this.form = this.fb.group({
+      flights: ['', Validators.required]
+    });
+  }
+
+  goBack(): void {
+    const queryParams = this.queryParamsService.getQueryParams();
+    this.router.navigate([RoutesPath.MainPage], { queryParams });
+    // this.router.navigate([RoutesPath.MainPage]);
+  }
+
+  onSubmit(): void {
+    if (this.form.invalid) {
+      return;
+    }
+
+    const queryParamsdffdf: Params = { flights: this.form.value.flights };
+
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
+      queryParams: queryParamsdffdf,
+      queryParamsHandling: 'merge'
+    });
+
+    this.stepperService.next();
+
+    this.flightsService.updateFormState(this.form);
+  }
+
+  // remove
   mockFlights: Flight[] = [
     {
       seats: {
@@ -395,60 +453,3 @@ export class FlightsComponent implements OnInit, OnDestroy {
     }
   ];
 }
-
-// export class FlightsComponent {
-//   form!: FormGroup;
-
-//   currentParams: any;
-
-//   fromWhere!: string;
-
-//   to!: string;
-
-//   constructor(
-//     private fb: FormBuilder,
-//     private router: Router,
-//     private flightsService: FlightsService,
-//     private stepperService: StepperService,
-//     private activatedRoute: ActivatedRoute
-//   ) {}
-
-//   ngOnInit() {
-//     this.createForm();
-
-//     this.activatedRoute.queryParams.subscribe((params) => {
-//       this.currentParams = params;
-//       this.fromWhere = params['fromKey'];
-//       this.to = params['toKey'];
-
-//       console.log(this.currentParams);
-//     });
-//   }
-
-//   createForm() {
-//     this.form = this.fb.group({
-//       flights: ['', Validators.required]
-//     });
-//   }
-
-//   goBack(): void {
-//     this.router.navigate([RoutesPath.MainPage]);
-//   }
-
-//   onSubmit(): void {
-//     if (this.form.invalid) {
-//       return;
-//     }
-
-//     const queryParams: Params = { flights: this.form.value.flights };
-
-//     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
-//       queryParams,
-//       queryParamsHandling: 'merge'
-//     });
-
-//     this.stepperService.next();
-
-//     this.flightsService.updateFormState(this.form);
-//   }
-// }

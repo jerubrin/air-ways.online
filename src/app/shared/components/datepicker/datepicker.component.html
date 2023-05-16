@@ -1,0 +1,16 @@
+<mat-form-field class="date-range-form-field" appearance="fill">
+  <mat-label class="label-small">Date</mat-label>
+  <input
+    matInput
+    [matDatepicker]="departureDatepicker"
+    [formControl]="departureDateControl"
+    placeholder="Departure Date"
+    [min]="minDate"
+    (dateChange)="onDateChanged()"
+    (blur)="onDateChanged()"
+  />
+  <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
+  <mat-hint>{{ selectedDateFormat }}</mat-hint>
+  <mat-datepicker #departureDatepicker></mat-datepicker>
+  <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
+</mat-form-field>

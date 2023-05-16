@@ -14,10 +14,10 @@ export class FlightSearchService {
     backDate: '',
     adults: 1,
     children: 0,
-    infants: 0,
+    infants: 0
   });
 
-  private formValid = false;
+  private formValid = true;
 
   updateFlightSearchParams(searchParams: FlightSearch): void {
     this.flightSearchParamsSubject.next(searchParams);

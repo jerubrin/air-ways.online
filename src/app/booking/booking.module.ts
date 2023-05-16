@@ -19,6 +19,7 @@ import { DateTimeBlockComponent } from './components/date-time-block/date-time-b
 import { GmtPipe } from './pipes/gmt.pipe';
 import { FlightTimePipe } from './pipes/flight-time.pipe';
 import { PricePipe } from './pipes/price.pipe';
+import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
 
 @NgModule({
   declarations: [
@@ -39,11 +40,8 @@ import { PricePipe } from './pipes/price.pipe';
     GmtPipe,
     FlightTimePipe,
     PricePipe,
+    EditFlightSearchFormComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    BookingRoutingModule,
-  ],
+  imports: [CommonModule, SharedModule, BookingRoutingModule]
 })
 export class BookingModule {}

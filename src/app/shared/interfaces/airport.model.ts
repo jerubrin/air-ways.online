@@ -1,7 +1,7 @@
 export interface Airport {
-  key: string;
-  country: string;
   city: string;
-  name: string;
+  country: string;
   gmt?: string;
+  key: string;
+  name: string;
 }

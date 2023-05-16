@@ -1,0 +1,24 @@
+<mat-form-field appearance="fill">
+  <mat-label class="label-small">{{ label }}</mat-label>
+  <input
+    type="text"
+    matInput
+    [formControl]="destinationControl"
+    [matAutocomplete]="auto"
+    placeholder="Choose city"
+  />
+  <mat-autocomplete class="autocomplete" #auto="matAutocomplete" autoActiveFirstOption>
+    <ng-container *ngIf="options">
+      <mat-option
+        *ngFor="let option of options | orderBy : 'city'"
+        [value]="option.city + ' ' + option.key"
+        (onSelectionChange)="onOptionSelected(option)"
+      >
+        <span style="color: #1c1b1f"> {{ option.city }} ({{ option.key }}) </span>
+        <br />
+        <span style="color: #74767a"> {{ option.name }}, {{ option.country }} </span>
+      </mat-option>
+    </ng-container>
+  </mat-autocomplete>
+  <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
+</mat-form-field>

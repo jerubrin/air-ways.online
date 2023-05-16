@@ -20,7 +20,7 @@
   }
   ::ng-deep .mdc-text-field--focused {
     background-color: $color-secondary-50;
-    border: 0.1rem solid $color-secondary;
+    border: 0.1rem solid $color-primary;
   }
 }
 
@@ -65,38 +65,6 @@
     left: 90%;
     z-index: 999;
     transform: translate(0, -50%);
-  }
-}
-
-.date-range-form-field {
-  width: 31.1rem;
-}
-::ng-deep.mat-datepicker-content {
-  margin-top: 2rem;
-}
-
-.passengers-form-field {
-  width: 20rem;
-  height: 8.1rem;
-  .passengers-form-value {
-    input {
-      max-width: 100%;
-      display: inline-block;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
-}
-::ng-deep .passengers-form-menu-container.mat-mdc-menu-panel.mat-mdc-menu-panel {
-  width: 20rem;
-  padding: 1rem;
-  margin-top: 0.1rem;
-  margin-left: -1.6rem;
-  .mat-mdc-menu-content {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
   }
 }
 
