@@ -1,11 +1,25 @@
 <div class="booking-page">
   <app-second-menu
-    fromCityName="Dublin"
-    toCityName="Warsaw Modlin"
-    [forwardDate]="forwardDateMock"
-    [backDate]="backDateMock"
-    [persons]="3"
+    [fromCityName]="fromWhereInitialValue"
+    [toCityName]="toWhereInitialValue"
+    [forwardDate]="departureDateInitialValue"
+    [backDate]="returnDateInitialValue"
+    [persons]="adultsInitialValue + childrenInitialValue + infantsInitialValue"
   ></app-second-menu>
+  <div class="container">
+    <app-edit-flight-search-form
+      [isRoundTrip]="isRoundTrip"
+      [fromWhereInitialValue]="fromWhereInitialValue"
+      [fromWhereInitialValue]="fromWhereInitialValue"
+      [toWhereInitialValue]="toWhereInitialValue"
+      [departureDateInitialValue]="departureDateInitialValue"
+      [returnDateInitialValue]="returnDateInitialValue"
+      [adultsInitialValue]="adultsInitialValue"
+      [childrenInitialValue]="childrenInitialValue"
+      [infantsInitialValue]="infantsInitialValue"
+    ></app-edit-flight-search-form>
+  </div>
+
   <div class="container">
     <router-outlet></router-outlet>
   </div>
