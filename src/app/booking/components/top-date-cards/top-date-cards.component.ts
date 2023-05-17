@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { Subscription } from 'rxjs';
 import { Seats } from '../../models/seats.model';
@@ -12,14 +12,16 @@ const DAY_IN_MILISECONDS = 1000 * 60 * 60 * 24;
   templateUrl: './top-date-cards.component.html',
   styleUrls: ['./top-date-cards.component.scss']
 })
-export class TopDateCardsComponent implements OnInit, OnDestroy {
-  @Input() date?: Date;
+export class TopDateCardsComponent implements OnDestroy, OnChanges {
+  @Input() date?: string;
 
   @Input() flights?: Flights;
 
   @Input() flight?: Flight;
 
   @Input() seats?: Seats;
+
+  @Input() isSelected?: boolean;
 
   @Output() selectEmitter = new EventEmitter<number>();
 
@@ -33,17 +35,22 @@ export class TopDateCardsComponent implements OnInit, OnDestroy {
 
   twoDaysAfter?: Date;
 
+  currentDate?: Date;
+
   localStorageServiceSubs$$?: Subscription;
 
   constructor(
     public localStorageService: LocalStorageService
   ) {}
 
-  ngOnInit(): void {
-    this.twoDaysBefore = new Date((this.date?.getTime() ?? 0) - DAY_IN_MILISECONDS * 2);
-    this.oneDayBefore = new Date((this.date?.getTime() ?? 0) - DAY_IN_MILISECONDS);
-    this.oneDayAfter = new Date((this.date?.getTime() ?? 0) + DAY_IN_MILISECONDS);
-    this.twoDaysAfter = new Date((this.date?.getTime() ?? 0) + DAY_IN_MILISECONDS * 2);
+  ngOnChanges(changes: SimpleChanges) {
+    if (!changes['date']) return;
+    const date = new Date(changes['date'].currentValue);
+    this.currentDate = date;
+    this.twoDaysBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILISECONDS * 2);
+    this.oneDayBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILISECONDS);
+    this.oneDayAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILISECONDS);
+    this.twoDaysAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILISECONDS * 2);
   }
 
   ngOnDestroy(): void {

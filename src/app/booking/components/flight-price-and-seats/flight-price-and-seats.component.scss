@@ -1,0 +1,69 @@
+@import "buttons";
+@import "variables";
+@import "mixins";
+
+.right-block {
+  height: 100%;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4rem 0 2.8rem;
+  border-left: 2px dashed $color-secondary-40;
+
+  // .right-block_selected
+  &_selected {
+    border-left: none;
+  }
+
+  .btn-flat {
+    height: min-content;
+    margin-left: 5.4rem;
+  }
+
+  .btn-select {
+    height: min-content;
+    margin-left: 3.2rem;
+  }
+
+  // .right-block__price
+  &__price {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  // .right-block__seats
+  &__seats {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 13.3rem;
+    padding: 0.4rem 0.8rem;
+    background: $color-neutral-60;
+    p {
+      @include font($font-size-12, $font-weight-700, $color-neutral-20);
+      line-height: 1.6rem;
+    }
+  }
+  
+  // .right-block__price-title
+  &__price-title {
+    margin-top: 0.6rem;
+    @include font($font-size-12, $font-weight-700, $color-neutral-30);
+    line-height: 1.6rem;
+  }
+
+  // .right-block__price-text
+  &__price-text {
+    @include font($font-size-30, $font-weight-700, $color-primary);
+    line-height: 3.6rem;
+  }
+
+  // .right-block__price-title-selected
+  &__price-title-selected {
+    @include font($font-size-30, $font-weight-700, $color-black);
+    line-height: 3.6rem;
+  }
+
+}

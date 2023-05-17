@@ -1,7 +1,7 @@
 @import "variables";
 
 .top-date-cards {
-  height: 84px;
+  height: 8.4rem;
   width: 100%;
   display: flex;
   align-items: flex-end;
@@ -9,13 +9,13 @@
 }
 
 .card {
-  min-width: 20%;
+  min-width: calc(20% - 1px);
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .card-hr {
-  min-height: 58px;
+  min-height: 5.8rem;
   border-right: solid 1px $color-neutral-60;
 }

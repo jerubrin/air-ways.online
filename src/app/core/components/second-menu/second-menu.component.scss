@@ -3,31 +3,30 @@
 @import "buttons";
 
 .second-menu {
-  height: 68px;
+  height: 6.8rem;
   background-color: $color-secondary-100;
   box-shadow: 0px 1px 0.4rem rgba(0, 0, 0, 0.2);
-  margin-bottom: 4rem;
 }
 
 .container {
-  height: 68px;
+  height: 6.8rem;
   display: flex;
   align-items: center;
 }
 
 .direction {
   display: flex;
-  gap: 16px;
-  margin-right: 40px;
+  gap: 1.6rem;
+  margin-right: 4rem;
 }
 
 .city-name {
   @include font($font-size-16, $font-weight-500, $color-black);
-  line-height: 24px;
+  line-height: 2.4rem;
 }
 
 .trip-icon {
-  @include icon(24px);
+  @include icon(2.4rem);
 }
 
 .return-trip-icon {
@@ -41,27 +40,27 @@
 .dates {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-right: 64px;
+  gap: 0.8rem;
+  margin-right: 6.4rem;
 
   p {
     @include font($font-size-14, $font-weight-500, $color-neutral-30);
     display: flex;
     align-items: center;
-    gap: 5px;
-    line-height: 20px;
+    gap: 0.5rem;
+    line-height: 2rem;
   }
 }
 
 .circle {
-  width: 4px;
-  height: 4px;
-  border-radius: 2px;
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 0.2rem;
   background: $color-secondary;
 }
 
 .account-icon {
-  @include icon(16px);
+  @include icon(1.6rem);
   display: inline-block;
   background-image: url(../../../../assets/account.svg);
 }

@@ -1,5 +1,13 @@
 <div class="flight-block">
-  {{flight?.flightNumber}}
-  <app-flight-info></app-flight-info>
-  <app-flight-price-and-seats></app-flight-price-and-seats>
+  <app-flight-info
+    class="flight-info"
+    [flight]="flight"
+    [isForward]="isForward"
+  ></app-flight-info>
+  <app-flight-price-and-seats
+    [isSelected]="isSelected"
+    (setSelection)="setSelectionFn($event)"
+    [price]="flight?.price"
+    [seats]="flight?.seats"
+  ></app-flight-price-and-seats>
 </div>
