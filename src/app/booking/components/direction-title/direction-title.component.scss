@@ -4,19 +4,19 @@
 .title {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 1.4rem;
   @include font($font-size-24, $font-weight-700, $color-primary);
-  line-height: 28px;
+  line-height: 2.8rem;
 
-  margin-bottom: 16px;
+  margin-bottom: 1.6rem;
 }
 
 .forward-icon {
-  @include icon(20px);
+  @include icon(2rem);
   background-image: url(../../../../assets/airplane-forward.svg);
 }
 
 .back-icon {
-  @include icon(20px);
+  @include icon(2rem);
   background-image: url(../../../../assets/airplane-back.svg);
 }

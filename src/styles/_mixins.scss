@@ -24,4 +24,12 @@ $font-color-base: $color-black;
   background-repeat: no-repeat;
 }
 
+@mixin picture($width: $icon-size-deafult, $height: $icon-size-deafult) {
+  width: $width;
+  height: $height;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
 $icon-size-deafult: 24px

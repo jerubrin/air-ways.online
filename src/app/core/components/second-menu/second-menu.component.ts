@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,9 +19,13 @@ export class SecondMenuComponent {
 
   @Input() isShowingEditButton?: boolean;
 
-  constructor(private router: Router) {}
+  @Output() editClick = new EventEmitter(false);
+
+  constructor(
+    private router: Router,
+  ) {}
 
   editButtonHandler() {
-    // TODO: show edit component
+    this.editClick.emit(true);
   }
 }

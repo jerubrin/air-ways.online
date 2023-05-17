@@ -1,1 +1,30 @@
-<p>flight-info works!</p>
+<div class="flight-info">
+  <div class="main-block">
+  
+    <app-date-time-block [date]="flight?.takeoffDate" [airport]="flight?.form"></app-date-time-block>
+    
+    <div class="flight-info__center">
+      <div class="flight-info__center-text">{{flight?.timeMins | flightTime}}</div>
+      <div class="flight-info__center-midle">
+        <div class="flight-info__line"></div>
+        <div [ngClass]="{
+          'flight-info__icon': true,
+          'icon-forward': isForward,
+          'icon-back': !isForward,
+        }"></div>
+        <div class="flight-info__line"></div>
+      </div>
+      <div class="flight-info__center-text">Direct</div>
+    </div>
+    
+    <app-date-time-block
+      [date]="flight?.landingDate"
+      [airport]="flight?.to"
+      [turnRight]="true"
+    ></app-date-time-block>
+  
+  </div>
+  <div class="flight-no">
+    <p>Flight no. </p><p class="flight-no__number">{{flight?.flightNumber}}</p>
+  </div>
+</div>

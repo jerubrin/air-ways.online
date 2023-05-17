@@ -27,7 +27,10 @@ export class QueryParamsService {
 
   queryParams$: Observable<QueryParams> = this.queryParamsSubject.asObservable();
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {
     const currentParams = this.getQueryParamsFromSessionStorage() || this.getQueryParams();
 
     if (Object.keys(currentParams).length > 0) {

@@ -58,4 +58,10 @@ export class BookingPageComponent implements OnInit, OnDestroy {
   forwardDateMock = new Date('06-07-2023');
 
   backDateMock = new Date('08-17-2023');
+
+  showEditForm?: boolean;
+
+  editClick() {
+    this.showEditForm = !this.showEditForm;
+  }
 }
