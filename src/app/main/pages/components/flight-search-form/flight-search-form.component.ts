@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
 import { Subscription } from 'rxjs';
@@ -66,12 +66,19 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private router: Router, private queryParamsService: QueryParamsService) {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private queryParamsService: QueryParamsService
+  ) {}
 
   ngOnInit(): void {
     this.subscriptions.push(
-      this.queryParamsService.queryParams$.subscribe((params) => {
-        this.setInitialValuesFromQueryParams(params);
+      this.activatedRoute.queryParams.subscribe((currentParams) => {
+        if (Object.keys(currentParams).length === 0) {
+          this.queryParamsService.setInitialQueryParams();
+        }
+        this.setInitialValuesFromQueryParams(currentParams);
       })
     );
   }

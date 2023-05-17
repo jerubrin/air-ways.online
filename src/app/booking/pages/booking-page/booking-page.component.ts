@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { QueryParamsService } from 'src/app/core/services/query-params.service';
 
 @Component({
   selector: 'app-booking-page',
@@ -26,12 +26,12 @@ export class BookingPageComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private queryParamsService: QueryParamsService) {}
+  constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.subscriptions.push(
-      this.queryParamsService.queryParams$.subscribe((params) => {
-        this.setInitialValuesFromQueryParams(params);
+      this.activatedRoute.queryParams.subscribe((currentParams) => {
+        this.setInitialValuesFromQueryParams(currentParams);
       })
     );
   }
