@@ -21,10 +21,6 @@ export class SecondMenuComponent {
 
   @Output() editClick = new EventEmitter(false);
 
-  constructor(
-    private router: Router,
-  ) {}
-
   editButtonHandler() {
     this.editClick.emit(true);
   }

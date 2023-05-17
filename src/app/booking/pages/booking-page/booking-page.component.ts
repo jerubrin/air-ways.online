@@ -53,11 +53,6 @@ export class BookingPageComponent implements OnInit, OnDestroy {
     this.childrenInitialValue = params.children ? Number(params.children) : 0;
     this.infantsInitialValue = params.infants ? Number(params.infants) : 0;
   }
-  // можно убрать
-
-  forwardDateMock = new Date('06-07-2023');
-
-  backDateMock = new Date('08-17-2023');
 
   showEditForm?: boolean;
 
