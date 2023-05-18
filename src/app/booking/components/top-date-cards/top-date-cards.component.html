@@ -1,4 +1,4 @@
-<div class="top-date-cards">
+<div [ngClass]="{'top-date-cards': true, 'display-none': isSelected}">
   <div class="card-hr"></div>
   <app-date-card
     class="card"
@@ -23,7 +23,7 @@
   <app-date-card
     class="card"
     [price]="flight?.price"
-    [date]="date"
+    [date]="currentDate"
     [seats]="flight?.seats"
     [selected]="selected === 0"
     (click)="clickHandler(0)"

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -8,4 +8,12 @@ import { Flight } from '../../models/flight.model';
 })
 export class FlightBlockComponent {
   @Input() flight?: Flight;
+
+  @Input() isSelected?: boolean;
+
+  @Input() isForward?: boolean;
+
+  @Output() setSelection = new EventEmitter<boolean>();
+
+  setSelectionFn = (value: boolean) => this.setSelection.emit(value);
 }

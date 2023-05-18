@@ -15,6 +15,10 @@ import { PassengersComponent } from './pages/passengers/passengers.component';
 import { ReviewPaymentComponent } from './pages/review-payment/review-payment.component';
 import { SharedModule } from '../shared/shared.module';
 import { SecondMenuComponent } from '../core/components/second-menu/second-menu.component';
+import { DateTimeBlockComponent } from './components/date-time-block/date-time-block.component';
+import { GmtPipe } from './pipes/gmt.pipe';
+import { FlightTimePipe } from './pipes/flight-time.pipe';
+import { PricePipe } from './pipes/price.pipe';
 import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
 
 @NgModule({
@@ -32,6 +36,10 @@ import { EditFlightSearchFormComponent } from './components/edit-flight-search-f
     PassengersComponent,
     ReviewPaymentComponent,
     SecondMenuComponent,
+    DateTimeBlockComponent,
+    GmtPipe,
+    FlightTimePipe,
+    PricePipe,
     EditFlightSearchFormComponent
   ],
   imports: [CommonModule, SharedModule, BookingRoutingModule]

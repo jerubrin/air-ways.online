@@ -6,6 +6,6 @@
 }">
   <h4>{{date | date:'dd MMM'}}</h4>
   <p>{{date | date:'EEEE'}}</p>
-  <h3 *ngIf="price">{{priceString}}</h3>
+  <h3 *ngIf="price">{{price | price | async }}</h3>
   <div class="no-price" *ngIf="!price"></div>
 </div>

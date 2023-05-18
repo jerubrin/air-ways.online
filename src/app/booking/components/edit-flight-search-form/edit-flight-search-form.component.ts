@@ -13,7 +13,10 @@ import { PassengersFormFieldComponent } from '../../../shared/components/passeng
   templateUrl: './edit-flight-search-form.component.html',
   styleUrls: ['./edit-flight-search-form.component.scss']
 })
+
 export class EditFlightSearchFormComponent {
+  @Input() showEditForm?: boolean;
+
   @ViewChild('fromWhere') fromWhereComponent!: DestinationFormFieldComponent;
 
   @ViewChild('destination') destinationComponent!: DestinationFormFieldComponent;
@@ -123,8 +126,7 @@ export class EditFlightSearchFormComponent {
   }
 
   onSubmit(): void {
-    if (!this.isFormValid()) {
-    }
+    // if (!this.isFormValid()) {}
     // NOTE - в сервисе bookingPage добавить флаг
   }
 }

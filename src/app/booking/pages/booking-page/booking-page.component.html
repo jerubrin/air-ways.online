@@ -1,5 +1,6 @@
 <div class="booking-page">
   <app-second-menu
+    (editClick)="editClick()"
     [fromCityName]="fromWhereInitialValue"
     [toCityName]="toWhereInitialValue"
     [forwardDate]="departureDateInitialValue"
@@ -8,6 +9,8 @@
   ></app-second-menu>
   <div class="container">
     <app-edit-flight-search-form
+      class="relative"
+      [showEditForm]="showEditForm"
       [isRoundTrip]="isRoundTrip"
       [fromWhereInitialValue]="fromWhereInitialValue"
       [fromWhereInitialValue]="fromWhereInitialValue"

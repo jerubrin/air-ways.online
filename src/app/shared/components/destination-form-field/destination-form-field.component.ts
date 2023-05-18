@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { debounceTime, Subscription, tap } from 'rxjs';
-import { FlightsService } from 'src/app/core/services/flights.service';
+import { FlightsApiService } from 'src/app/core/services/flights-api.service';
 import { Airport } from '../../interfaces/airport.model';
 
 @Component({
@@ -24,7 +24,7 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private flightsService: FlightsService) {}
+  constructor(private flightsApiService: FlightsApiService) {}
 
   ngOnInit(): void {
     if (this.initialValue) {
@@ -33,7 +33,7 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
       this.emitValidValue(this.initialValue);
     } else {
       this.subscriptions.push(
-        this.flightsService
+        this.flightsApiService
           .getAirportStream('')
           .pipe(
             tap((airports) => {
@@ -57,7 +57,7 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
               }
               if (!this.isOptionSelected) {
                 this.subscriptions.push(
-                  this.flightsService
+                  this.flightsApiService
                     .getAirportStream(searchValue)
                     .pipe(
                       tap((airports) => {
