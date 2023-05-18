@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-
 import { Subscription } from 'rxjs';
 import * as moment from 'moment';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
@@ -10,8 +9,6 @@ import { DatepickerRangeComponent } from 'src/app/shared/components/datepicker-r
 import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 import { DestinationFormFieldComponent } from 'src/app/shared/components/destination-form-field/destination-form-field.component';
 import { PassengersFormFieldComponent } from 'src/app/shared/components/passengers-form-field/passengers-form-field.component';
-import { QueryParams } from 'src/app/shared/interfaces/query-params.model';
-
 import { Passengers } from 'src/app/shared/interfaces/passengers.model';
 
 @Component({
@@ -48,21 +45,9 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   infantsInitialValue!: number;
 
-  fromValue = '';
+  private fromValue = '';
 
-  destinationValue = '';
-
-  forwardDateValue = '';
-
-  forwardDateOneWayValue = '';
-
-  returnDateValue = '';
-
-  adultsValue = '1';
-
-  childrenValue = '';
-
-  infantsValue = '';
+  private destinationValue = '';
 
   private subscriptions: Subscription[] = [];
 
@@ -103,42 +88,36 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   handleValidValueFrom(value: string): void {
     this.fromValue = value;
-    const [city, key] = this.fromValue.split(' ');
+    const [city, key] = value.split(' ');
     this.queryParamsService.updateQueryParamOnCurrentPage({ fromWhere: city, fromKey: key });
   }
 
   handleValidValueDestination(value: string): void {
     this.destinationValue = value;
-    const [city, key] = this.destinationValue.split(' ');
+    const [city, key] = value.split(' ');
     this.queryParamsService.updateQueryParamOnCurrentPage({ toWhere: city, toKey: key });
   }
 
   onValidDateRange(dateRange: { departureDate: Date; returnDate: Date }): void {
-    this.forwardDateValue = moment(dateRange.departureDate).format();
-    this.returnDateValue = moment(dateRange.returnDate).format();
     this.queryParamsService.updateQueryParamOnCurrentPage({
-      forwardDate: this.forwardDateValue,
-      backDate: this.returnDateValue
+      forwardDate: moment(dateRange.departureDate).format(),
+      backDate: moment(dateRange.returnDate).format()
     });
   }
 
   onValidDate(date: Date): void {
-    this.forwardDateOneWayValue = moment(date).format();
     this.queryParamsService.updateQueryParamOnCurrentPage({
-      forwardDate: moment(this.forwardDateOneWayValue).format(),
+      forwardDate: moment(date).format(),
       backDate: ''
     });
   }
 
   onPassengerCountChanged(passengerCount: Passengers): void {
     const { adults, children, infants } = passengerCount;
-    this.adultsValue = adults.toString();
-    this.childrenValue = children.toString();
-    this.infantsValue = infants.toString();
     this.queryParamsService.updateQueryParamOnCurrentPage({
-      adults: this.adultsValue,
-      children: this.childrenValue,
-      infants: this.infantsValue
+      adults: adults.toString(),
+      children: children.toString(),
+      infants: infants.toString()
     });
   }
 
@@ -184,24 +163,10 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const [cityFromWhere, keyFromWhere] = this.fromValue.split(' ');
-    const [cityToWhere, keyToWhere] = this.destinationValue.split(' ');
-
-    const queryParamsNew: QueryParams = {
-      fromWhere: cityFromWhere,
-      fromKey: keyFromWhere,
-      toWhere: cityToWhere,
-      toKey: keyToWhere,
-      forwardDate: this.isRoundTrip() ? this.forwardDateValue : this.forwardDateOneWayValue,
-      backDate: this.returnDateValue,
-      adults: this.adultsValue,
-      children: this.childrenValue,
-      infants: this.infantsValue
-    };
+    const queryParams = this.queryParamsService.getQueryParams();
 
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`], {
-      queryParams: queryParamsNew,
-      queryParamsHandling: 'merge'
+      queryParams
     });
   }
 }
