@@ -1,7 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { FlightSearch } from 'src/app/shared/interfaces/flight-search.model';
 import { Airport } from 'src/app/shared/interfaces/airport.model';
 import { debounceTime, catchError, throwError, Observable, filter, map, switchMap } from 'rxjs';
 import { Flight } from 'src/app/booking/models/flight.model';
@@ -14,23 +12,10 @@ const DEBOUNCE_TIME = 500;
   providedIn: 'root'
 })
 export class FlightsApiService {
-  searchForm: Partial<FlightSearch> = {};
-
   constructor(
-    route: ActivatedRoute,
     private http: HttpClient,
     private queryParamsService: QueryParamsService
-  ) {
-    route.queryParams.subscribe((queryParams) => {
-      this.searchForm.fromKey = queryParams?.['fromKey'];
-      this.searchForm.toKey = queryParams?.['toKey'];
-      this.searchForm.forwardDate = queryParams?.['forwardDate'];
-      this.searchForm.backDate = queryParams?.['backDate'];
-      this.searchForm.adults = queryParams?.['adults'];
-      this.searchForm.children = queryParams?.['children'];
-      this.searchForm.infants = queryParams?.['infants'];
-    });
-  }
+  ) {}
 
   getAirportStream(searchText: string) {
     return this.http.get<Airport[]>(`${API_URL}${API_AIRPORT}?q=${searchText}`).pipe(
