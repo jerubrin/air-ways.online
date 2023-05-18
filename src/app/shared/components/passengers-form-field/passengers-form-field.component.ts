@@ -76,8 +76,7 @@ export class PassengersFormFieldComponent implements OnInit {
 
     if (currentCount < 10) {
       this.passengerCountsFormGroup.controls[type].setValue(
-        this.passengerCountsFormGroup.controls[type].value + 1,
-        { emitEvent: false }
+        this.passengerCountsFormGroup.controls[type].value + 1
       );
     }
   }
@@ -88,8 +87,7 @@ export class PassengersFormFieldComponent implements OnInit {
       return;
     }
     this.passengerCountsFormGroup.controls[type].setValue(
-      this.passengerCountsFormGroup.controls[type].value - 1,
-      { emitEvent: false }
+      this.passengerCountsFormGroup.controls[type].value - 1
     );
   }
 
