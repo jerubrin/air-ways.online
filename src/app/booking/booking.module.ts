@@ -19,6 +19,8 @@ import { GmtPipe } from './pipes/gmt.pipe';
 import { FlightTimePipe } from './pipes/flight-time.pipe';
 import { PricePipe } from './pipes/price.pipe';
 import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
+import { PassengerFormComponent } from './pages/passengers/components/passenger-form/passenger-form.component';
+import { ContactDetailsFormComponent } from './pages/passengers/components/contact-details-form/contact-details-form.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,9 @@ import { EditFlightSearchFormComponent } from './components/edit-flight-search-f
     GmtPipe,
     FlightTimePipe,
     PricePipe,
-    EditFlightSearchFormComponent
+    EditFlightSearchFormComponent,
+    PassengerFormComponent,
+    ContactDetailsFormComponent
   ],
   imports: [CommonModule, SharedModule, BookingRoutingModule]
 })
