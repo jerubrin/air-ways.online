@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { DateFormatMenuItems } from 'src/app/core/data/constants/DateFormatMenuItems';
+import { DateFormatMenuItems } from 'src/app/shared/data/constants/DateFormatMenuItems';
 import { DateFormatService } from 'src/app/core/services/date-format.service';
-import { DateFormatType } from 'src/app/core/types/DateFormatType';
+import { DateFormatType } from 'src/app/shared/types/DateFormatType';
 
 @Component({
   selector: 'app-date-format-menu',

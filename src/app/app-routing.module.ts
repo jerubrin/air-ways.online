@@ -1,36 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './core/guards/auth.guard';
-import RoutesPath from './core/data/enams/RoutesPath';
+import RoutesPath from './shared/data/enams/RoutesPath';
 import { NotFoundPageComponent } from './core/page/not-found-page/not-found-page.component';
+// import { FlightsSearchFormGuard } from './core/guards/flights-search-form.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./main/main.module').then((m) => m.MainModule),
+    loadChildren: () => import('./main/main.module').then((m) => m.MainModule)
   },
-
   {
     path: RoutesPath.BookingPage,
-    loadChildren: () =>
-      // eslint-disable-next-line implicit-arrow-linebreak
-      import('./booking/booking.module').then((m) => m.BookingModule),
+    loadChildren: () => import('./booking/booking.module').then((m) => m.BookingModule),
+    // canActivate: [FlightsSearchFormGuard]
   },
   {
     path: RoutesPath.CartPage,
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
-  // enable canActivate for  testing:
-  // {
-  //   path: RoutesPath.CartPage,
-  //   loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
-  // },
-  { path: '**', component: NotFoundPageComponent },
+  { path: '**', component: NotFoundPageComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
 export class AppRoutingModule {}

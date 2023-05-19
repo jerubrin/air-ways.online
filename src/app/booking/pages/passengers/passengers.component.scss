@@ -1,0 +1,33 @@
+@import 'variables';
+@import 'mixins';
+
+section {
+  padding-top: 4rem;
+}
+h2 {
+  @include fontNew($font-size-24, $font-weight-700, $line-height-28, $color-primary);
+  gap: 1.4rem;
+  margin-bottom: 0.4rem;
+}
+.sub-title {
+  @include fontNew($font-size-16, $font-weight-400, $line-height-24, $color-neutral-10);
+  margin-bottom: 2rem;
+}
+.passengers-icon {
+  @include icon(2rem);
+  background-image: url(../../../../assets/icon_account.svg);
+}
+.contact-details-icon {
+  @include icon(2rem);
+  background-image: url(../../../../assets/icon_contact_details.svg);
+}
+
+.passengers-forms-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 5rem;
+}
+.contact-details-form-container {
+  margin-bottom: 4rem;
+}

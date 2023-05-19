@@ -1,26 +1,15 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ValidationErrors,
-  ValidatorFn,
-  Validators
-} from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
+import { Subscription } from 'rxjs';
 import * as moment from 'moment';
-import { map, Observable, startWith, Subscription } from 'rxjs';
-
-import MockAirports from 'src/app/core/data/constants/MockAirports';
-import RoutesPath from 'src/app/core/data/enams/RoutesPath';
-
-import { Airport } from 'src/app/core/interfaces/Airport';
-import { Passengers } from 'src/app/core/interfaces/Passengers';
-import { SearchFlight } from 'src/app/core/interfaces/SearchFlight';
-import { DateFormatService } from 'src/app/core/services/date-format.service';
-import { DateFormatType } from 'src/app/core/types/DateFormatType';
-import { PassengerType } from 'src/app/core/types/PassengerType';
+import { QueryParamsService } from 'src/app/core/services/query-params.service';
+import { DatepickerRangeComponent } from 'src/app/shared/components/datepicker-range/datepicker-range.component';
+import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
+import { DestinationFormFieldComponent } from 'src/app/shared/components/destination-form-field/destination-form-field.component';
+import { PassengersFormFieldComponent } from 'src/app/shared/components/passengers-form-field/passengers-form-field.component';
+import { Passengers } from 'src/app/shared/interfaces/passengers.model';
 
 @Component({
   selector: 'app-flight-search-form',
@@ -28,321 +17,156 @@ import { PassengerType } from 'src/app/core/types/PassengerType';
   styleUrls: ['./flight-search-form.component.scss']
 })
 export class FlightSearchFormComponent implements OnInit, OnDestroy {
-  today: Date = new Date();
+  @ViewChild('fromWhere') fromWhereComponent!: DestinationFormFieldComponent;
 
-  passengerCountsInitialValues: Passengers = {
-    adults: 1,
-    children: 0,
-    infants: 0
-  };
+  @ViewChild('destination') destinationComponent!: DestinationFormFieldComponent;
 
-  searchForm!: FormGroup;
+  @ViewChild(DatepickerRangeComponent) datepickerRange!: DatepickerRangeComponent;
+
+  @ViewChild(DatepickerComponent) oneWayDatepicker!: DatepickerComponent;
+
+  @ViewChild(PassengersFormFieldComponent) passengers!: PassengersFormFieldComponent;
 
   typeOfFlightsControl!: FormControl;
 
-  typeOfFlightsControlName = 'typeOfFlights';
+  typeOfFlightsInitialValue!: 'roundTrip' | 'oneWay';
 
-  typeOfFlightsControlInitialValue = 'roundTrip';
+  fromWhereInitialValue!: string;
 
-  fromWhereControl!: FormControl;
+  toWhereInitialValue!: string;
 
-  fromWhereControlName = 'fromWhere';
+  departureDateInitialValue!: Date | null;
 
-  destinationControl!: FormControl;
+  returnDateInitialValue!: Date | null;
 
-  destinationControlName = 'destination';
+  adultsInitialValue!: number;
 
-  departureDateControl!: FormControl;
+  childrenInitialValue!: number;
 
-  departureDateControlName = 'departureDate';
+  infantsInitialValue!: number;
 
-  returnDateControl!: FormControl;
+  private fromValue = '';
 
-  returnDateControlName = 'returnDate';
-
-  passengerCountsFormGroup!: FormGroup;
-
-  passengerCountsFormGroupName = 'passengerCounts';
-
-  adultsControl!: FormControl;
-
-  adultsControlName = 'adults';
-
-  childrenControl!: FormControl;
-
-  childrenControlName = 'children';
-
-  infantsControl!: FormControl;
-
-  infantsControlName = 'infants';
-
-  filteredOptionsFromWhere!: Observable<Airport[]>;
-
-  filteredOptionsDestination!: Observable<Airport[]>;
-
-  selectedDateFormat!: DateFormatType;
-
-  validation_msgs = {
-    destinationsControl: {
-      required: 'required',
-      requiredMessage: 'Please enter the city',
-      matchOption: 'matchOption',
-      matchOptionMessage: 'City name not recognized. Click one of the autocomplete options'
-    },
-    departureDateControl: {
-      required: 'required',
-      requiredMessage: 'Please enter the departure date',
-      minDate: 'minDate',
-      minDateMessage: 'Departure date must not be earlier than today'
-    },
-    returnDateControl: {
-      required: 'required',
-      requiredMessage: 'Please enter the return date',
-      minDate: 'minDate',
-      minDateMessage: 'Return date must not be earlier than today',
-      dateRange: 'dateRange',
-      dateRangeMessage: 'The return date must be after the departure date'
-    }
-  };
-
-  private options: Airport[] = MockAirports;
+  private destinationValue = '';
 
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private fb: FormBuilder,
-    private elementRef: ElementRef,
     private router: Router,
-    private dateFormatService: DateFormatService
+    private activatedRoute: ActivatedRoute,
+    private queryParamsService: QueryParamsService
   ) {}
 
   ngOnInit(): void {
-    this.createForm();
-
     this.subscriptions.push(
-      this.dateFormatService.selectedDateFormat$.subscribe((value) => {
-        this.selectedDateFormat = value;
-        this.onDateChanged();
+      this.activatedRoute.queryParams.subscribe((currentParams) => {
+        if (Object.keys(currentParams).length === 0) {
+          this.queryParamsService.setInitialQueryParams();
+        }
+        this.setInitialValuesFromQueryParams(currentParams);
       })
     );
+  }
 
-    this.filteredOptionsFromWhere = this.fromWhereControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this.filterCities(value || ''))
-    );
-    this.filteredOptionsDestination = this.destinationControl.valueChanges.pipe(
-      startWith(''),
-      map((value) => this.filterCities(value || ''))
-    );
+  private setInitialValuesFromQueryParams(params: any): void {
+    this.typeOfFlightsInitialValue = params.backDate ? 'roundTrip' : 'oneWay';
+    this.fromWhereInitialValue =
+      params.fromWhere && params.fromKey ? `${params.fromWhere} ${params.fromKey}` : '';
+    this.toWhereInitialValue =
+      params.toWhere && params.toKey ? `${params.toWhere} ${params.toKey}` : '';
+    this.departureDateInitialValue = params.forwardDate ? new Date(params.forwardDate) : null;
+    this.returnDateInitialValue = params.backDate ? new Date(params.backDate) : null;
+    this.adultsInitialValue = params.adults ? Number(params.adults) : 1;
+    this.childrenInitialValue = params.children ? Number(params.children) : 0;
+    this.infantsInitialValue = params.infants ? Number(params.infants) : 0;
+    this.typeOfFlightsControl = new FormControl(this.typeOfFlightsInitialValue);
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
-  private createForm(): void {
-    this.searchForm = this.fb.group({
-      [this.typeOfFlightsControlName]: [this.typeOfFlightsControlInitialValue],
-      [this.fromWhereControlName]: ['', [Validators.required, this.autocompleteObjectValidator()]],
-      [this.destinationControlName]: [
-        '',
-        [Validators.required, this.autocompleteObjectValidator()]
-      ],
-      [this.departureDateControlName]: [null, [Validators.required, this.minDateValidator()]],
-      [this.returnDateControlName]: [
-        null,
-        [Validators.required, this.minDateValidator(), this.dateRangeValidator()]
-      ],
-      [this.passengerCountsFormGroupName]: this.fb.group({
-        [this.adultsControlName]: [
-          this.passengerCountsInitialValues.adults,
-          [Validators.required, Validators.min(1), Validators.max(10)]
-        ],
-        [this.childrenControlName]: [
-          this.passengerCountsInitialValues.children,
-          [Validators.required, Validators.min(0), Validators.max(10)]
-        ],
-        [this.infantsControlName]: [
-          this.passengerCountsInitialValues.infants,
-          [Validators.required, Validators.min(0), Validators.max(10)]
-        ]
-      })
-    });
-
-    this.typeOfFlightsControl = this.searchForm.get(this.typeOfFlightsControlName) as FormControl;
-    this.fromWhereControl = this.searchForm.get(this.fromWhereControlName) as FormControl;
-    this.destinationControl = this.searchForm.get(this.destinationControlName) as FormControl;
-    this.departureDateControl = this.searchForm.get(this.departureDateControlName) as FormControl;
-    this.returnDateControl = this.searchForm.get(this.returnDateControlName) as FormControl;
-    this.passengerCountsFormGroup = this.searchForm.get(
-      this.passengerCountsFormGroupName
-    ) as FormGroup;
-    this.adultsControl = this.passengerCountsFormGroup.get(this.adultsControlName) as FormControl;
-    this.childrenControl = this.passengerCountsFormGroup.get(
-      this.childrenControlName
-    ) as FormControl;
-    this.infantsControl = this.passengerCountsFormGroup.get(this.infantsControlName) as FormControl;
-
-    this.subscriptions.push(
-      this.typeOfFlightsControl.valueChanges.subscribe((value) => {
-        this.departureDateControl.setValue(null, { emitEvent: false });
-        this.returnDateControl.setValue(null, { emitEvent: false });
-        this.departureDateControl.markAsUntouched();
-        this.returnDateControl.markAsUntouched();
-
-        const validators: ValidatorFn[] = [
-          Validators.required,
-          this.minDateValidator(),
-          this.dateRangeValidator()
-        ];
-        if (value === 'roundTrip') {
-          this.returnDateControl.setValidators(validators);
-        } else {
-          this.returnDateControl.clearValidators();
-        }
-        this.returnDateControl.updateValueAndValidity();
-      })
-    );
+  handleValidValueFrom(value: string): void {
+    this.fromValue = value;
+    const [city, key] = value.split(' ');
+    this.queryParamsService.updateQueryParamOnCurrentPage({ fromWhere: city, fromKey: key });
   }
 
-  isRoundTrip() {
+  handleValidValueDestination(value: string): void {
+    this.destinationValue = value;
+    const [city, key] = value.split(' ');
+    this.queryParamsService.updateQueryParamOnCurrentPage({ toWhere: city, toKey: key });
+  }
+
+  onValidDateRange(dateRange: { departureDate: Date; returnDate: Date }): void {
+    this.queryParamsService.updateQueryParamOnCurrentPage({
+      forwardDate: moment(dateRange.departureDate).format(),
+      backDate: moment(dateRange.returnDate).format()
+    });
+  }
+
+  onValidDate(date: Date): void {
+    this.queryParamsService.updateQueryParamOnCurrentPage({
+      forwardDate: moment(date).format(),
+      backDate: ''
+    });
+  }
+
+  onPassengerCountChanged(passengerCount: Passengers): void {
+    const { adults, children, infants } = passengerCount;
+    this.queryParamsService.updateQueryParamOnCurrentPage({
+      adults: adults.toString(),
+      children: children.toString(),
+      infants: infants.toString()
+    });
+  }
+
+  isRoundTrip(): boolean {
     return this.typeOfFlightsControl.value === 'roundTrip';
   }
 
-  isOneWay() {
+  isOneWay(): boolean {
     return this.typeOfFlightsControl.value === 'oneWay';
   }
 
-  displayCityFn(city: Airport): string {
-    return city.city ? `${city.city} ${city.key}` : '';
-  }
-
-  private filterCities(value: string): Airport[] {
-    if (typeof value === 'string') {
-      return this.options.filter((opt) => opt.city.toLowerCase().includes(value.toLowerCase()));
-    }
-    return this.options;
-  }
-
-  private autocompleteObjectValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (typeof control.value === 'string') {
-        const selectedOption = this.options.find(
-          (option) => `${option.city} (${option.key})` === control.value
-        );
-        return selectedOption ? null : { matchOption: true };
-      }
-      return null;
-    };
-  }
-
-  switchDestinationsFields() {
-    const fromWhereValue = this.fromWhereControl.value;
-    const destinationValue = this.destinationControl.value;
-    this.fromWhereControl.setValue(destinationValue);
-    this.destinationControl.setValue(fromWhereValue);
-  }
-
-  onDateChanged(): void {
-    const currentDepartureValue = this.departureDateControl.value;
-    const currentReturnValue = this.returnDateControl.value;
-
-    if (currentDepartureValue) {
-      const formattedDepartureDate = this.formatDate(
-        currentDepartureValue,
-        this.selectedDateFormat
-      );
-      const inputDeparture = this.elementRef.nativeElement.querySelector(
-        '.my-datepicker-input-departure'
-      );
-      if (inputDeparture) {
-        inputDeparture.value = formattedDepartureDate;
-      }
-    }
-    if (currentReturnValue) {
-      const formattedReturnDate = this.formatDate(currentReturnValue, this.selectedDateFormat);
-      const inputReturn = this.elementRef.nativeElement.querySelector(
-        '.my-datepicker-input-return'
-      );
-
-      if (inputReturn) {
-        inputReturn.value = formattedReturnDate;
-      }
-    }
-  }
-
-  private formatDate(date: Date | null, format: string): string {
-    return moment(date).format(format.replace('MM', 'M').replace('DD', 'D').replace('YYYY', 'Y'));
-  }
-
-  private minDateValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const selectedDate = moment(control.value);
-      const today = moment().startOf('day');
-      if (selectedDate.isBefore(today)) {
-        return { minDate: true };
-      }
-      return null;
-    };
-  }
-
-  private dateRangeValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const returnDate = moment(control.value);
-      const departureDate = moment(this.searchForm?.get('departureDate')?.value);
-      if (returnDate.isValid() && departureDate.isValid() && returnDate.isBefore(departureDate)) {
-        return { dateRange: true };
-      }
-      return null;
-    };
-  }
-
-  displayPassengerCount(): string {
-    const adults = this.adultsControl.value;
-    const children = this.childrenControl.value;
-    const infants = this.infantsControl.value;
-    return `${adults} Adult ${children} Child ${infants} Infant`;
-  }
-
-  incrementPassengersCount(type: PassengerType): void {
-    const currentCount = this.passengerCountsFormGroup.value[type];
-    if (currentCount < 10) {
-      this.passengerCountsFormGroup.controls[type].setValue(
-        this.passengerCountsFormGroup.controls[type].value + 1
-      );
-    }
-  }
-
-  decrementPassengersCount(type: PassengerType): void {
-    const currentCount = this.passengerCountsFormGroup.value[type];
-    if (currentCount === 0) {
+  switchDestinationsFields(): void {
+    if (!this.fromValue || !this.destinationValue) {
       return;
     }
-    this.passengerCountsFormGroup.controls[type].setValue(
-      this.passengerCountsFormGroup.controls[type].value - 1
-    );
+    this.fromWhereComponent.destinationControl.setValue(this.destinationValue);
+    this.destinationComponent.destinationControl.setValue(this.fromValue);
+    this.fromWhereComponent.isOptionSelected = true;
+    this.destinationComponent.isOptionSelected = true;
   }
 
-  onMenuItemClick(event: MouseEvent): void {
-    event.stopPropagation();
+  isFormValid(): boolean {
+    if (this.isRoundTrip()) {
+      return (
+        this.fromWhereComponent.destinationControl.valid &&
+        this.destinationComponent.destinationControl.valid &&
+        this.datepickerRange.departureDateControl.valid &&
+        this.datepickerRange.returnDateControl.valid
+      );
+    }
+    if (this.isOneWay()) {
+      return (
+        this.fromWhereComponent.destinationControl.valid &&
+        this.destinationComponent.destinationControl.valid &&
+        this.oneWayDatepicker.departureDateControl.valid
+      );
+    }
+    return false;
   }
 
   onSubmit(): void {
-    if (this.searchForm.invalid) {
+    if (!this.isFormValid()) {
       return;
     }
 
-    const { fromWhere, destination, departureDate, returnDate, passengerCounts } =
-      this.searchForm.value;
+    const queryParams = this.queryParamsService.getQueryParams();
 
-    const searchFlight: SearchFlight = {
-      fromKey: fromWhere.key,
-      toKey: destination.key,
-      forwardDate: new Date(departureDate).toISOString(),
-      backDate: new Date(returnDate).toISOString(),
-      passengers: passengerCounts
-    };
-
-    this.router.navigate([RoutesPath.BookingPage]);
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`], {
+      queryParams
+    });
   }
 }

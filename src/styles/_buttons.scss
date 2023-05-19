@@ -6,22 +6,57 @@
   .mdc-button__label {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 1.3rem;
   }
 }
+
 .btn-date-format-menu {
   @include font($font-size-16, $font-weight-400);
   width: 16.2rem;
 }
+
 .btn-currency-menu {
   width: 6.2rem;
 }
+
 .btn-search {
   width: 12.6rem !important;
   height: 6rem !important;
 }
+
 .btn-counter {
   mat-icon {
     transform: scale(0.8);
+  }
+}
+
+.btn-flat {
+  padding: 0.4rem 0.8rem;
+  color: $color-primary;
+  background-color: $color-secondary-90;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  &:hover {
+    background-color: $color-secondary-50;
+  }
+  &:active {
+    background-color: $color-secondary-10;
+  }
+}
+
+.btn-select {
+  padding: 0.8rem 1.6rem;
+  color: $color-primary;
+  background: $color-highlight-gradient;
+  border: 1px solid $color-primary;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  color: $color-neutral-100;
+  &:hover {
+    filter: contrast(130%);
+  }
+  &:active {
+    filter: brightness(1.2);
   }
 }

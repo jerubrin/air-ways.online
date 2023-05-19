@@ -1,8 +1,7 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import RoutesPath from '../../data/enams/RoutesPath';
-import { AuthService } from '../../services/auth.service';
+import RoutesPath from '../../../shared/data/enams/RoutesPath';
 
 @Component({
   selector: 'app-header',

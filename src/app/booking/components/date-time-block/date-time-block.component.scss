@@ -1,0 +1,52 @@
+@import "variables";
+@import "mixins";
+
+.date-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  min-width: 13rem;
+
+  // .date-time_right
+  &_right {
+    align-items: flex-end;
+
+    .date-time__time-block {
+      flex-direction: row-reverse;
+    }
+  }
+
+  // .date-time__date
+  &__date {
+    @include font($font-size-16, $font-weight-400, $color-neutral-30);
+    line-height: 1.6rem;
+    display: flex;
+  }
+
+  // .date-time__time-block
+  &__time-block {
+    display: flex;
+    gap: 1.6rem;
+    align-items: center;
+  }
+
+  // .date-time__time
+  &__time {
+    @include font($font-size-30, $font-weight-700, $color-black);
+    line-height: 3.6rem;
+  }
+
+  // .date-time__gmt
+  &__gmt {
+    @include font($font-size-8, $font-weight-400, $color-neutral-30);
+    line-height: 2rem;
+  }
+
+  // .date-time__city
+  &__city {
+    @include font($font-size-12, $font-weight-400, $color-neutral-30);
+    line-height: 1.6rem;
+  }
+
+}
