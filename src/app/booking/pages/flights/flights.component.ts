@@ -37,7 +37,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private queryParamsService: QueryParamsService,
     public flightSearchService: FlightSearchService,
-    public flightsApiService: FlightsApiService,
+    public flightsApiService: FlightsApiService
   ) {}
 
   ngOnInit() {
@@ -68,7 +68,6 @@ export class FlightsComponent implements OnInit, OnDestroy {
   goBack(): void {
     const queryParams = this.queryParamsService.getQueryParams();
     this.router.navigate([RoutesPath.MainPage], { queryParams });
-    // this.router.navigate([RoutesPath.MainPage]);
   }
 
   onSubmit(): void {

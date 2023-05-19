@@ -17,7 +17,7 @@ const routes: Routes = [
       {
         path: RoutesPath.BookingPagePassengers,
         component: PassengersComponent,
-        canActivate: [FlightFormGuard],
+        // canActivate: [FlightFormGuard],
         runGuardsAndResolvers: 'paramsOrQueryParamsChange'
       },
       {
