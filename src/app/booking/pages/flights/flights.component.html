@@ -4,20 +4,24 @@
     [flight]="flights[0]"
     [isForward]="true"
     (selectEmitter)="flightSearchService.selectFlight(0, $event)"
-    [isSelected]="!!flightSearchService.selectedFlights[0]">
+    [isSelected]="!!flightSearchService.selectedFlights[0]"
+  >
   </app-flight-container>
   <app-flight-container
     *ngIf="flights[1]"
     [flight]="flights[1]"
     [isForward]="false"
     (selectEmitter)="flightSearchService.selectFlight(1, $event)"
-    [isSelected]="!!flightSearchService.selectedFlights[1]">
+    [isSelected]="!!flightSearchService.selectedFlights[1]"
+  >
   </app-flight-container>
 </div>
 
 <form (ngSubmit)="onSubmit()">
   <div>
     <button mat-raised-button (click)="goBack()">Back</button>
-    <button mat-raised-button color="primary" [disabled]="!flightSearchService.isValid">Next</button>
+    <button mat-raised-button color="primary" [disabled]="!flightSearchService.isValid">
+      Next
+    </button>
   </div>
 </form>

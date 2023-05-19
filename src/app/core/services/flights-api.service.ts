@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Airport } from 'src/app/shared/interfaces/airport.model';
 import { debounceTime, catchError, throwError, Observable, filter, map, switchMap } from 'rxjs';
 import { Flight } from 'src/app/booking/models/flight.model';
+import { ActivatedRoute } from '@angular/router';
 import { API_AIRPORT, API_FLIGHT, API_URL } from '../data/uri/api-url.constants';
-import { QueryParamsService } from './query-params.service';
 
 const DEBOUNCE_TIME = 500;
 
@@ -12,10 +12,7 @@ const DEBOUNCE_TIME = 500;
   providedIn: 'root'
 })
 export class FlightsApiService {
-  constructor(
-    private http: HttpClient,
-    private queryParamsService: QueryParamsService
-  ) {}
+  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) {}
 
   getAirportStream(searchText: string) {
     return this.http.get<Airport[]>(`${API_URL}${API_AIRPORT}?q=${searchText}`).pipe(
@@ -25,17 +22,30 @@ export class FlightsApiService {
   }
 
   get flightsStream$(): Observable<Flight[]> {
-    return this.queryParamsService.queryParams$.pipe(
-      filter(
-        (params) => !!params.fromKey && !!params.toKey && !!params.forwardDate
-      ),
+    return this.activatedRoute.queryParams.pipe(
+      filter((params) => !!params['fromKey'] && !!params['toKey'] && !!params['forwardDate']),
       map((params) => ({
-        fromKey: params.fromKey,
-        toKey: params.toKey,
-        forwardDate: params.forwardDate.substring(0, 10),
-        backDate: params.backDate.substring(0, 10)
+        fromKey: params['fromKey'],
+        toKey: params['toKey'],
+        forwardDate: params['forwardDate'].substring(0, 10),
+        backDate: params['backDate'].substring(0, 10)
       })),
-      switchMap((body) => this.http.post<Flight[]>(`${API_URL}${API_FLIGHT}`, body)),
+      switchMap((body) => this.http.post<Flight[]>(`${API_URL}${API_FLIGHT}`, body))
     );
   }
+  // NOTE before
+  // get flightsStream$(): Observable<Flight[]> {
+  //   return this.queryParamsService.queryParams$.pipe(
+  //     filter(
+  //       (params) => !!params.fromKey && !!params.toKey && !!params.forwardDate
+  //     ),
+  //     map((params) => ({
+  //       fromKey: params.fromKey,
+  //       toKey: params.toKey,
+  //       forwardDate: params.forwardDate.substring(0, 10),
+  //       backDate: params.backDate.substring(0, 10)
+  //     })),
+  //     switchMap((body) => this.http.post<Flight[]>(`${API_URL}${API_FLIGHT}`, body)),
+  //   );
+  // }
 }
