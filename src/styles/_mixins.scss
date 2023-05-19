@@ -10,11 +10,24 @@
   font-weight: $weight;
   color: $color;
 }
+@mixin fontNew(
+  $size: $font-size-base,
+  $weight: $font-weight-base,
+  $line-height: $font-line-height-base,
+  $color: $font-color-base
+) {
+  font-family: $font-family-base;
+  font-size: $size;
+  font-weight: $weight;
+  line-height: $line-height;
+  color: $color;
+}
 
 $font-family-base: Roboto, "Helvetica Neue", sans-serif;
 $font-size-base: $font-size-16;
 $font-weight-base: $font-weight-400;
 $font-color-base: $color-black;
+$font-line-height-base: 2.4rem;
 
 @mixin icon($size: $icon-size-deafult) {
   width: $size;
@@ -32,4 +45,4 @@ $font-color-base: $color-black;
   background-repeat: no-repeat;
 }
 
-$icon-size-deafult: 24px
+$icon-size-deafult: 24px;

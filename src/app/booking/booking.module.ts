@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BookingPageComponent } from './pages/booking-page/booking-page.component';
 import { BookingRoutingModule } from './booking-routing.module';
-import { BookingPagePassangersComponent } from './pages/booking-page-passangers/booking-page-passangers.component';
 import { DirectionTitleComponent } from './components/direction-title/direction-title.component';
 import { TopDateCardsComponent } from './components/top-date-cards/top-date-cards.component';
 import { DateCardComponent } from './components/date-card/date-card.component';
@@ -20,11 +19,12 @@ import { GmtPipe } from './pipes/gmt.pipe';
 import { FlightTimePipe } from './pipes/flight-time.pipe';
 import { PricePipe } from './pipes/price.pipe';
 import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
+import { PassengerFormComponent } from './pages/passengers/components/passenger-form/passenger-form.component';
+import { ContactDetailsFormComponent } from './pages/passengers/components/contact-details-form/contact-details-form.component';
 
 @NgModule({
   declarations: [
     BookingPageComponent,
-    BookingPagePassangersComponent,
     DirectionTitleComponent,
     TopDateCardsComponent,
     DateCardComponent,
@@ -40,7 +40,9 @@ import { EditFlightSearchFormComponent } from './components/edit-flight-search-f
     GmtPipe,
     FlightTimePipe,
     PricePipe,
-    EditFlightSearchFormComponent
+    EditFlightSearchFormComponent,
+    PassengerFormComponent,
+    ContactDetailsFormComponent
   ],
   imports: [CommonModule, SharedModule, BookingRoutingModule]
 })

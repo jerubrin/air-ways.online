@@ -1,0 +1,16 @@
+@import 'variables';
+@import 'mixins';
+
+.form-container {
+  display: flex;
+  width: 100%;
+  min-height: 17rem;
+  background-color: $color-neutral-100;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  padding: 3.2rem 4.4rem 3.5rem 4.4rem;
+}
+
+.title {
+  @include fontNew($font-size-24, $font-weight-700, $line-height-28, #10264c);
+}
