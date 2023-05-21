@@ -38,8 +38,8 @@ export class FlightsComponent implements OnInit, OnDestroy {
     );
     this.subscriptions.push(
       this.activatedRoute.queryParams.subscribe((params) => {
-        this.flightSearchService.totalCountOfSeats = params?.['adults'] ?? 0;
-        this.flightSearchService.totalCountOfSeats += params?.['children'] ?? 0;
+        this.flightSearchService.totalCountOfSeats = Number(params?.['adults'] ?? 0);
+        this.flightSearchService.totalCountOfSeats += Number(params?.['children'] ?? 0);
       })
     );
   }
