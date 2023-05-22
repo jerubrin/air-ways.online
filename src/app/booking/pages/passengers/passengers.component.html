@@ -11,9 +11,17 @@
     <div class="passengers-forms-container" *ngIf="hasPassengers()">
       <app-passenger-form
         *ngFor="let passenger of passengers; let i = index"
-        [passengerIndex]="i + 1"
+        [passengerIndex]="i"
         [passengerTitle]="passenger.title"
-        (passengerFormChanges)="updatePassengerForms($event, passenger.title)"
+        [initialValues]="passenger.initialValues"
+        (passengerFormChanges)="
+          updatePassengerForms(
+            $event.isValid,
+            $event.passengerIndex,
+            $event.formValue,
+            $event.passengerTitle
+          )
+        "
       ></app-passenger-form>
     </div>
 
@@ -27,7 +35,8 @@
 
     <div class="contact-details-form-container" *ngIf="hasPassengers()">
       <app-contact-details-form
-        (contactDetailsFormChanges)="updateContactDetailsForm($event)"
+        [initialValues]="contactDetailsInitialValue"
+        (contactDetailsFormChanges)="updateContactDetailsForm($event.isValid, $event.formValue)"
       ></app-contact-details-form>
     </div>
 

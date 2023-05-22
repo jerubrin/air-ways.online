@@ -3,10 +3,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { ContactDetails } from 'src/app/core/interfaces/contact-details';
+import { PassengersData } from 'src/app/core/interfaces/passengers-data';
+import { PassengersResultData } from 'src/app/core/interfaces/passengers-result-data';
+import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-import { PassengersResultData } from 'src/app/shared/interfaces/passengers.model';
 
 import { PassengersService } from '../../services/passengers.service';
 
@@ -18,20 +21,25 @@ import { PassengersService } from '../../services/passengers.service';
 export class PassengersComponent implements OnInit, OnDestroy {
   passengersForm!: FormGroup;
 
-  // типизировать
-  passengersResultData: PassengersResultData = {
-    adults: [],
-    children: [],
-    infants: [],
-    contactDetailsData: {
-      firstName: '',
-      lastName: ''
-    }
-  };
-
-  passengers: { title: 'Adult' | 'Children' | 'Infant' }[] = [];
-
   isFormValid = false;
+
+  passengers: {
+    title: 'Adult' | 'Children' | 'Infant';
+    initialValues: PassengersData | null;
+    isValid: boolean;
+  }[] = [];
+
+  contactDetailsInitialValue!: ContactDetails | null;
+
+  private passengersResultData!: PassengersResultData;
+
+  private adultsCounts!: number;
+
+  private childrenCounts!: number;
+
+  private infantsCounts!: number;
+
+  private contactDetailsFormIsValid = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -41,37 +49,58 @@ export class PassengersComponent implements OnInit, OnDestroy {
     private queryParamsService: QueryParamsService,
     private stepperService: StepperService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    public mainStoreService: MainStoreService
   ) {}
 
   ngOnInit() {
+    this.passengersResultData = this.mainStoreService.passengersResult;
+
     this.subscriptions.push(
       this.activatedRoute.queryParams.subscribe((currentParams) => {
-        this.setInitialValuesFromQueryParams(currentParams);
+        this.getCurrentPassengersCountsFromQueryParams(currentParams);
+        this.setInitialValues();
       })
     );
     this.initializeForm();
+    this.checkFormValid();
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
-  private setInitialValuesFromQueryParams(params: any): void {
-    const adultsCounts = params.adults ? Number(params.adults) : 1;
-    const childrenCounts = params.children ? Number(params.children) : 0;
-    const infantsCounts = params.infants ? Number(params.infants) : 0;
+  private getCurrentPassengersCountsFromQueryParams(params: any): void {
+    this.adultsCounts = params.adults ? Number(params.adults) : 1;
+    this.childrenCounts = params.children ? Number(params.children) : 0;
+    this.infantsCounts = params.infants ? Number(params.infants) : 0;
+  }
 
+  private setInitialValues(): void {
     this.passengers = [];
-    for (let i = 0; i < adultsCounts; i += 1) {
-      this.passengers.push({ title: 'Adult' });
+    const { adults, children, infants } = this.passengersResultData;
+
+    for (let i = 0; i < this.adultsCounts; i += 1) {
+      const passengerData = adults?.[i] || null;
+      const isValid = !!passengerData;
+      this.passengers.push({ title: 'Adult', initialValues: passengerData, isValid });
     }
-    for (let i = 0; i < childrenCounts; i += 1) {
-      this.passengers.push({ title: 'Children' });
+    for (let i = 0; i < this.childrenCounts; i += 1) {
+      const passengerData = children?.[i] || null;
+      const isValid = !!passengerData;
+      this.passengers.push({ title: 'Children', initialValues: passengerData, isValid });
     }
-    for (let i = 0; i < infantsCounts; i += 1) {
-      this.passengers.push({ title: 'Infant' });
+    for (let i = 0; i < this.infantsCounts; i += 1) {
+      const passengerData = infants?.[i] || null;
+      const isValid = !!passengerData;
+      this.passengers.push({ title: 'Infant', initialValues: passengerData, isValid });
     }
+
+    this.contactDetailsInitialValue = this.passengersResultData.contactDetailsData || null;
+
+    this.contactDetailsFormIsValid = Object.values(this.contactDetailsInitialValue).every(
+      (value) => value.trim() !== ''
+    );
   }
 
   private initializeForm(): void {
@@ -88,56 +117,42 @@ export class PassengersComponent implements OnInit, OnDestroy {
   }
 
   updatePassengerForms(
-    passengerFormValue: any,
+    isValid: boolean,
+    passengerIndex: number,
+    formValue: PassengersData,
     passengerTitle: 'Adult' | 'Children' | 'Infant'
   ): void {
-    switch (passengerTitle) {
-      case 'Adult':
-        this.passengersResultData.adults.push(passengerFormValue);
-        break;
-      case 'Children':
-        this.passengersResultData.children.push(passengerFormValue);
-        break;
-      case 'Infant':
-        this.passengersResultData.infants.push(passengerFormValue);
-        break;
-      default:
-        return;
-    }
+    this.passengers[passengerIndex].isValid = isValid;
 
+    if (isValid) {
+      switch (passengerTitle) {
+        case 'Adult':
+          this.passengersResultData.adults.push(formValue);
+          break;
+        case 'Children':
+          this.passengersResultData.children.push(formValue);
+          break;
+        case 'Infant':
+          this.passengersResultData.infants.push(formValue);
+          break;
+        default:
+          return;
+      }
+    }
     this.checkFormValid();
   }
 
-  updateContactDetailsForm(contactDetailsFormValue: any) {
-    this.passengersResultData.contactDetailsData = contactDetailsFormValue;
+  updateContactDetailsForm(isValid: boolean, formValue: ContactDetails) {
+    this.contactDetailsFormIsValid = isValid;
+    if (isValid) {
+      this.passengersResultData.contactDetailsData = formValue;
+    }
     this.checkFormValid();
   }
 
   checkFormValid(): void {
-    console.log(this.passengersResultData);
-
-    const isPassengerFormsValid = this.validatePassengerForms();
-    const isContactDetailsFormValid = this.validateContactDetailsForm();
-
-    this.isFormValid = isPassengerFormsValid && isContactDetailsFormValid;
-  }
-
-  private validatePassengerForms(): boolean {
-    const { adults, children, infants } = this.passengersResultData;
-
-    const isAdultsValid =
-      adults.length === this.passengers.filter((p) => p.title === 'Adult').length;
-    const isChildrenValid =
-      children.length === this.passengers.filter((p) => p.title === 'Children').length;
-    const isInfantsValid =
-      infants.length === this.passengers.filter((p) => p.title === 'Infant').length;
-
-    return isAdultsValid && isChildrenValid && isInfantsValid;
-  }
-
-  private validateContactDetailsForm(): boolean {
-    const { contactDetailsData } = this.passengersResultData;
-    return !!contactDetailsData && Object.keys(contactDetailsData).length > 0;
+    this.isFormValid =
+      this.passengers.every((passenger) => passenger.isValid) && this.contactDetailsFormIsValid;
   }
 
   goBack(): void {
@@ -149,12 +164,15 @@ export class PassengersComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-    if (this.isFormValid) {
-      console.log(this.passengersResultData);
-    } else {
-      // Handle invalid form
-      console.log('Invalid form');
-      // Show an error message or perform any required action
+    if (!this.isFormValid) {
+      return;
     }
+    this.mainStoreService.passengersResult = this.passengersResultData;
+
+    this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageReviewPayment}`], {
+      queryParamsHandling: 'merge'
+    });
+
+    this.stepperService.next();
   }
 }

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { PassengersData } from 'src/app/core/interfaces/passengers-data';
 
 @Component({
   selector: 'app-passenger-form',
@@ -10,12 +11,16 @@ import { Subscription } from 'rxjs';
 export class PassengerFormComponent implements OnInit, OnDestroy {
   @Input() passengerTitle!: 'Adult' | 'Children' | 'Infant';
 
+  @Input() initialValues!: PassengersData | null;
+
   @Input() passengerIndex!: number;
 
-  @Output() passengerFormChanges: EventEmitter<{
-    formValue: any;
+  @Output() passengerFormChanges = new EventEmitter<{
+    isValid: boolean;
+    passengerIndex: number;
+    formValue: PassengersData;
     passengerTitle: 'Adult' | 'Children' | 'Infant';
-  }> = new EventEmitter<{ formValue: any; passengerTitle: 'Adult' | 'Children' | 'Infant' }>();
+  }>();
 
   passengerForm!: FormGroup;
 
@@ -25,20 +30,43 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.passengerForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      firstName: [
+        this.initialValues?.firstName || '',
+        [Validators.required, Validators.pattern(/^[A-Za-z\s']+$/)]
+      ],
+      lastName: [
+        this.initialValues?.lastName || '',
+        [Validators.required, Validators.pattern(/^[A-Za-z\s']+$/)]
+      ]
     });
     this.subscriptions.push(
-      this.passengerForm.valueChanges.subscribe((formValue) => {
-        if (this.passengerForm.valid) {
-          const eventValue = { formValue, passengerTitle: this.passengerTitle };
-          this.passengerFormChanges.emit(eventValue);
-        }
+      this.passengerForm.valueChanges.subscribe(() => {
+        const { valid, value } = this.passengerForm;
+        const eventValue = {
+          isValid: valid,
+          passengerIndex: this.passengerIndex,
+          formValue: value,
+          passengerTitle: this.passengerTitle
+        };
+
+        this.passengerFormChanges.emit(eventValue);
       })
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const fieldControl = this.passengerForm?.get(fieldName);
+
+    if (fieldControl?.hasError('required')) {
+      return 'Enter data please';
+    }
+    if (fieldControl?.hasError('pattern')) {
+      return 'Invalid character';
+    }
+    return '';
   }
 }

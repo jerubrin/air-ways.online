@@ -23,7 +23,7 @@ const routes: Routes = [
       {
         path: RoutesPath.BookingPageReviewPayment,
         component: ReviewPaymentComponent,
-        canActivate: [PassengersFormGuard],
+        // canActivate: [PassengersFormGuard],
         runGuardsAndResolvers: 'paramsOrQueryParamsChange'
       },
       { path: '', redirectTo: RoutesPath.BookingPageFlights, pathMatch: 'full' }

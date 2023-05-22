@@ -1,6 +1,7 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { ContactDetails } from 'src/app/core/interfaces/contact-details';
 
 @Component({
   selector: 'app-contact-details-form',
@@ -8,7 +9,12 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./contact-details-form.component.scss']
 })
 export class ContactDetailsFormComponent implements OnInit, OnDestroy {
-  @Output() contactDetailsFormChanges: EventEmitter<any> = new EventEmitter<any>();
+  @Input() initialValues!: ContactDetails | null;
+
+  @Output() contactDetailsFormChanges = new EventEmitter<{
+    isValid: boolean;
+    formValue: ContactDetails;
+  }>();
 
   contactDetailsForm!: FormGroup;
 
@@ -18,19 +24,32 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.contactDetailsForm = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required]
+      countryCode: [this.initialValues?.countryCode || '', Validators.required],
+      phone: [this.initialValues?.phone || '', Validators.required],
+      email: [this.initialValues?.email || '', Validators.required]
     });
     this.subscriptions.push(
-      this.contactDetailsForm.valueChanges.subscribe((formValue) => {
-        if (this.contactDetailsForm.valid) {
-          this.contactDetailsFormChanges.emit(formValue);
-        }
+      this.contactDetailsForm.valueChanges.subscribe(() => {
+        const { valid, value } = this.contactDetailsForm;
+        const eventValue = { isValid: valid, formValue: value };
+        this.contactDetailsFormChanges.emit(eventValue);
       })
     );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  getErrorMessage(fieldName: string): string {
+    const fieldControl = this.contactDetailsForm?.get(fieldName);
+
+    if (fieldControl?.hasError('required')) {
+      return 'Enter data please';
+    }
+    // if (fieldControl?.hasError('pattern')) {
+    //   return 'Invalid character';
+    // }
+    return '';
   }
 }

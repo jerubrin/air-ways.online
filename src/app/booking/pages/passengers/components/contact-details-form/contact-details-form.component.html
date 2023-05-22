@@ -1,14 +1,56 @@
-<form [formGroup]="contactDetailsForm" class="form-container">
-  <mat-form-field>
-    <input matInput formControlName="firstName" placeholder="First name" required />
-    <mat-error *ngIf="contactDetailsForm?.get('firstName')?.hasError('required')"
-      >First name is required</mat-error
-    >
-  </mat-form-field>
-  <mat-form-field>
-    <input matInput formControlName="lastName" placeholder="Last name" required />
-    <mat-error *ngIf="contactDetailsForm?.get('lastName')?.hasError('required')"
-      >lastName name is required</mat-error
-    >
-  </mat-form-field>
+<form [formGroup]="contactDetailsForm" class="form">
+  <div class="form-fields-wrapper flex-center">
+    <mat-form-field class="custom-form-field">
+      <mat-label class="label-small">Country code</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="countryCode"
+        placeholder="Enter your First Name"
+        (input)="contactDetailsForm.get('countryCode')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="
+          contactDetailsForm?.get('countryCode')?.invalid &&
+          contactDetailsForm?.get('countryCode')?.touched
+        "
+      >
+        {{ getErrorMessage('countryCode') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label class="label-small">Mobile phone number</mat-label>
+      <input
+        matInput
+        formControlName="phone"
+        placeholder="Enter your Last Name"
+        (input)="contactDetailsForm.get('phone')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="
+          contactDetailsForm?.get('phone')?.invalid && contactDetailsForm?.get('phone')?.touched
+        "
+      >
+        {{ getErrorMessage('phone') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label class="label-small">Email</mat-label>
+      <input
+        matInput
+        formControlName="email"
+        placeholder="Enter your Last Name"
+        (input)="contactDetailsForm.get('email')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="
+          contactDetailsForm?.get('email')?.invalid && contactDetailsForm?.get('email')?.touched
+        "
+      >
+        {{ getErrorMessage('email') }}
+      </mat-error>
+    </mat-form-field>
+  </div>
 </form>
