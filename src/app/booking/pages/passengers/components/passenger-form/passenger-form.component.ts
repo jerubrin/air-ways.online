@@ -45,7 +45,7 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
         const eventValue = {
           isValid: valid,
           passengerIndex: this.passengerIndex,
-          formValue: value,
+          formValue: { ...value, id: this.initialValues?.id },
           passengerTitle: this.passengerTitle
         };
 

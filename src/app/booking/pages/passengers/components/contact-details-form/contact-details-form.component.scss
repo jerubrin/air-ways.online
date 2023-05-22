@@ -5,26 +5,26 @@
   min-height: 12rem;
   background-color: $color-neutral-100;
   padding: 3.2rem 4.4rem 3.5rem 4.4rem;
+
+  ::ng-deep .mat-mdc-form-field {
+    min-width: 25.5rem;
+  }
+  ::ng-deep .mdc-text-field--filled {
+    background-color: $color-secondary-90;
+    border-radius: 0.4rem;
+    border: 0.1rem solid $color-secondary-40;
+  }
+  ::ng-deep .mdc-text-field--focused {
+    background-color: $color-secondary-50;
+    border: 0.1rem solid $color-primary;
+  }
+  ::ng-deep .mdc-text-field--invalid {
+    border-color: $color-error;
+    .label-small {
+      color: $color-error;
+    }
+  }
 }
 .form-fields-wrapper {
   gap: 2rem;
-}
-
-::ng-deep .mat-mdc-form-field {
-  min-width: 25.5rem;
-}
-::ng-deep .mdc-text-field--filled {
-  background-color: $color-secondary-90;
-  border-radius: 0.4rem;
-  border: 0.1rem solid $color-secondary-40;
-}
-::ng-deep .mdc-text-field--focused {
-  background-color: $color-secondary-50;
-  border: 0.1rem solid $color-primary;
-}
-::ng-deep .mdc-text-field--invalid {
-  border-color: $color-error;
-  .label-small {
-    color: $color-error;
-  }
 }

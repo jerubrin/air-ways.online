@@ -54,6 +54,8 @@ export class PassengersComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    // console.log(this.mainStoreService.passengersResult);
+
     this.passengersResultData = this.mainStoreService.passengersResult;
 
     this.subscriptions.push(
@@ -83,17 +85,29 @@ export class PassengersComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.adultsCounts; i += 1) {
       const passengerData = adults?.[i] || null;
       const isValid = !!passengerData;
-      this.passengers.push({ title: 'Adult', initialValues: passengerData, isValid });
+      this.passengers.push({
+        title: 'Adult',
+        initialValues: { ...passengerData, id: i },
+        isValid
+      });
     }
     for (let i = 0; i < this.childrenCounts; i += 1) {
       const passengerData = children?.[i] || null;
       const isValid = !!passengerData;
-      this.passengers.push({ title: 'Children', initialValues: passengerData, isValid });
+      this.passengers.push({
+        title: 'Children',
+        initialValues: { ...passengerData, id: i },
+        isValid
+      });
     }
     for (let i = 0; i < this.infantsCounts; i += 1) {
       const passengerData = infants?.[i] || null;
       const isValid = !!passengerData;
-      this.passengers.push({ title: 'Infant', initialValues: passengerData, isValid });
+      this.passengers.push({
+        title: 'Infant',
+        initialValues: { ...passengerData, id: i },
+        isValid
+      });
     }
 
     this.contactDetailsInitialValue = this.passengersResultData.contactDetailsData || null;
@@ -125,20 +139,31 @@ export class PassengersComponent implements OnInit, OnDestroy {
     this.passengers[passengerIndex].isValid = isValid;
 
     if (isValid) {
+      let passengersList: PassengersData[];
+
       switch (passengerTitle) {
         case 'Adult':
-          this.passengersResultData.adults.push(formValue);
+          passengersList = this.passengersResultData.adults;
           break;
         case 'Children':
-          this.passengersResultData.children.push(formValue);
+          passengersList = this.passengersResultData.children;
           break;
         case 'Infant':
-          this.passengersResultData.infants.push(formValue);
+          passengersList = this.passengersResultData.infants;
           break;
         default:
           return;
       }
+
+      const passengerToUpdate = passengersList.find((passenger) => passenger.id === formValue.id);
+
+      if (passengerToUpdate) {
+        Object.assign(passengerToUpdate, formValue);
+      } else {
+        passengersList.push(formValue);
+      }
     }
+
     this.checkFormValid();
   }
 
