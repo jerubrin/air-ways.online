@@ -5,6 +5,7 @@ import { Passenger } from '../interfaces/pasanger';
 import { Contacts } from '../interfaces/contacts';
 import { Cart } from '../interfaces/cart';
 import { QueryParamsService } from './query-params.service';
+import { LocalStorageService } from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +22,16 @@ export class MainStoreService {
   contacts: Contacts = { countryCode: '', email: '', phone: '' };
 
   constructor(
-    private queryParamsService: QueryParamsService
-  ) {}
+    private queryParamsService: QueryParamsService,
+    private localStorageService: LocalStorageService,
+  ) {
+    this._cart = localStorageService.getCart();
+    this._currentIndex = localStorageService.getSelectedIndex();
+  }
+
+  private updateLocalStorage() {
+    this.localStorageService.setCart(this._cart, this._currentIndex);
+  }
 
   addAllDataToCart() {
     // edit
@@ -44,6 +53,7 @@ export class MainStoreService {
     this.flights = [];
     this.passengers = [];
     this.queryParamsService.setInitialQueryParams();
+    this.updateLocalStorage();
   }
 
   setDataFromCart(index: number) {
@@ -56,6 +66,7 @@ export class MainStoreService {
     this.contacts = this._cart[index].contacts;
     this.queryParamsService.updateQueryParamOnCurrentPage(this._cart[index].queryParams);
     this._currentIndex = index;
+    this.updateLocalStorage();
   }
 
   removeFromCart(index: number) {
@@ -64,5 +75,6 @@ export class MainStoreService {
     }
 
     this._cart = this._cart.filter((_, i) => i !== index);
+    this.updateLocalStorage();
   }
 }
