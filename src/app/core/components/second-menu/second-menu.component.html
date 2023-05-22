@@ -2,7 +2,7 @@
   <div class="container">
     <div class="direction">
       <p class="city-name">{{fromCityName}}</p>
-      <div 
+      <div
         class="trip-icon"
         [ngClass]="{
           'return-trip-icon': backDate,
@@ -28,6 +28,6 @@
       </p>
     </div>
   
-    <button class="btn btn-flat" (click)="editButtonHandler()">Edit</button>
+    <button class="btn btn-flat" *ngIf="editShow" (click)="editButtonHandler()">Edit</button>
   </div>
 </div>
