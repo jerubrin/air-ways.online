@@ -1,11 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
 import { Flight } from 'src/app/booking/models/flight.model';
-import { Passenger } from '../interfaces/pasanger';
-import { Contacts } from '../interfaces/contacts';
 import { Cart } from '../interfaces/cart';
 import { QueryParamsService } from './query-params.service';
 import { LocalStorageService } from './local-storage.service';
+import { PassengersResultData } from '../interfaces/passengers-result-data';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +16,7 @@ export class MainStoreService {
 
   flights: Flight[] = [];
 
-  passengers: Passenger[] = [];
-
-  contacts: Contacts = { countryCode: '', email: '', phone: '' };
+  passengersResult?: PassengersResultData;
 
   constructor(
     private queryParamsService: QueryParamsService,
@@ -34,24 +31,23 @@ export class MainStoreService {
   }
 
   addAllDataToCart() {
+    if (!this.passengersResult) return;
     // edit
     if (this._currentIndex !== -1) {
       const index = this._currentIndex;
       this._cart[index].flights = this.flights;
-      this._cart[index].passengers = this.passengers;
-      this._cart[index].contacts = this.contacts;
+      this._cart[index].passengersResult = this.passengersResult;
       this._cart[index].queryParams = this.queryParamsService.getQueryParams();
       return;
     }
     // add new
     this._cart.push({
       flights: this.flights,
-      passengers: this.passengers,
-      contacts: this.contacts,
+      passengersResult: this.passengersResult,
       queryParams: this.queryParamsService.getQueryParams()
     });
     this.flights = [];
-    this.passengers = [];
+    this.passengersResult = undefined;
     this.queryParamsService.setInitialQueryParams();
     this.updateLocalStorage();
   }
@@ -62,8 +58,7 @@ export class MainStoreService {
     }
 
     this.flights = this._cart[index].flights;
-    this.passengers = this._cart[index].passengers;
-    this.contacts = this._cart[index].contacts;
+    this.passengersResult = this._cart[index].passengersResult;
     this.queryParamsService.updateQueryParamOnCurrentPage(this._cart[index].queryParams);
     this._currentIndex = index;
     this.updateLocalStorage();

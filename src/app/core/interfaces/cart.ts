@@ -1,11 +1,9 @@
 import { Flight } from 'src/app/booking/models/flight.model';
 import { QueryParams } from 'src/app/shared/interfaces/query-params.model';
-import { Passenger } from './pasanger';
-import { Contacts } from './contacts';
+import { PassengersResultData } from './passengers-result-data';
 
 export interface Cart {
-  passengers: Passenger[],
-  contacts: Contacts,
+  passengersResult: PassengersResultData,
   flights: Flight[],
   queryParams: Partial<QueryParams>,
 }
