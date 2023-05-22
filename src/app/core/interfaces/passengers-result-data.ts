@@ -1,5 +1,5 @@
 import { ContactDetails } from './contact-details';
-import { PassengersData } from './passangers-data';
+import { PassengersData } from './passengers-data';
 
 export interface PassengersResultData {
   adults: PassengersData[];
