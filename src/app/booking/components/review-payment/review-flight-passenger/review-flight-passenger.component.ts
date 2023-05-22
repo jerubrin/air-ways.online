@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
 
 @Component({
   selector: 'app-review-flight-passenger',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./review-flight-passenger.component.scss']
 })
 export class ReviewFlightPassengerComponent {
-
+  @Input() passenger?: PassengerReview;
 }

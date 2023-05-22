@@ -3,6 +3,6 @@
   <div class="flight-airports">{{flight?.form?.city}} - {{flight?.to?.city}}</div>
 </div>
 <div class="bottom">
-  <div class="date">{{flight?.takeoffDate | date}}</div>
+  <div class="date">{{flight?.takeoffDate | date: 'EEEE, d MMMM, y'}}</div>
   <div class="time">{{flight?.takeoffDate | date:'h:mm'}} - {{flight?.landingDate | date:'h:mm'}}</div>
 </div>

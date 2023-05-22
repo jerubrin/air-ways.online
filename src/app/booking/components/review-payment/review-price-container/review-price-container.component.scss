@@ -1,0 +1,31 @@
+@import "variables";
+@import "mixins";
+
+.price-item-list {
+  display: flex;
+  flex-direction: column;
+  padding: 2.4rem 7.2rem 1.6rem 4rem;
+  gap: 1.6rem;
+}
+
+.price-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.total {
+  padding: 2rem 7.2rem 2rem 4rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.total-text {
+  @include font($font-size-20, $font-weight-700, $color-black);
+  line-height: 2.4rem;
+}
+
+.total-price {
+  @include font($font-size-20, $font-weight-700, $color-primary);
+  line-height: 2.4rem;
+}

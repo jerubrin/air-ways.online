@@ -1,6 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, Output, SimpleChanges } from '@angular/core';
-import { LocalStorageService } from 'src/app/core/services/local-storage.service';
-import { Subscription } from 'rxjs';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { Seats } from '../../models/seats.model';
 import { Flights } from '../../models/flights.model';
 import { Flight } from '../../models/flight.model';
@@ -12,7 +10,7 @@ const DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
   templateUrl: './top-date-cards.component.html',
   styleUrls: ['./top-date-cards.component.scss']
 })
-export class TopDateCardsComponent implements OnDestroy, OnChanges {
+export class TopDateCardsComponent implements OnChanges {
   @Input() date?: string;
 
   @Input() flights?: Flights;
@@ -37,12 +35,6 @@ export class TopDateCardsComponent implements OnDestroy, OnChanges {
 
   currentDate?: Date;
 
-  localStorageServiceSubs$$?: Subscription;
-
-  constructor(
-    public localStorageService: LocalStorageService
-  ) {}
-
   ngOnChanges(changes: SimpleChanges) {
     if (!changes['date']) return;
     const date = new Date(changes['date'].currentValue);
@@ -52,10 +44,6 @@ export class TopDateCardsComponent implements OnDestroy, OnChanges {
     this.oneDayAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILLISECONDS);
     this.twoDaysAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILLISECONDS * 2);
     this.selected = 0;
-  }
-
-  ngOnDestroy(): void {
-    this.localStorageServiceSubs$$?.unsubscribe();
   }
 
   clickHandler(value: number) {

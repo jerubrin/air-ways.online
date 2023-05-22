@@ -1,7 +1,31 @@
-<app-review-price-item></app-review-price-item>
-<app-review-price-item></app-review-price-item>
-<app-review-price-item></app-review-price-item>
+<div class="price-item-list">
+  <app-review-price-item
+    *ngIf="allPrices?.adultsCount"
+    price="price"
+    class="price-item"
+    title="Adult"
+    [count]="allPrices?.adultsCount"
+    [allPrices]="allPrices?.adults"
+  ></app-review-price-item>
+  <app-review-price-item
+    *ngIf="allPrices?.childrenCount"
+    price="price"
+    class="price-item"
+    title="Child"
+    [count]="allPrices?.childrenCount"
+    [allPrices]="allPrices?.children"
+  ></app-review-price-item>
+  <app-review-price-item
+    *ngIf="allPrices?.infantsCount"
+    price="price"
+    class="price-item"
+    title="Infant"
+    [count]="allPrices?.infantsCount"
+    [allPrices]="allPrices?.infants"
+  ></app-review-price-item>
+</div>
+
 <div class="total">
-  <p>Total:</p>
-  <p>€551.38</p>
+  <p class="total-text">Total:</p>
+  <p class="total-price">{{totalPrice | price | async }}</p>
 </div>

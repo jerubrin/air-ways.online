@@ -3,26 +3,31 @@
     <div class="review-icon"></div>
     <h3 class="review-title">Summary</h3>
   </div>
-  <div>
+  <div class="review-flights">
     <app-review-flight-container
+      class="review-flight"
       *ngIf="flights && flights[0]"
-      [flight]="flights[0]"></app-review-flight-container>
+      [flight]="flights[0]"
+      [passengers]="passengers"></app-review-flight-container>
     <app-review-flight-container
+      class="review-flight"
       *ngIf="flights && flights[1]"
-      [flight]="flights[1]"></app-review-flight-container>
+      [flight]="flights[1]"
+      [passengers]="passengers"></app-review-flight-container>
   </div>
-  <app-review-price-container></app-review-price-container>
+  <div class="price-container">
+    <app-review-price-container
+      class="price-block"
+      [allPrices]="reviewPaymentService.getPrices()"></app-review-price-container>
+  </div>
   
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>review</mat-label>
-      <input matInput formControlName="review" required />
-      <mat-error *ngIf="form?.get('review')?.invalid">The field is required</mat-error>
-    </mat-form-field>
-  
-    <div>
-      <button mat-raised-button (click)="goBack()">Back</button>
-      <button mat-raised-button color="primary" [disabled]="form.invalid">buy now</button>
-    </div>
+  <form class="form" (ngSubmit)="onSubmit()">
+    <button class="btn-transparent" (click)="goBack()">Back</button>
+    <button class="btn-transparent-border">
+      Add to order cart
+    </button>
+    <button class="btn-forward">
+      Buy now
+    </button>
   </form>
 </div>

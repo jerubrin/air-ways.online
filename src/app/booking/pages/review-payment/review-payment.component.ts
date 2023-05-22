@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-import { FlightsApiService } from 'src/app/core/services/flights-api.service';
-import { Passengers } from 'src/app/shared/interfaces/passengers.model';
+// import { FlightsApiService } from 'src/app/core/services/flights-api.service';
+import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
+import { MainStoreService } from 'src/app/core/services/main-store.service';
+import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { ReviewPaymentService } from '../../services/review-payment.service';
 import { Flight } from '../../models/flight.model';
 
@@ -13,28 +15,33 @@ import { Flight } from '../../models/flight.model';
   templateUrl: './review-payment.component.html',
   styleUrls: ['./review-payment.component.scss']
 })
-export class ReviewPaymentComponent {
+export class ReviewPaymentComponent implements OnInit {
   form!: FormGroup;
 
   flights?: Flight[];
 
-  passengers?: Passengers;
+  passengers?: PassengerReview[];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private reviewPaymentService: ReviewPaymentService,
+    public reviewPaymentService: ReviewPaymentService,
     private stepperService: StepperService,
     // TODO: remove mock data
-    private flightApi: FlightsApiService,
+    // private flightApi: FlightsApiService,
+    public store: MainStoreService,
+    private queryParamsService: QueryParamsService
   ) {}
 
   ngOnInit() {
     this.createForm();
+    this.passengers = this.store.passengersReview;
     // TODO: remove mock data
-    this.flightApi.flightsStream$.subscribe((flights) => {
-      this.flights = flights;
-    });
+    // this.flightApi.flightsStream$.subscribe((flights) => {
+    //   this.flights = flights;
+    //   this.store.flights = flights;
+    //   this.passengers = this.store.passengersReview;
+    // });
   }
 
   createForm() {
@@ -43,10 +50,12 @@ export class ReviewPaymentComponent {
     });
   }
 
-  goBack() {
-    window.history.back();
-
-    this.stepperService.previous();
+  goBack(): void {
+    const queryParams = this.queryParamsService.getQueryParams();
+    this.router.navigate([
+      RoutesPath.BookingPage,
+      RoutesPath.BookingPagePassengers
+    ], { queryParams });
   }
 
   onSubmit() {

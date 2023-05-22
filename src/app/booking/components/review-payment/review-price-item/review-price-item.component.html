@@ -1,14 +1,14 @@
 <div class="item">
   <div class="main-price">
-    <p>1 x Adult Fare</p>
-    <p>€257.31</p>
+    <p>{{count}} x {{title}} Fare</p>
+    <p>{{allPrices?.fullPrice | price | async}}</p>
   </div>
   <div class="option">
     <p>Fare</p>
-    <p>€166.00</p>
+    <p>{{allPrices?.fare | price | async}}</p>
   </div>
   <div class="option">
     <p>Tax & Service Charge</p>
-    <p>€91.31</p>
+    <p>{{allPrices?.tax | price | async}}</p>
   </div>
 </div>
