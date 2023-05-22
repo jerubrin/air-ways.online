@@ -1,6 +1,16 @@
+@import "buttons";
+
 .flights-list {
   display: flex;
   flex-direction: column;
   gap: 4rem;
   margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  gap: 4rem;
 }

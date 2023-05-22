@@ -26,6 +26,7 @@ import { ReviewFlightContainerComponent } from './components/review-payment/revi
 import { ReviewFlightPassengerComponent } from './components/review-payment/review-flight-passenger/review-flight-passenger.component';
 import { ReviewPriceContainerComponent } from './components/review-payment/review-price-container/review-price-container.component';
 import { ReviewPriceItemComponent } from './components/review-payment/review-price-item/review-price-item.component';
+import { BgSeatsDirective } from './directives/bg-seats.directive';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ReviewPriceItemComponent } from './components/review-payment/review-pri
     ReviewFlightContainerComponent,
     ReviewFlightPassengerComponent,
     ReviewPriceContainerComponent,
-    ReviewPriceItemComponent
+    ReviewPriceItemComponent,
+    BgSeatsDirective
   ],
   imports: [CommonModule, SharedModule, BookingRoutingModule]
 })

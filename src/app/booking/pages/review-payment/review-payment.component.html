@@ -4,8 +4,12 @@
     <h3 class="review-title">Summary</h3>
   </div>
   <div>
-    <app-review-flight-container></app-review-flight-container>
-    <app-review-flight-container></app-review-flight-container>
+    <app-review-flight-container
+      *ngIf="flights && flights[0]"
+      [flight]="flights[0]"></app-review-flight-container>
+    <app-review-flight-container
+      *ngIf="flights && flights[1]"
+      [flight]="flights[1]"></app-review-flight-container>
   </div>
   <app-review-price-container></app-review-price-container>
   

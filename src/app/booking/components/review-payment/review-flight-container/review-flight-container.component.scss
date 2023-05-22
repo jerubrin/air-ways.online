@@ -1,0 +1,18 @@
+@import "variables";
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 24px;
+  gap: 8px;
+
+  width: 551px;
+  height: 100px;
+
+  background: $color-secondary-80;
+
+  border-top: 3px solid $color-primary;
+  border-radius: 8px 8px 0px 0px;
+}

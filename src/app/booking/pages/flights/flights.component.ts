@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
@@ -22,6 +22,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
     private router: Router,
     private stepperService: StepperService,
     private queryParamsService: QueryParamsService,
+    private activatedRoute: ActivatedRoute,
     public flightSearchService: FlightSearchService,
     public flightsApiService: FlightsApiService
   ) {}
@@ -31,7 +32,14 @@ export class FlightsComponent implements OnInit, OnDestroy {
       this.flightsApiService.flightsStream$.subscribe((flights) => {
         this.flightSearchService.selectFlight(0, undefined);
         this.flightSearchService.selectFlight(1, undefined);
+        this.flightSearchService.hasBackDate = flights.length === 2;
         this.flights = flights;
+      })
+    );
+    this.subscriptions.push(
+      this.activatedRoute.queryParams.subscribe((params) => {
+        this.flightSearchService.totalCountOfSeats = Number(params?.['adults'] ?? 0);
+        this.flightSearchService.totalCountOfSeats += Number(params?.['children'] ?? 0);
       })
     );
   }

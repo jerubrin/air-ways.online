@@ -3,7 +3,10 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
+import { FlightsApiService } from 'src/app/core/services/flights-api.service';
+import { Passengers } from 'src/app/shared/interfaces/passengers.model';
 import { ReviewPaymentService } from '../../services/review-payment.service';
+import { Flight } from '../../models/flight.model';
 
 @Component({
   selector: 'app-review-payment',
@@ -13,19 +16,25 @@ import { ReviewPaymentService } from '../../services/review-payment.service';
 export class ReviewPaymentComponent {
   form!: FormGroup;
 
-  flights: any;
+  flights?: Flight[];
 
-  passengers: any;
+  passengers?: Passengers;
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private reviewPaymentService: ReviewPaymentService,
-    private stepperService: StepperService
+    private stepperService: StepperService,
+    // TODO: remove mock data
+    private flightApi: FlightsApiService,
   ) {}
 
   ngOnInit() {
     this.createForm();
+    // TODO: remove mock data
+    this.flightApi.flightsStream$.subscribe((flights) => {
+      this.flights = flights;
+    });
   }
 
   createForm() {

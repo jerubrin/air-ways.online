@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Flight } from 'src/app/booking/models/flight.model';
 
 @Component({
   selector: 'app-review-flight-container',
@@ -6,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./review-flight-container.component.scss']
 })
 export class ReviewFlightContainerComponent {
-
+  @Input() flight?: Flight;
 }
