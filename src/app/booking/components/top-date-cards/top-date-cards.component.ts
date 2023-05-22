@@ -5,7 +5,7 @@ import { Seats } from '../../models/seats.model';
 import { Flights } from '../../models/flights.model';
 import { Flight } from '../../models/flight.model';
 
-const DAY_IN_MILISECONDS = 1000 * 60 * 60 * 24;
+const DAY_IN_MILLISECONDS = 1000 * 60 * 60 * 24;
 
 @Component({
   selector: 'app-top-date-cards',
@@ -47,10 +47,11 @@ export class TopDateCardsComponent implements OnDestroy, OnChanges {
     if (!changes['date']) return;
     const date = new Date(changes['date'].currentValue);
     this.currentDate = date;
-    this.twoDaysBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILISECONDS * 2);
-    this.oneDayBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILISECONDS);
-    this.oneDayAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILISECONDS);
-    this.twoDaysAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILISECONDS * 2);
+    this.twoDaysBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILLISECONDS * 2);
+    this.oneDayBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILLISECONDS);
+    this.oneDayAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILLISECONDS);
+    this.twoDaysAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILLISECONDS * 2);
+    this.selected = 0;
   }
 
   ngOnDestroy(): void {

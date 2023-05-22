@@ -11,6 +11,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { SharedModule } from '../shared/shared.module';
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
     FooterComponent,
+    MessageDialogComponent,
   ],
   imports: [
     CommonModule,
