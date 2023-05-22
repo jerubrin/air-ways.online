@@ -2,10 +2,11 @@
   'card': true,
   'main-card': selected,
   'second-card': !selected,
-  'card-disabled': !price,
+  'card-disabled': !price
 }">
   <h4>{{date | date:'dd MMM'}}</h4>
   <p>{{date | date:'EEEE'}}</p>
   <h3 *ngIf="price">{{price | price | async }}</h3>
   <div class="no-price" *ngIf="!price"></div>
+  <div class="bottom-line" *ngIf="selected" [appBgSeats]="seats" [isHighlight]="true"></div>
 </div>

@@ -21,6 +21,7 @@ import { PricePipe } from './pipes/price.pipe';
 import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
 import { PassengerFormComponent } from './pages/passengers/components/passenger-form/passenger-form.component';
 import { ContactDetailsFormComponent } from './pages/passengers/components/contact-details-form/contact-details-form.component';
+import { BgSeatsDirective } from './directives/bg-seats.directive';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ContactDetailsFormComponent } from './pages/passengers/components/conta
     PricePipe,
     EditFlightSearchFormComponent,
     PassengerFormComponent,
-    ContactDetailsFormComponent
+    ContactDetailsFormComponent,
+    BgSeatsDirective
   ],
   imports: [CommonModule, SharedModule, BookingRoutingModule]
 })

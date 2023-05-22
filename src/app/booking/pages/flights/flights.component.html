@@ -17,11 +17,9 @@
   </app-flight-container>
 </div>
 
-<form (ngSubmit)="onSubmit()">
-  <div>
-    <button mat-raised-button (click)="goBack()">Back</button>
-    <button mat-raised-button color="primary" [disabled]="!flightSearchService.isValid">
-      Next
-    </button>
-  </div>
+<form class="form" (ngSubmit)="onSubmit()">
+  <button class="btn-transperent" (click)="goBack()">Back</button>
+  <button class="btn-forward" [disabled]="!flightSearchService.isValid">
+    Continue
+  </button>
 </form>
