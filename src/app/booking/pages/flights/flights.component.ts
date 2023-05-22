@@ -6,6 +6,7 @@ import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { FlightSearchService } from 'src/app/core/services/flight-search.service';
 import { Subscription } from 'rxjs';
 import { FlightsApiService } from 'src/app/core/services/flights-api.service';
+import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -24,7 +25,8 @@ export class FlightsComponent implements OnInit, OnDestroy {
     private queryParamsService: QueryParamsService,
     private activatedRoute: ActivatedRoute,
     public flightSearchService: FlightSearchService,
-    public flightsApiService: FlightsApiService
+    public flightsApiService: FlightsApiService,
+    public mainStoreService: MainStoreService,
   ) {}
 
   ngOnInit() {
@@ -59,6 +61,9 @@ export class FlightsComponent implements OnInit, OnDestroy {
     if (!this.flightSearchService.isValid) {
       return;
     }
+
+    this.mainStoreService.flights = this.flightSearchService.selectedFlights
+      .filter(Boolean) as Flight[];
 
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
       queryParamsHandling: 'merge'
