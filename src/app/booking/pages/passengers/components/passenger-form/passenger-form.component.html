@@ -1,3 +1,15 @@
-<div class="form-container">
+<form [formGroup]="passengerForm" class="form-container">
   <h3 class="title">{{ passengerIndex }}. {{ passengerTitle }}</h3>
-</div>
+  <mat-form-field>
+    <input matInput formControlName="firstName" placeholder="First name" required />
+    <mat-error *ngIf="passengerForm?.get('firstName')?.hasError('required')"
+      >First name is required</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="lastName" placeholder="Last name" required />
+    <mat-error *ngIf="passengerForm?.get('lastName')?.hasError('required')"
+      >lastName name is required</mat-error
+    >
+  </mat-form-field>
+</form>

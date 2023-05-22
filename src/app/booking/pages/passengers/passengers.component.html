@@ -1,32 +1,41 @@
 <section>
-  <h2 class="flex-center">
-    <div class="passengers-icon"></div>
-    Passengers
-  </h2>
-  <p class="sub-title">Enter the passenger's names as they appear on document (passport or ID).</p>
+  <form [formGroup]="passengersForm" (ngSubmit)="onSubmit()">
+    <h2 class="flex-center">
+      <div class="passengers-icon"></div>
+      Passengers
+    </h2>
+    <p class="sub-title">
+      Enter the passenger's names as they appear on document (passport or ID).
+    </p>
 
-  <div class="passengers-forms-container" *ngIf="hasPassengers()">
-    <app-passenger-form
-      *ngFor="let passenger of passengers; let i = index"
-      [passengerIndex]="i + 1"
-      [passengerTitle]="passenger.title"
-    ></app-passenger-form>
-  </div>
+    <div class="passengers-forms-container" *ngIf="hasPassengers()">
+      <app-passenger-form
+        *ngFor="let passenger of passengers; let i = index"
+        [passengerIndex]="i + 1"
+        [passengerTitle]="passenger.title"
+        (passengerFormChanges)="updatePassengerForms($event, passenger.title)"
+      ></app-passenger-form>
+    </div>
 
-  <h2 class="flex-center">
-    <div class="contact-details-icon"></div>
-    Contact details
-  </h2>
-  <p class="sub-title">
-    We need contact details to be able to deliver the latest information regarding your flight.
-  </p>
+    <h2 class="flex-center">
+      <div class="contact-details-icon"></div>
+      Contact details
+    </h2>
+    <p class="sub-title">
+      We need contact details to be able to deliver the latest information regarding your flight.
+    </p>
 
-  <div class="contact-details-form-container" *ngIf="hasPassengers()">
-    <app-contact-details-form></app-contact-details-form>
-  </div>
+    <div class="contact-details-form-container" *ngIf="hasPassengers()">
+      <app-contact-details-form
+        (contactDetailsFormChanges)="updateContactDetailsForm($event)"
+      ></app-contact-details-form>
+    </div>
 
-  <div>
-    <button mat-raised-button (click)="goBack()">Back</button>
-    <button mat-raised-button color="primary" [disabled]="false" (click)="goNext()">Next</button>
-  </div>
+    <div>
+      <button mat-raised-button (click)="goBack()">Back</button>
+      <button mat-raised-button color="primary" [disabled]="!isFormValid" type="submit">
+        Next
+      </button>
+    </div>
+  </form>
 </section>

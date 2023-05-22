@@ -1,1 +1,14 @@
-<div class="form-container"></div>
+<form [formGroup]="contactDetailsForm" class="form-container">
+  <mat-form-field>
+    <input matInput formControlName="firstName" placeholder="First name" required />
+    <mat-error *ngIf="contactDetailsForm?.get('firstName')?.hasError('required')"
+      >First name is required</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput formControlName="lastName" placeholder="Last name" required />
+    <mat-error *ngIf="contactDetailsForm?.get('lastName')?.hasError('required')"
+      >lastName name is required</mat-error
+    >
+  </mat-form-field>
+</form>
