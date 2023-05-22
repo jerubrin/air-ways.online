@@ -31,11 +31,9 @@
       ></app-contact-details-form>
     </div>
 
-    <div>
-      <button mat-raised-button (click)="goBack()">Back</button>
-      <button mat-raised-button color="primary" [disabled]="!isFormValid" type="submit">
-        Next
-      </button>
+    <div class="btn-wrapper">
+      <button class="btn-transperent" (click)="goBack()">Back</button>
+      <button class="btn-forward" [disabled]="!isFormValid" type="submit">Continue</button>
     </div>
   </form>
 </section>

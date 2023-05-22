@@ -15,7 +15,9 @@ export interface PassengersData {
   lastName: string;
   // gender: string;
   // dateOfBirth: string;
+  // specialAssistance?: boolean;
 }
+
 export interface ContactDetailsData {
   firstName: string;
   lastName: string;
