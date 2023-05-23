@@ -21,6 +21,12 @@ import { PricePipe } from './pipes/price.pipe';
 import { EditFlightSearchFormComponent } from './components/edit-flight-search-form/edit-flight-search-form.component';
 import { PassengerFormComponent } from './pages/passengers/components/passenger-form/passenger-form.component';
 import { ContactDetailsFormComponent } from './pages/passengers/components/contact-details-form/contact-details-form.component';
+import { ReviewFlightHeaderComponent } from './components/review-payment/review-flight-header/review-flight-header.component';
+import { ReviewFlightContainerComponent } from './components/review-payment/review-flight-container/review-flight-container.component';
+import { ReviewFlightPassengerComponent } from './components/review-payment/review-flight-passenger/review-flight-passenger.component';
+import { ReviewPriceContainerComponent } from './components/review-payment/review-price-container/review-price-container.component';
+import { ReviewPriceItemComponent } from './components/review-payment/review-price-item/review-price-item.component';
+import { BgSeatsDirective } from './directives/bg-seats.directive';
 
 @NgModule({
   declarations: [
@@ -42,7 +48,13 @@ import { ContactDetailsFormComponent } from './pages/passengers/components/conta
     PricePipe,
     EditFlightSearchFormComponent,
     PassengerFormComponent,
-    ContactDetailsFormComponent
+    ContactDetailsFormComponent,
+    ReviewFlightHeaderComponent,
+    ReviewFlightContainerComponent,
+    ReviewFlightPassengerComponent,
+    ReviewPriceContainerComponent,
+    ReviewPriceItemComponent,
+    BgSeatsDirective
   ],
   imports: [CommonModule, SharedModule, BookingRoutingModule]
 })

@@ -1,3 +1,35 @@
-<div class="form-container">
-  <h3 class="title">{{ passengerIndex }}. {{ passengerTitle }}</h3>
-</div>
+<form [formGroup]="passengerForm" class="form">
+  <h3 class="title">{{ passengerIndex + 1 }}. {{ passengerTitle }}</h3>
+  <div class="form-fields-wrapper flex-center">
+    <mat-form-field class="custom-form-field">
+      <mat-label class="label-small">First name</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="firstName"
+        placeholder="Enter your First Name"
+        (input)="passengerForm.get('firstName')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="passengerForm?.get('firstName')?.invalid && passengerForm?.get('firstName')?.touched"
+      >
+        {{ getErrorMessage('firstName') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="custom-form-field">
+      <mat-label class="label-small">Last name</mat-label>
+      <input
+        matInput
+        formControlName="lastName"
+        placeholder="Enter your Last Name"
+        (input)="passengerForm.get('lastName')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="passengerForm?.get('lastName')?.invalid && passengerForm?.get('lastName')?.touched"
+      >
+        {{ getErrorMessage('lastName') }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+</form>

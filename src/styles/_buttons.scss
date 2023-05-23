@@ -60,3 +60,44 @@
     filter: brightness(1.2);
   }
 }
+
+.btn-transparent {
+  @include stepButton();
+
+  &:hover {
+    background: #11397e22;
+  }
+  &:active {
+    background: #11397e66;
+  }
+}
+
+.btn-forward {
+  @include stepButton($color-primary, $color-white);
+
+  &:hover {
+    filter: contrast(130%);
+  }
+  &:active {
+    filter: brightness(1.2);
+  }
+  &:disabled {
+    cursor: default;
+    filter: brightness(5) saturate(0);
+  }
+}
+
+.btn-transparent-border {
+  @include stepButton();
+  border: solid 1px $color-primary;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: auto;
+
+  &:hover {
+    background: #11397e22;
+  }
+  &:active {
+    background: #11397e66;
+  }
+}

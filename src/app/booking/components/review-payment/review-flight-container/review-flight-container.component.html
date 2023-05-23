@@ -1,0 +1,8 @@
+<app-review-flight-header class="header" [flight]="flight"></app-review-flight-header>
+<div class="passenger-list">
+  <app-review-flight-passenger
+    *ngFor="let passenger of passengers"
+    class="passenger"
+    [passenger]="passenger"
+  ></app-review-flight-passenger>
+</div>

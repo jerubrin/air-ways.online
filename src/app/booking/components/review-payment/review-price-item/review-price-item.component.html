@@ -1,0 +1,14 @@
+<div class="item">
+  <div class="main-price">
+    <p>{{count}} x {{title}} Fare</p>
+    <p>{{allPrices?.fullPrice | price | async}}</p>
+  </div>
+  <div class="option">
+    <p>Fare</p>
+    <p>{{allPrices?.fare | price | async}}</p>
+  </div>
+  <div class="option">
+    <p>Tax & Service Charge</p>
+    <p>{{allPrices?.tax | price | async}}</p>
+  </div>
+</div>

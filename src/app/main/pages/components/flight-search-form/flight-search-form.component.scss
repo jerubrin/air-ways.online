@@ -24,6 +24,12 @@
     background-color: $color-secondary-50;
     border: 0.1rem solid $color-primary;
   }
+  ::ng-deep .mdc-text-field--invalid {
+    border-color: $color-error;
+    .label-small {
+      color: $color-error;
+    }
+  }
 }
 
 .radio-group-container {

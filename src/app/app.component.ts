@@ -7,7 +7,7 @@ import { AuthService } from './core/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public authService: AuthService) {}
+  title = 'air-ways.online';
 
-  title = '123';
+  constructor(public readonly authService: AuthService) {}
 }

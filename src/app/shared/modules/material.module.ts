@@ -14,6 +14,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+<<<<<<< HEAD
+=======
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+>>>>>>> develop
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const materialModules = [
@@ -31,7 +36,13 @@ const materialModules = [
   MatSelectModule,
   MatStepperModule,
   MatSnackBarModule,
+<<<<<<< HEAD
   MatCheckboxModule,
+=======
+  MatDialogModule,
+  MatButtonToggleModule,
+  MatCheckboxModule
+>>>>>>> develop
 ];
 
 @NgModule({

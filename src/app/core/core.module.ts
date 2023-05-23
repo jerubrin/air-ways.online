@@ -10,8 +10,9 @@ import { StepperComponent } from './components/header/components/stepper/stepper
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SharedModule } from '../shared/shared.module';
+import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { SharedModule } from '../shared/shared.module';
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
     FooterComponent,
+    MessageDialogComponent,
     SignInComponent
   ],
   imports: [CommonModule, SharedModule, HttpClientModule],

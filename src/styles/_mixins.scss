@@ -37,6 +37,8 @@ $font-line-height-base: 2.4rem;
   background-repeat: no-repeat;
 }
 
+$icon-size-deafult: 2.4rem;
+
 @mixin picture($width: $icon-size-deafult, $height: $icon-size-deafult) {
   width: $width;
   height: $height;
@@ -45,4 +47,16 @@ $font-line-height-base: 2.4rem;
   background-repeat: no-repeat;
 }
 
-$icon-size-deafult: 24px;
+$transparent-white: #ffffff00;
+
+@mixin stepButton($background-color: $transparent-white, $font-color: $color-primary ) {
+  width: 12.6rem;
+  height: 6rem;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  @include font($font-size-16, $font-weight-500, $font-color);
+  line-height: 2rem;
+  border: none;
+  background: $background-color;
+}
+
