@@ -43,10 +43,29 @@
   .mdc-floating-label--float-above {
   --mat-mdc-form-field-label-transform: translateY(-2.1rem) scale(0.7);
 }
+// :host {
 
 :host {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+.background {
+  width: 100%;
+  height: 100%;
+  // z-index: 999;
+  background: rgba(0, 0, 0, 0.32);
+  position: absolute;
+  // overflow: hidden;
+  &__on-signup {
+    height: 130%;
+  }
+}
+
+.auth-container {
   position: relative;
-  left: -11rem;
   width: 49.4rem;
   background-color: $color-white;
   border-radius: 0.8rem;
@@ -54,9 +73,9 @@
   padding: 3.2rem 2.4rem;
   display: flex;
   flex-direction: column;
-  z-index: 999;
-  position: absolute;
-  top: 5rem;
+  // z-index: 999;
+  // position: absolute;
+  top: 7rem;
   left: calc(50% - 25rem);
 
   //input borders on focus
@@ -68,8 +87,9 @@
   }
 }
 
+// }
+
 .close {
-  position: absolute;
   cursor: pointer;
   right: -2.4rem;
   top: -1.4rem;
