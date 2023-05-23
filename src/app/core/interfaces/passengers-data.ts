@@ -1,12 +1,13 @@
 export enum Gender {
   Male = 'Male',
-  Female = 'Female',
+  Female = 'Female'
 }
 
 export interface PassengersData {
+  id: number;
   firstName: string;
   lastName: string;
-  gender: string;
-  dateOfBirth: string;
-  specialAssistance?: boolean;
+  // gender: string;
+  // dateOfBirth: string;
+  // specialAssistance?: boolean;
 }
