@@ -47,48 +47,50 @@
 
 <!-- SIGNUP -->
 <ng-container *ngIf="authActionValue === authAction.Signup">
-  <div class="or-message body-small">
-    <span class="or-message__line"></span>
-    <span class="or-message__text">or sign up with your email</span>
-    <span class="or-message__line"></span>
-  </div>
-  <mat-form-field class="form__element" appearance="outline">
-    <mat-label>Email</mat-label>
-    <input type="email" matInput required />
-  </mat-form-field>
-
-  <mat-form-field class="form__element" appearance="outline">
-    <mat-label>Password</mat-label>
-    <input type="password" matInput required />
-  </mat-form-field>
-
-  <mat-form-field class="form__element" appearance="outline">
-    <mat-label>First name</mat-label>
-    <input type="text" matInput required />
-  </mat-form-field>
-
-  <mat-form-field class="form__element" appearance="outline">
-    <mat-label>Last name</mat-label>
-    <input type="text" matInput required />
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Date of birth</mat-label>
-    <input matInput [matDatepicker]="picker" required />
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <form (ngSubmit)="register()">
+    <div class="or-message body-small">
+      <span class="or-message__line"></span>
+      <span class="or-message__text">or sign up with your email</span>
+      <span class="or-message__line"></span>
+    </div>
+    <mat-form-field class="form__element" appearance="outline">
+      <mat-label>Email</mat-label>
+      <input type="email" [(ngModel)]="fromSignup.email" matInput required />
+    </mat-form-field>
+  
+    <mat-form-field class="form__element" appearance="outline">
+      <mat-label>Password</mat-label>
+      <input type="password" [value]="fromSignup.password" matInput required />
+    </mat-form-field>
+  
+    <mat-form-field class="form__element" appearance="outline">
+      <mat-label>First name</mat-label>
+      <input type="text" [(ngModel)]="fromSignup.firstName" matInput required />
+    </mat-form-field>
+  
+    <mat-form-field class="form__element" appearance="outline">
+      <mat-label>Last name</mat-label>
+      <input type="text" [(ngModel)]="fromSignup.lastName" matInput required />
+    </mat-form-field>
+  
+    <mat-form-field appearance="outline">
+      <mat-label>Date of birth</mat-label>
+      <input matInput [matDatepicker]="picker" required />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </form>
 
   <mat-button-toggle-group
     class="gender label-medium"
     name="fontStyle"
-    [(value)]="genderValue"
+    [(value)]="fromSignup.gender"
     aria-label="Font Style"
   >
-    <mat-button-toggle class="gender__item" [value]="gender.Male"
+    <mat-button-toggle class="gender__item" [value]="Gender.Male"
       ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
     >
-    <mat-button-toggle class="gender__item" [value]="gender.Female"
+    <mat-button-toggle class="gender__item" [value]="Gender.Female"
       ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
     >
   </mat-button-toggle-group>
@@ -96,8 +98,8 @@
   <div class="tel-inputs">
     <mat-form-field class="tel-inputs__item" appearance="outline">
       <mat-label>Country code</mat-label>
-      <mat-select [(value)]="firstCountryCode">
-        <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
+      <mat-select [(value)]="fromSignup.countryCode">
+        <mat-option *ngFor="let countryCode of CountryCodes" [value]="countryCode">
           {{ countryCode.name }} ({{ countryCode.code }})
         </mat-option>
       </mat-select>
@@ -111,8 +113,8 @@
 
   <mat-form-field appearance="outline">
     <mat-label>Citizenship</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
+    <mat-select [(value)]="fromSignup.citizenship">
+      <mat-option *ngFor="let countryCode of CountryCodes" [value]="countryCode">
         {{ countryCode.name }}
       </mat-option>
     </mat-select>
