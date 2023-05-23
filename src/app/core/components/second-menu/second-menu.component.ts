@@ -21,7 +21,7 @@ export class SecondMenuComponent implements OnInit {
 
   @Output() editClick = new EventEmitter(false);
 
-  editShow?: boolean;
+  editShow?: boolean = this.router.url.substring(0, 16) === '/booking/flights';
 
   constructor(private router: Router) {}
 
