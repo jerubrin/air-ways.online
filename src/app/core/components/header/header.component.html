@@ -9,7 +9,7 @@
       <p *ngIf="isShowBookFlights">Book flights</p>
       <app-date-format-menu></app-date-format-menu>
       <app-currency-menu></app-currency-menu>
-      <app-sign-in-button></app-sign-in-button>
+      <app-sign-in-button (click)="authService.showAuthModal()"></app-sign-in-button>
       <app-shopping-cart-button></app-shopping-cart-button>
     </div>
   </div>

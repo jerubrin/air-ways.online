@@ -4,6 +4,7 @@
   min-height: calc(100vh - $header-height - $footer-height);
   position: relative;
   padding: 6rem 0 1rem;
+  z-index: 0;
 
   &::before {
     content: '';

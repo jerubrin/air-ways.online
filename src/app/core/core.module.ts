@@ -12,6 +12,7 @@ import { NotFoundPageComponent } from './page/not-found-page/not-found-page.comp
 import { FooterComponent } from './components/footer/footer.component';
 import { SharedModule } from '../shared/shared.module';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 @NgModule({
   declarations: [
@@ -25,15 +26,9 @@ import { MessageDialogComponent } from './components/message-dialog/message-dial
     NotFoundPageComponent,
     FooterComponent,
     MessageDialogComponent,
+    SignInComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-  ],
+  imports: [CommonModule, SharedModule, HttpClientModule],
+  exports: [HeaderComponent, FooterComponent, SignInComponent]
 })
 export class CoreModule {}
