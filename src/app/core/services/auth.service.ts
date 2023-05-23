@@ -6,6 +6,9 @@ import { Injectable } from '@angular/core';
 export class AuthService {
   isLoggedIn = false;
 
+  //FIXME -
+  isAuthModalVisible = true;
+
   login(): void {
     this.isLoggedIn = true;
   }
@@ -16,5 +19,13 @@ export class AuthService {
 
   isAuthenticated() {
     return this.isLoggedIn;
+  }
+
+  showAuthModal(): void {
+    this.isAuthModalVisible = true;
+  }
+
+  hideAuthModal(): void {
+    this.isAuthModalVisible = false;
   }
 }

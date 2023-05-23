@@ -4,7 +4,8 @@
   .header {
     position: fixed;
     top: 0;
-    z-index: 999;
+    // z-index: 999;
+    z-index: 1000;
     width: 100%;
     height: $header-height;
     transition: all 0.2s;
@@ -17,7 +18,7 @@
     color: $color-white;
     &.active {
       background-color: $color-neutral-75;
-      z-index: 999;
+      // z-index: 999;
     }
     .right-side {
       gap: 4rem;

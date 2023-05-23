@@ -21,9 +21,7 @@ export class ReviewPaymentService {
     return this.formValid;
   }
 
-  constructor(
-    private store: MainStoreService,
-  ) {
+  constructor(private store: MainStoreService) {
     // TODO: remove mock generator
     // this.store.passengersResult = {
     //   adults: [
@@ -42,11 +40,13 @@ export class ReviewPaymentService {
 
   getPrices(): TotalPrices {
     return {
-      adults: this.getPrice(this.getPricesSum(
-        this.store?.flights[0]?.price,
-        this.store?.flights[1]?.price,
-        this.store.passengersResult?.adults.length
-      )),
+      adults: this.getPrice(
+        this.getPricesSum(
+          this.store?.flights[0]?.price,
+          this.store?.flights[1]?.price,
+          this.store.passengersResult?.adults.length
+        )
+      ),
       adultsCount: this.store.passengersResult?.adults.length ?? 0,
       children: this.getPrice(
         this.getPricesSum(
@@ -54,7 +54,7 @@ export class ReviewPaymentService {
           this.store?.flights[1]?.price,
           this.store.passengersResult?.children.length
         ),
-        0.6,
+        0.6
       ),
       childrenCount: this.store.passengersResult?.children.length ?? 0,
       infants: this.getPrice(
@@ -63,7 +63,7 @@ export class ReviewPaymentService {
           this.store?.flights[1]?.price,
           this.store.passengersResult?.infants.length
         ),
-        0.3,
+        0.3
       ),
       infantsCount: this.store.passengersResult?.infants.length ?? 0
     };
@@ -74,21 +74,21 @@ export class ReviewPaymentService {
       eur: price.eur * (percentIndex ?? 1),
       pln: price.pln * (percentIndex ?? 1),
       usd: price.usd * (percentIndex ?? 1),
-      rub: price.rub * (percentIndex ?? 1),
+      rub: price.rub * (percentIndex ?? 1)
     };
     const tax: Price = {
       eur: fullPrice.eur * 0.11,
       pln: fullPrice.pln * 0.11,
       usd: fullPrice.usd * 0.11,
-      rub: fullPrice.rub * 0.11,
+      rub: fullPrice.rub * 0.11
     };
     const fare: Price = {
       eur: fullPrice.eur - tax.eur,
       pln: fullPrice.pln - tax.pln,
       usd: fullPrice.usd - tax.usd,
-      rub: fullPrice.rub - tax.rub,
+      rub: fullPrice.rub - tax.rub
     };
-    return ({ fullPrice, fare, tax });
+    return { fullPrice, fare, tax };
   }
 
   private getPricesSum(priceOne?: Price, priceTwo?: Price, factor = 0): Price {
