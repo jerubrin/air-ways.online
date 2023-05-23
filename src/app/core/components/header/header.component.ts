@@ -18,14 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-<<<<<<< HEAD
-  constructor(
-    public router: Router,
-    public readonly authService: AuthService
-  ) {}
-=======
   constructor(public router: Router, public readonly authService: AuthService) {}
->>>>>>> develop
 
   ngOnInit(): void {
     this.subscriptions.push(
