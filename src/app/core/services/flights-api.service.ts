@@ -28,8 +28,8 @@ export class FlightsApiService {
       tap((params) => this.timeZone = params?.['forwardDate']?.substring(19)),
       filter((params) => !!params['fromKey'] && !!params['toKey'] && !!params['forwardDate']),
       map((params) => ({
-        fromKey: params['fromKey'],
-        toKey: params['toKey'],
+        fromKey: (params['fromKey'] as string | undefined ?? '').toUpperCase(),
+        toKey: (params['toKey'] as string | undefined ?? '').toUpperCase(),
         forwardDate: params['forwardDate'].substring(0, 10),
         backDate: params['backDate'].substring(0, 10)
       })),

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -24,14 +24,26 @@ export class BookingPageComponent implements OnInit, OnDestroy {
 
   infantsInitialValue!: number;
 
+  editShow?: boolean = this.router.url.substring(0, 16) === '/booking/flights';
+
   private subscriptions: Subscription[] = [];
 
-  constructor(private activatedRoute: ActivatedRoute) {}
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.subscriptions.push(
       this.activatedRoute.queryParams.subscribe((currentParams) => {
         this.setInitialValuesFromQueryParams(currentParams);
+      })
+    );
+    this.subscriptions.push(
+      this.router.events.subscribe((val) => {
+        if (val instanceof NavigationEnd) {
+          this.editShow = val.url.substring(0, 16) === '/booking/flights';
+        }
       })
     );
   }
