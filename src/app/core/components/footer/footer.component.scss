@@ -1,10 +1,11 @@
 @import 'variables';
 :host {
-  border-top: 0.1rem solid $color-secondary-40;
-  //Check
   background-color: $color-neutral-80;
   .footer {
     height: $footer-height;
+    border-top: 0.1rem solid $color-secondary-40;
+    //Check
+    background-color: $color-neutral-80;
   }
   .payment-method {
     gap: 2.7rem;
