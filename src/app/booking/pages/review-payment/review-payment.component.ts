@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-// import { FlightsApiService } from 'src/app/core/services/flights-api.service';
 import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { ReviewPaymentService } from '../../services/review-payment.service';
@@ -28,8 +27,6 @@ export class ReviewPaymentComponent implements OnInit {
     public reviewPaymentService: ReviewPaymentService,
     private stepperService: StepperService,
     private fb: FormBuilder,
-    // TODO: remove mock data
-    // private flightApi: FlightsApiService,
     public store: MainStoreService,
     private queryParamsService: QueryParamsService
   ) {}
@@ -37,12 +34,7 @@ export class ReviewPaymentComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.passengers = this.store.passengersReview;
-    // TODO: remove mock data
-    // this.flightApi.flightsStream$.subscribe((flights) => {
-    //   this.flights = flights;
-    //   this.store.flights = flights;
-    //   this.passengers = this.store.passengersReview;
-    // });
+    this.flights = this.store.flights;
   }
 
   createForm() {
@@ -60,7 +52,7 @@ export class ReviewPaymentComponent implements OnInit {
     this.stepperService.previous();
   }
 
-  // FIXME - я сам
+  // FIXME - я сам хз еще, что тут должно быть
   onSubmit() {
     this.router.navigate([RoutesPath.CartPage]);
   }
