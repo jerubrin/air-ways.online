@@ -1,0 +1,26 @@
+@import "variables";
+@import "mixins";
+
+.passenger {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem
+}
+
+.name {
+  @include font($font-size-16, $font-weight-400, $color-neutral-0);
+  line-height: 2.4rem;
+  text-transform: uppercase;
+}
+
+.other {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  p {
+    margin-left: 2.8rem;
+    @include font($font-size-16, $font-weight-400, $color-neutral-0);
+    line-height: 2.4rem;
+  }
+}

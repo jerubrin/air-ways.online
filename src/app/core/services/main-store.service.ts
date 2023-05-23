@@ -5,6 +5,8 @@ import { Cart } from '../interfaces/cart';
 import { QueryParamsService } from './query-params.service';
 import { LocalStorageService } from './local-storage.service';
 import { PassengersResultData } from '../interfaces/passengers-result-data';
+import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
+import { getPassengers } from '../helpers/passengers-converter';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,8 @@ export class MainStoreService {
   private _cart: Cart[] = [];
 
   private _currentIndex = -1;
+
+  private _passengersReview?: PassengerReview[]
 
   flights: Flight[] = [];
 
@@ -26,6 +30,15 @@ export class MainStoreService {
       email: ''
     }
   };
+
+
+  get passengersReview(): PassengerReview[] {
+    if (this._passengersReview?.length) {
+      return this._passengersReview;
+    }
+    this._passengersReview = getPassengers(this.passengersResult);
+    return this._passengersReview;
+  }
 
   constructor(
     private queryParamsService: QueryParamsService,

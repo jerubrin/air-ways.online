@@ -1,0 +1,8 @@
+<div class="passenger">
+  <p class="name">{{passenger?.firstName}} {{passenger?.lastName}}</p>
+  <div class="other">
+    <p *ngIf="passenger?.hasBaggage">1 checked bag (total 23 kg) included</p>
+    <p *ngIf="passenger?.hasCabinBag">1 cabin bag + 1 personal item (max. 8 kg) included</p>
+    <p *ngIf="passenger?.seat">Seat {{passenger?.seat}}</p>
+  </div>
+</div>

@@ -1,6 +1,33 @@
-<h1>review-payment works!</h1>
-
-<div class="btn-wrapper">
-  <button class="btn-transperent" (click)="goBack()">Back</button>
-  <button class="btn-forward" type="submit">Continue</button>
+<div class="review">
+  <div class="title">
+    <div class="review-icon"></div>
+    <h3 class="review-title">Summary</h3>
+  </div>
+  <div class="review-flights">
+    <app-review-flight-container
+      class="review-flight"
+      *ngIf="store.flights && store.flights[0]"
+      [flight]="store.flights[0]"
+      [passengers]="store.passengersReview"></app-review-flight-container>
+    <app-review-flight-container
+      class="review-flight"
+      *ngIf="store.flights && store.flights[1]"
+      [flight]="store.flights[1]"
+      [passengers]="store.passengersReview"></app-review-flight-container>
+  </div>
+  <div class="price-container">
+    <app-review-price-container
+      class="price-block"
+      [allPrices]="reviewPaymentService.getPrices()"></app-review-price-container>
+  </div>
+  
+  <form class="form" (ngSubmit)="onSubmit()">
+    <button class="btn-transparent" (click)="goBack()">Back</button>
+    <button class="btn-transparent-border">
+      Add to order cart
+    </button>
+    <button class="btn-forward">
+      Buy now
+    </button>
+  </form>
 </div>

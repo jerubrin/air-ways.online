@@ -1,0 +1,29 @@
+@import "variables";
+@import "mixins";
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.main-price {
+  display: flex;
+  justify-content: space-between;
+
+  p {
+    @include font($font-size-16, $font-weight-700, $color-black);
+    line-height: 2.4rem;
+  }
+}
+
+.option {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 4rem;
+
+  p {
+    @include font($font-size-16, $font-weight-400, $color-black);
+    line-height: 2.4rem;
+  }
+}
