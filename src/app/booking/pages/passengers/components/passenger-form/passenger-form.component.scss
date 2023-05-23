@@ -17,10 +17,15 @@
   ::ng-deep .mdc-text-field--filled {
     background-color: $color-secondary-90;
     border-radius: 0.4rem;
-    border: 0.1rem solid $color-secondary-40;
+    border: 1px solid $color-secondary-40;
+  }
+  ::ng-deep .mdc-text-field--outlined {
+    background-color: $color-secondary-90;
+    // border-radius: 0.4rem;
+    // border: 0.1rem solid #d0d9df;
   }
   ::ng-deep .mdc-text-field--focused {
-    border: 0.1rem solid $color-primary;
+    border: 1px solid $color-primary;
   }
   ::ng-deep .mdc-text-field--invalid {
     border-color: $color-error;

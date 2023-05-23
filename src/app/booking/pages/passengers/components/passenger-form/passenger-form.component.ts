@@ -1,5 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators
+} from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Gender, PassengersData } from 'src/app/core/interfaces/passengers-data';
 
@@ -26,6 +32,8 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
 
   gender = Gender;
 
+  today: Date = new Date();
+
   private subscriptions: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
@@ -40,7 +48,11 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
         this.initialValues?.lastName || '',
         [Validators.required, Validators.pattern(/^[A-Za-z\s']+$/)]
       ],
-      gender: [this.initialValues?.gender || '', [Validators.required]]
+      gender: [this.initialValues?.gender || '', [Validators.required]],
+      dateOfBirth: [
+        this.initialValues?.dateOfBirth || '',
+        [Validators.required, this.dateOfBirthValidator]
+      ]
     });
     this.subscriptions.push(
       this.passengerForm.valueChanges.subscribe(() => {
@@ -61,6 +73,18 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((s) => s.unsubscribe());
   }
 
+  dateOfBirthValidator(control: AbstractControl): ValidationErrors | null {
+    const selectedDate: Date = control.value;
+    const today: Date = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    if (selectedDate > today) {
+      return { dateOfBirthInvalid: true };
+    }
+
+    return null;
+  }
+
   getErrorMessage(fieldName: string): string {
     const fieldControl = this.passengerForm?.get(fieldName);
 
@@ -69,6 +93,9 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
     }
     if (fieldControl?.hasError('pattern')) {
       return 'Invalid character';
+    }
+    if (fieldControl?.hasError('dateOfBirthInvalid')) {
+      return 'Date of birth cannot be later than today';
     }
     return '';
   }

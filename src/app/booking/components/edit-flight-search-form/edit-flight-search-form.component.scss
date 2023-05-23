@@ -19,9 +19,6 @@
   }
   ::ng-deep .mdc-text-field--invalid {
     border-color: $color-error;
-    .label-small {
-      color: $color-error;
-    }
   }
   ::ng-deep .mdc-text-field--filled .mdc-line-ripple {
     display: none;

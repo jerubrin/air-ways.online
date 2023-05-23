@@ -45,5 +45,19 @@
         ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
       >
     </mat-button-toggle-group>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date of birth</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [max]="today" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="
+          passengerForm?.get('dateOfBirth')?.invalid && passengerForm?.get('dateOfBirth')?.touched
+        "
+      >
+        {{ getErrorMessage('dateOfBirth') }}
+      </mat-error>
+    </mat-form-field>
   </div>
 </form>

@@ -8,6 +8,6 @@ export interface PassengersData {
   firstName: string;
   lastName: string;
   gender: Gender;
-  // dateOfBirth: string;
+  dateOfBirth: string;
   // specialAssistance?: boolean;
 }
