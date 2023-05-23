@@ -3,5 +3,6 @@
   <main>
     <router-outlet></router-outlet>
   </main>
-  <app-footer></app-footer>
+  <app-footer [class.footer-with-active-modal]="authService.authActionValue === authService.authAction.Signup && authService.isAuthModalVisible"></app-footer>
+  <app-sign-in *ngIf="authService.isAuthModalVisible"></app-sign-in>
 </div>

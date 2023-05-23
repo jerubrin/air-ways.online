@@ -10,6 +10,7 @@ import { StepperComponent } from './components/header/components/stepper/stepper
 import { HeaderComponent } from './components/header/header.component';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
@@ -23,15 +24,9 @@ import { SharedModule } from '../shared/shared.module';
     ShoppingCartButtonComponent,
     NotFoundPageComponent,
     FooterComponent,
+    SignInComponent
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-    HttpClientModule,
-  ],
-  exports: [
-    HeaderComponent,
-    FooterComponent,
-  ],
+  imports: [CommonModule, SharedModule, HttpClientModule],
+  exports: [HeaderComponent, FooterComponent, SignInComponent]
 })
 export class CoreModule {}

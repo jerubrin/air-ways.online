@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
-import AuthAction from 'src/app/core/data/enams/AuthAction';
+// import AuthAction from 'src/app/core/data/enams/AuthAction';
 import Gender from 'src/app/core/data/enams/Gender';
-import CountryCodes from 'src/app/core/data/constants/CountryCodes';
+import CountryCodes from 'src/app/shared/data/constants/CountryCodes';
 
 @Component({
   selector: 'app-sign-in',
@@ -10,10 +10,6 @@ import CountryCodes from 'src/app/core/data/constants/CountryCodes';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
-  authAction = AuthAction;
-
-  authActionValue: AuthAction = this.authAction.Login;
-
   gender = Gender;
 
   genderValue: Gender = this.gender.Male;

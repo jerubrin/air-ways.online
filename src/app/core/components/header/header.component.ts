@@ -2,6 +2,7 @@ import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import RoutesPath from '../../../shared/data/enams/RoutesPath';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-header',
