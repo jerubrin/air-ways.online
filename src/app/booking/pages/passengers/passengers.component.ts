@@ -54,7 +54,7 @@ export class PassengersComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // console.log(this.mainStoreService.passengersResult);
+    console.log(this.mainStoreService.passengersResult);
 
     this.passengersResultData = this.mainStoreService.passengersResult;
 

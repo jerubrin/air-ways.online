@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { PassengersData } from 'src/app/core/interfaces/passengers-data';
+import { Gender, PassengersData } from 'src/app/core/interfaces/passengers-data';
 
 @Component({
   selector: 'app-passenger-form',
@@ -24,6 +24,8 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
 
   passengerForm!: FormGroup;
 
+  gender = Gender;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
@@ -37,7 +39,8 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
       lastName: [
         this.initialValues?.lastName || '',
         [Validators.required, Validators.pattern(/^[A-Za-z\s']+$/)]
-      ]
+      ],
+      gender: [this.initialValues?.gender || '', [Validators.required]]
     });
     this.subscriptions.push(
       this.passengerForm.valueChanges.subscribe(() => {

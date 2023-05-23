@@ -33,5 +33,23 @@
   @include fontNew($font-size-24, $font-weight-700, $line-height-28, #10264c);
 }
 .form-fields-wrapper {
+  display: flex;
   gap: 2rem;
+}
+
+.gender {
+  height: 5.8rem;
+  .gender-item {
+    width: 10.8rem;
+    background-color: $color-secondary-90;
+    img {
+      margin-right: 1rem;
+    }
+  }
+  .mat-button-toggle-checked {
+    color: $color-primary;
+  }
+  ::ng-deep.mat-button-toggle-button[aria-pressed='false'] img {
+    display: none;
+  }
 }

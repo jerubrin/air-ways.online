@@ -1,7 +1,7 @@
 <form [formGroup]="passengerForm" class="form">
   <h3 class="title">{{ passengerIndex + 1 }}. {{ passengerTitle }}</h3>
-  <div class="form-fields-wrapper flex-center">
-    <mat-form-field class="custom-form-field">
+  <div class="form-fields-wrapper">
+    <mat-form-field>
       <mat-label>First name</mat-label>
       <input
         matInput
@@ -17,7 +17,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="custom-form-field">
+    <mat-form-field>
       <mat-label>Last name</mat-label>
       <input
         matInput
@@ -31,5 +31,19 @@
         {{ getErrorMessage('lastName') }}
       </mat-error>
     </mat-form-field>
+
+    <mat-button-toggle-group
+      class="gender label-medium"
+      formControlName="gender"
+      name="gender"
+      aria-label="Gender"
+    >
+      <mat-button-toggle class="gender-item flex-center" [value]="gender.Male"
+        ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
+      >
+      <mat-button-toggle class="gender-item flex-center" [value]="gender.Female"
+        ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
+      >
+    </mat-button-toggle-group>
   </div>
 </form>
