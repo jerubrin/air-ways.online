@@ -1,4 +1,4 @@
-export const API_URL = 'https://api.air-ways.online';
+export const API_URL = 'https://api2.air-ways.online';
 
 export const API_REGISTRATION = '/auth/registration';
 

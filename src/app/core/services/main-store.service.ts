@@ -16,11 +16,20 @@ export class MainStoreService {
 
   flights: Flight[] = [];
 
-  passengersResult?: PassengersResultData;
+  passengersResult: PassengersResultData = {
+    adults: [],
+    children: [],
+    infants: [],
+    contactDetailsData: {
+      countryCode: '',
+      phone: '',
+      email: ''
+    }
+  };
 
   constructor(
     private queryParamsService: QueryParamsService,
-    private localStorageService: LocalStorageService,
+    private localStorageService: LocalStorageService
   ) {
     this._cart = localStorageService.getCart();
     this._currentIndex = localStorageService.getSelectedIndex();
@@ -47,7 +56,7 @@ export class MainStoreService {
       queryParams: this.queryParamsService.getQueryParams()
     });
     this.flights = [];
-    this.passengersResult = undefined;
+    // this.passengersResult = undefined;
     this.queryParamsService.setInitialQueryParams();
     this.updateLocalStorage();
   }

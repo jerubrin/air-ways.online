@@ -31,3 +31,9 @@ h2 {
 .contact-details-form-container {
   margin-bottom: 4rem;
 }
+.btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  gap: 4rem;
+}

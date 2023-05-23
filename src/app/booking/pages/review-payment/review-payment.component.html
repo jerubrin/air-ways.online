@@ -1,14 +1,6 @@
 <h1>review-payment works!</h1>
 
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <mat-form-field appearance="fill">
-    <mat-label>review</mat-label>
-    <input matInput formControlName="review" required />
-    <mat-error *ngIf="form?.get('review')?.invalid">The field is required</mat-error>
-  </mat-form-field>
-
-  <div>
-    <button mat-raised-button (click)="goBack()">Back</button>
-    <button mat-raised-button color="primary" [disabled]="form.invalid">buy now</button>
-  </div>
-</form>
+<div class="btn-wrapper">
+  <button class="btn-transperent" (click)="goBack()">Back</button>
+  <button class="btn-forward" type="submit">Continue</button>
+</div>
