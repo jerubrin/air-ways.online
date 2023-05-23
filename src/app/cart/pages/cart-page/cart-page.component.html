@@ -1,3 +1,22 @@
 <div class="container">
-  <p>cart-page works!</p>
+  <div class="cart">
+    <h3 class="cart-title">Cart</h3>
+    <div class="cart-header">
+      <div class=""></div>
+      <app-sort-title title="No."></app-sort-title>
+      <app-sort-title title="Flight"></app-sort-title>
+      <app-sort-title title="Type trip"></app-sort-title>
+      <app-sort-title title="Data & Time"></app-sort-title>
+      <app-sort-title title="Passengers" [hideSort]="true"></app-sort-title>
+      <app-sort-title title="Price"></app-sort-title>
+    </div>
+    <div class="cart-item">
+      <app-cart-item
+        *ngFor="let item of store.cart"
+        [item]="item"
+        (edit)="edit(item.id)"
+        (delete)="delete(item.id)"
+      ></app-cart-item>
+    </div>
+  </div>
 </div>

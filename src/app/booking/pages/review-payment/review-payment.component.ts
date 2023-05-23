@@ -44,8 +44,8 @@ export class ReviewPaymentComponent implements OnInit {
     this.stepperService.previous();
   }
 
-  // FIXME - я сам хз еще, что тут должно быть
   onSubmit() {
+    this.store.addAllDataToCart();
     this.router.navigate([RoutesPath.CartPage]);
   }
 }

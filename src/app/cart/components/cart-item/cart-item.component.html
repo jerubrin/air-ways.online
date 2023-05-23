@@ -1,0 +1,25 @@
+<div class="item">
+  <div class="tick">
+    <mat-checkbox 
+      [(ngModel)]="select"
+      color="primary"
+      (ngModelChange)="selectEmitter.emit($event)"
+    ></mat-checkbox>
+  </div>
+  <div class="flight-no">{{item?.flights?.[0]?.flightNumber}}</div>
+  <div class="flights-list"></div>
+  <div class="flights-type"></div>
+  <div class="date-time"></div>
+  <div class="passengers"></div>
+  <div class="price"></div>
+  <div class="menu">
+    <button mat-icon-button aria-label="menu" [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="edit.emit()">Edit</button>
+      <button mat-menu-item (click)="delete.emit()">Delete</button>
+    </mat-menu>
+  </div>
+</div>
+<div class="bottom-line"></div>

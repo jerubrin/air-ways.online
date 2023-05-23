@@ -1,11 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
 import { Flight } from 'src/app/booking/models/flight.model';
+import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
+import { Observable, ReplaySubject } from 'rxjs';
+import { v4 as uuid } from 'uuid';
 import { Cart } from '../interfaces/cart';
 import { QueryParamsService } from './query-params.service';
 import { LocalStorageService } from './local-storage.service';
 import { PassengersResultData } from '../interfaces/passengers-result-data';
-import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
 import { getPassengers } from '../helpers/passengers-converter';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
 import { RandomData } from '../interfaces/random-data';
@@ -16,20 +19,31 @@ import { RandomData } from '../interfaces/random-data';
 export class MainStoreService {
   private _cart: Cart[] = [];
 
-  private _currentIndex = -1;
+  private _currentCadrItemId = '';
 
-  private _passengersReview?: PassengerReview[]
+  private _passengersReview?: PassengerReview[];
+
+  private _cartSize$ = new ReplaySubject<number>(1);
+
+  private _cart$ = new ReplaySubject<Cart[]>(1);
+
+  get cartSize$(): Observable<number> {
+    return this._cartSize$;
+  }
+
+  get cart$(): Observable<Cart[]> {
+    return this._cart$;
+  }
 
   get flightResults(): Flight[] | undefined {
     const json = sessionStorage.getItem(LocalStorageKeys.FlightResults);
     if (!json) {
       return undefined;
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return undefined;
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return undefined;
     }
   }
 
@@ -47,12 +61,11 @@ export class MainStoreService {
     const json = sessionStorage.getItem(LocalStorageKeys.Flights);
     if (!json) {
       return [];
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return []
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return [];
     }
   }
 
@@ -77,12 +90,11 @@ export class MainStoreService {
     };
     if (!json) {
       return initialValue;
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return initialValue;
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return initialValue;
     }
   }
 
@@ -111,17 +123,16 @@ export class MainStoreService {
         ? ['A', 'B', 'C', 'D', 'E', 'F']
         : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
       seatNum: Math.trunc(Math.random() * 60) + 1,
-    }
+    };
     if (!json) {
       this.randomData = initialValue;
       return initialValue;
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        this.randomData = initialValue;
-        return initialValue;
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      this.randomData = initialValue;
+      return initialValue;
     }
   }
 
@@ -147,12 +158,11 @@ export class MainStoreService {
     const json = sessionStorage.getItem(LocalStorageKeys.QueryParams);
     if (!json) {
       return {};
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return {};
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return {};
     }
   }
 
@@ -169,12 +179,11 @@ export class MainStoreService {
     const json = sessionStorage.getItem(LocalStorageKeys.SelectedFlights);
     if (!json) {
       return [0, 0];
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return [0, 0];
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return [0, 0];
     }
   }
 
@@ -183,25 +192,28 @@ export class MainStoreService {
     private localStorageService: LocalStorageService
   ) {
     this._cart = localStorageService.getCart();
-    this._currentIndex = localStorageService.getSelectedIndex();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
+    this._currentCadrItemId = localStorageService.getSelectedIndex();
   }
 
   private updateLocalStorage() {
-    this.localStorageService.setCart(this._cart, this._currentIndex);
+    this.localStorageService.setCart(this._cart, this._currentCadrItemId);
   }
 
   addAllDataToCart() {
     if (!this.passengersResult) return;
     // edit
-    if (this._currentIndex !== -1) {
-      const index = this._currentIndex;
-      this._cart[index].flights = this.flights;
-      this._cart[index].passengersResult = this.passengersResult;
-      this._cart[index].queryParams = this.queryParamsService.getQueryParams();
+    const cartItem = this._cart.find((item) => item.id === this._currentCadrItemId);
+    if (this._currentCadrItemId !== '' && cartItem) {
+      cartItem.flights = this.flights;
+      cartItem.passengersResult = this.passengersResult;
+      cartItem.queryParams = this.queryParamsService.getQueryParams();
       return;
     }
     // add new
     this._cart.push({
+      id: uuid(),
       flights: this.flights,
       passengersResult: this.passengersResult,
       queryParams: this.queryParamsService.getQueryParams()
@@ -209,27 +221,35 @@ export class MainStoreService {
     this.flights = [];
     // this.passengersResult = undefined;
     this.queryParamsService.setInitialQueryParams();
+    this._currentCadrItemId = '';
     this.updateLocalStorage();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
   }
 
-  setDataFromCart(index: number) {
-    if (index <= this._cart.length || index < 0) {
+  setDataFromCart(id: string) {
+    const cartItem = this._cart.find((item) => item.id === id);
+    if (!cartItem) {
       return;
     }
 
-    this.flights = this._cart[index].flights;
-    this.passengersResult = this._cart[index].passengersResult;
-    this.queryParamsService.updateQueryParamOnCurrentPage(this._cart[index].queryParams);
-    this._currentIndex = index;
+    this.flights = cartItem.flights;
+    this.passengersResult = cartItem.passengersResult;
+    this.queryParamsService.updateQueryParamOnCurrentPage(cartItem.queryParams);
+    this._currentCadrItemId = id;
     this.updateLocalStorage();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
   }
 
-  removeFromCart(index: number) {
-    if (index <= this._cart.length || index < 0) {
-      return;
-    }
-
-    this._cart = this._cart.filter((_, i) => i !== index);
+  removeFromCart(id: string) {
+    this._cart = this._cart.filter((item) => item.id === id);
     this.updateLocalStorage();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
+  }
+
+  get cart(): Cart[] {
+    return this._cart;
   }
 }
