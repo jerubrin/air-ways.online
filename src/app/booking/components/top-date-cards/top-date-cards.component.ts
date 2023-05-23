@@ -23,6 +23,8 @@ export class TopDateCardsComponent implements OnChanges {
 
   @Output() selectEmitter = new EventEmitter<number>();
 
+  @Input() select?: number;
+
   selected = 0;
 
   twoDaysBefore?: Date;
@@ -43,7 +45,7 @@ export class TopDateCardsComponent implements OnChanges {
     this.oneDayBefore = new Date((date?.getTime() ?? 0) - DAY_IN_MILLISECONDS);
     this.oneDayAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILLISECONDS);
     this.twoDaysAfter = new Date((date?.getTime() ?? 0) + DAY_IN_MILLISECONDS * 2);
-    this.selected = 0;
+    this.selected = this.select ?? 0;
   }
 
   clickHandler(value: number) {

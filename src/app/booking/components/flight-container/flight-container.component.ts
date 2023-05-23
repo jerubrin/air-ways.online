@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { Flight } from '../../models/flight.model';
 
 @Component({
@@ -15,13 +16,21 @@ export class FlightContainerComponent {
 
   @Input() isSelected?: boolean;
 
-  selected = 0;
+  @Input() selected = 0;
+
+  constructor(
+    private store: MainStoreService,
+  ) {}
 
   setSelection = (value: boolean) => {
     this.selectEmitter.emit(value ? this.selectedFlight : undefined);
   };
 
   select(value: number) {
+    this.store.selectedFlights = [
+      this.isForward ? value : this.store.selectedFlights[0],
+      !this.isForward ? value : this.store.selectedFlights[1]
+    ];
     this.selected = value;
   }
 
