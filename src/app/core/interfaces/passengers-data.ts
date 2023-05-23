@@ -9,5 +9,5 @@ export interface PassengersData {
   lastName: string;
   gender: Gender;
   dateOfBirth: string;
-  // specialAssistance?: boolean;
+  specialAssistance?: boolean;
 }

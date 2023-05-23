@@ -60,4 +60,12 @@
       </mat-error>
     </mat-form-field>
   </div>
+
+  <mat-slide-toggle
+    formControlName="specialAssistance"
+    color="primary"
+    *ngIf="passengerTitle !== 'Infant'"
+    ><mat-icon><img src="./assets/icon_wheelchair.svg" alt="Special Assistance" /> </mat-icon>Need
+    special assistance?</mat-slide-toggle
+  >
 </form>
