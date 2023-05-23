@@ -1,8 +1,8 @@
 <form [formGroup]="passengerForm" class="form">
   <h3 class="title">{{ passengerIndex + 1 }}. {{ passengerTitle }}</h3>
-  <div class="form-fields-wrapper flex-center">
-    <mat-form-field class="custom-form-field">
-      <mat-label class="label-small">First name</mat-label>
+  <div class="form-fields-wrapper">
+    <mat-form-field>
+      <mat-label>First name</mat-label>
       <input
         matInput
         type="text"
@@ -17,8 +17,8 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="custom-form-field">
-      <mat-label class="label-small">Last name</mat-label>
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
       <input
         matInput
         formControlName="lastName"
@@ -31,5 +31,41 @@
         {{ getErrorMessage('lastName') }}
       </mat-error>
     </mat-form-field>
+
+    <mat-button-toggle-group
+      class="gender label-medium"
+      formControlName="gender"
+      name="gender"
+      aria-label="Gender"
+    >
+      <mat-button-toggle class="gender-item flex-center" [value]="gender.Male"
+        ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
+      >
+      <mat-button-toggle class="gender-item flex-center" [value]="gender.Female"
+        ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date of birth</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [max]="today" />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="
+          passengerForm?.get('dateOfBirth')?.invalid && passengerForm?.get('dateOfBirth')?.touched
+        "
+      >
+        {{ getErrorMessage('dateOfBirth') }}
+      </mat-error>
+    </mat-form-field>
   </div>
+
+  <mat-slide-toggle
+    formControlName="specialAssistance"
+    color="primary"
+    *ngIf="passengerTitle !== 'Infant'"
+    ><mat-icon><img src="./assets/icon_wheelchair.svg" alt="Special Assistance" /> </mat-icon>Need
+    special assistance?</mat-slide-toggle
+  >
 </form>

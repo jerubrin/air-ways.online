@@ -15,14 +15,13 @@
     border: 0.1rem solid $color-secondary-40;
   }
   ::ng-deep .mdc-text-field--focused {
-    background-color: $color-secondary-50;
     border: 0.1rem solid $color-primary;
   }
   ::ng-deep .mdc-text-field--invalid {
     border-color: $color-error;
-    .label-small {
-      color: $color-error;
-    }
+  }
+  ::ng-deep .mdc-text-field--filled .mdc-line-ripple {
+    display: none;
   }
 }
 .form-fields-wrapper {

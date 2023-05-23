@@ -9,19 +9,18 @@
   ::ng-deep .mdc-text-field--filled {
     background-color: $color-secondary-90;
     border-radius: 0.4rem;
-    border: 0.1rem solid $color-secondary-40;
+    border: 1px solid $color-secondary-40;
   }
   ::ng-deep .mdc-text-field--focused {
-    background-color: $color-secondary-50;
-    border: 0.1rem solid $color-primary;
+    border: 1px solid $color-primary;
   }
   ::ng-deep .mat-mdc-form-field:not(.mat-form-field-invalid) .mat-mdc-form-field-subscript-wrapper {
     height: 0rem;
   }
   ::ng-deep .mdc-text-field--invalid {
     border-color: $color-error;
-    .label-small {
-      color: $color-error;
-    }
+  }
+  ::ng-deep .mdc-text-field--filled .mdc-line-ripple {
+    display: none;
   }
 }
