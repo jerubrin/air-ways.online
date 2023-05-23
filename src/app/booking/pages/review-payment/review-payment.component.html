@@ -6,14 +6,14 @@
   <div class="review-flights">
     <app-review-flight-container
       class="review-flight"
-      *ngIf="flights && flights[0]"
-      [flight]="flights[0]"
-      [passengers]="passengers"></app-review-flight-container>
+      *ngIf="store.flights && store.flights[0]"
+      [flight]="store.flights[0]"
+      [passengers]="store.passengersReview"></app-review-flight-container>
     <app-review-flight-container
       class="review-flight"
-      *ngIf="flights && flights[1]"
-      [flight]="flights[1]"
-      [passengers]="passengers"></app-review-flight-container>
+      *ngIf="store.flights && store.flights[1]"
+      [flight]="store.flights[1]"
+      [passengers]="store.passengersReview"></app-review-flight-container>
   </div>
   <div class="price-container">
     <app-review-price-container

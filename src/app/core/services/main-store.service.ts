@@ -33,7 +33,7 @@ export class MainStoreService {
 
 
   get passengersReview(): PassengerReview[] {
-    if (this._passengersReview) {
+    if (this._passengersReview?.length) {
       return this._passengersReview;
     }
     this._passengersReview = getPassengers(this.passengersResult);

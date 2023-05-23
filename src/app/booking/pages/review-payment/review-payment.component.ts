@@ -4,10 +4,8 @@ import { Router } from '@angular/router';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { ReviewPaymentService } from '../../services/review-payment.service';
-import { Flight } from '../../models/flight.model';
 
 @Component({
   selector: 'app-review-payment',
@@ -17,10 +15,6 @@ import { Flight } from '../../models/flight.model';
 
 export class ReviewPaymentComponent implements OnInit {
   form!: FormGroup;
-
-  flights?: Flight[];
-
-  passengers?: PassengerReview[];
 
   constructor(
     private router: Router,
@@ -33,8 +27,6 @@ export class ReviewPaymentComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
-    this.passengers = this.store.passengersReview;
-    this.flights = this.store.flights;
   }
 
   createForm() {
