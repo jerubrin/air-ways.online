@@ -5,6 +5,7 @@
     [isForward]="true"
     (selectEmitter)="flightSearchService.selectFlight(0, $event)"
     [isSelected]="!!flightSearchService.selectedFlights[0]"
+    [selected]="mainStoreService.selectedFlights[0]"
   >
   </app-flight-container>
   <app-flight-container
@@ -13,6 +14,7 @@
     [isForward]="false"
     (selectEmitter)="flightSearchService.selectFlight(1, $event)"
     [isSelected]="!!flightSearchService.selectedFlights[1]"
+    [selected]="mainStoreService.selectedFlights[1]"
   >
   </app-flight-container>
 </div>
