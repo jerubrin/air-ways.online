@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
@@ -32,14 +32,25 @@ export class FlightsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.flightsApiService.flightsStream$.subscribe((flights) => {
-        this.flightSearchService.selectFlight(0, undefined);
-        this.flightSearchService.selectFlight(1, undefined);
-        this.flightSearchService.hasBackDate = flights.length === 2;
-        this.flights = flights;
+        if (!this.mainStoreService.flightResults) {
+          this.mainStoreService.flightResults = flights;
+          this.flightSearchService.selectFlight(0, undefined);
+          this.flightSearchService.selectFlight(1, undefined);
+        }
+        this.flightSearchService.hasBackDate =
+          this.mainStoreService.flightResults.length === 2;
+        this.flights = this.mainStoreService.flightResults;
       })
     );
     this.subscriptions.push(
-      this.activatedRoute.queryParams.subscribe((params) => {
+      this.activatedRoute.queryParams.subscribe((params: Params) => {
+        if (JSON.stringify(params) !== JSON.stringify(this.mainStoreService.queryParams)) {
+          this.mainStoreService.flightResults = undefined;
+          this.mainStoreService.queryParams = params;
+          this.mainStoreService.selectedFlights = [0, 0];
+          this.flightSearchService.selectFlight(0, this.flights[0]);
+          this.flightSearchService.selectFlight(1, this.flights[1]);
+        }
         this.flightSearchService.totalCountOfSeats = Number(params?.['adults'] ?? 0);
         this.flightSearchService.totalCountOfSeats += Number(params?.['children'] ?? 0);
       })
