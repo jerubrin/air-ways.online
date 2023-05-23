@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
 import { Flight } from 'src/app/booking/models/flight.model';
+import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
 import { Cart } from '../interfaces/cart';
 import { QueryParamsService } from './query-params.service';
 import { LocalStorageService } from './local-storage.service';
 import { PassengersResultData } from '../interfaces/passengers-result-data';
-import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
 import { getPassengers } from '../helpers/passengers-converter';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
 import { RandomData } from '../interfaces/random-data';
@@ -18,18 +19,17 @@ export class MainStoreService {
 
   private _currentIndex = -1;
 
-  private _passengersReview?: PassengerReview[]
+  private _passengersReview?: PassengerReview[];
 
   get flightResults(): Flight[] | undefined {
     const json = sessionStorage.getItem(LocalStorageKeys.FlightResults);
     if (!json) {
       return undefined;
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return undefined;
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return undefined;
     }
   }
 
@@ -47,12 +47,11 @@ export class MainStoreService {
     const json = sessionStorage.getItem(LocalStorageKeys.Flights);
     if (!json) {
       return [];
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return []
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return [];
     }
   }
 
@@ -77,12 +76,11 @@ export class MainStoreService {
     };
     if (!json) {
       return initialValue;
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return initialValue;
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return initialValue;
     }
   }
 
@@ -111,17 +109,16 @@ export class MainStoreService {
         ? ['A', 'B', 'C', 'D', 'E', 'F']
         : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
       seatNum: Math.trunc(Math.random() * 60) + 1,
-    }
+    };
     if (!json) {
       this.randomData = initialValue;
       return initialValue;
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        this.randomData = initialValue;
-        return initialValue;
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      this.randomData = initialValue;
+      return initialValue;
     }
   }
 
@@ -147,12 +144,11 @@ export class MainStoreService {
     const json = sessionStorage.getItem(LocalStorageKeys.QueryParams);
     if (!json) {
       return {};
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return {};
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return {};
     }
   }
 
@@ -169,12 +165,11 @@ export class MainStoreService {
     const json = sessionStorage.getItem(LocalStorageKeys.SelectedFlights);
     if (!json) {
       return [0, 0];
-    } else {
-      try {
-        return JSON.parse(json);
-      } catch {
-        return [0, 0];
-      }
+    }
+    try {
+      return JSON.parse(json);
+    } catch {
+      return [0, 0];
     }
   }
 

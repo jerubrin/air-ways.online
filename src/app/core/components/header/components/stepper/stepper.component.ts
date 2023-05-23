@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper } from '@angular/material/stepper';
 import { StepperService } from 'src/app/core/services/stepper.service';
@@ -14,7 +14,7 @@ import { StepperService } from 'src/app/core/services/stepper.service';
     }
   ]
 })
-export class StepperComponent {
+export class StepperComponent implements AfterViewInit {
   @ViewChild('stepper') stepper!: MatStepper;
 
   constructor(private stepperService: StepperService) {}

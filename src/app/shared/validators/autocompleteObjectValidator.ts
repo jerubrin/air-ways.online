@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 export function autocompleteObjectValidator(options: any[]): ValidatorFn {
