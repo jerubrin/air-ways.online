@@ -1,22 +1,15 @@
 <form [formGroup]="contactDetailsForm" class="form">
   <div class="form-fields-wrapper flex-center">
-    <mat-form-field class="custom-form-field">
+    <mat-form-field appearance="fill">
       <mat-label>Country code</mat-label>
-      <input
-        matInput
-        type="text"
-        formControlName="countryCode"
-        placeholder="Enter your First Name"
-        (input)="contactDetailsForm.get('countryCode')?.markAsTouched()"
-      />
-      <mat-error
-        *ngIf="
-          contactDetailsForm?.get('countryCode')?.invalid &&
-          contactDetailsForm?.get('countryCode')?.touched
-        "
+      <mat-select formControlName="countryCode" [(value)]="selectedCountryCode">
+        <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode.code">
+          {{ countryCode.name }} ({{ countryCode.code }})
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="contactDetailsForm?.get('countryCode')?.errors"
+        >Please select country code</mat-error
       >
-        {{ getErrorMessage('countryCode') }}
-      </mat-error>
     </mat-form-field>
 
     <mat-form-field>

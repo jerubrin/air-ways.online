@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContactDetails } from 'src/app/core/interfaces/contact-details';
+import CountryCodes from 'src/app/shared/data/constants/CountryCode';
+import { CountryCode } from 'src/app/shared/interfaces/country-code';
 
 @Component({
   selector: 'app-contact-details-form',
@@ -18,13 +20,19 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
 
   contactDetailsForm!: FormGroup;
 
+  countryCodes: CountryCode[] = CountryCodes;
+
+  selectedCountryCode!: string;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
+    this.selectedCountryCode = this.initialValues?.countryCode || this.countryCodes[0].code;
+
     this.contactDetailsForm = this.formBuilder.group({
-      countryCode: [this.initialValues?.countryCode || '', Validators.required],
+      countryCode: [this.selectedCountryCode, Validators.required],
       phone: [this.initialValues?.phone || '', Validators.required],
       email: [this.initialValues?.email || '', Validators.required]
     });

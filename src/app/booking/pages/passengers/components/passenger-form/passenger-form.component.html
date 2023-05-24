@@ -60,19 +60,12 @@
       </mat-error>
     </mat-form-field>
   </div>
-  <div class="slide-toggle-wrapper flex-center">
-    <mat-slide-toggle
-      formControlName="specialAssistance"
-      color="primary"
-      *ngIf="passengerTitle !== 'Infant'"
+  <div *ngIf="passengerTitle !== 'Infant'" class="slide-toggle-wrapper flex-center">
+    <mat-slide-toggle formControlName="specialAssistance" color="primary"
       ><mat-icon><img src="./assets/icon_wheelchair.svg" alt="Special Assistance" /> </mat-icon>Need
       special assistance?</mat-slide-toggle
     >
-    <mat-slide-toggle
-      formControlName="сheckedInBaggage"
-      color="primary"
-      *ngIf="passengerTitle !== 'Infant'"
-    >
+    <mat-slide-toggle formControlName="сheckedInBaggage" color="primary">
       <mat-icon>{{ passengerForm?.get('сheckedInBaggage')?.value ? 'work' : 'work_off' }}</mat-icon>
       Need checked-in baggage?
     </mat-slide-toggle>
