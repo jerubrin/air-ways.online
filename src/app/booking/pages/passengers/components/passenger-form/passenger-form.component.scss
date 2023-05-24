@@ -41,6 +41,9 @@
   display: flex;
   gap: 2rem;
 }
+.slide-toggle-wrapper {
+  gap: 3rem;
+}
 
 .gender {
   height: 5.8rem;
@@ -67,6 +70,7 @@
   @include fontNew($font-size-12, $font-weight-400, $line-height-16, $color-black);
   display: flex;
   align-items: center;
+  gap: 0.8rem;
 }
 ::ng-deep .mdc-switch {
   width: 5.2rem !important;

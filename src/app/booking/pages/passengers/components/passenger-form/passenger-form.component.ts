@@ -53,7 +53,8 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
         this.initialValues?.dateOfBirth || '',
         [Validators.required, this.dateOfBirthValidator]
       ],
-      specialAssistance: [this.initialValues?.specialAssistance || false, [Validators.required]]
+      specialAssistance: [this.initialValues?.specialAssistance || false, [Validators.required]],
+      сheckedInBaggage: [this.initialValues?.сheckedInBaggage || false, [Validators.required]]
     });
     this.subscriptions.push(
       this.passengerForm.valueChanges.subscribe(() => {

@@ -32,6 +32,8 @@ export class DatepickerComponent implements OnInit, OnDestroy {
 
   departureDateControl!: FormControl;
 
+  departureDatepickerOpened = false;
+
   constructor(private dateFormatService: DateFormatService, private elementRef: ElementRef) {}
 
   ngOnInit(): void {

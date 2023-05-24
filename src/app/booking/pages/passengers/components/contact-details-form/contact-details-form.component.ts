@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { ContactDetails } from 'src/app/core/interfaces/contact-details';
+import CountryCodes from 'src/app/shared/data/constants/CountryCode';
+import { CountryCode } from 'src/app/shared/interfaces/country-code';
 
 @Component({
   selector: 'app-contact-details-form',
@@ -18,6 +20,8 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
 
   contactDetailsForm!: FormGroup;
 
+  countryCodes: CountryCode[] = CountryCodes;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
@@ -25,8 +29,8 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.contactDetailsForm = this.formBuilder.group({
       countryCode: [this.initialValues?.countryCode || '', Validators.required],
-      phone: [this.initialValues?.phone || '', Validators.required],
-      email: [this.initialValues?.email || '', Validators.required]
+      phone: [this.initialValues?.phone || '', [Validators.required, Validators.pattern(/^\d+$/)]],
+      email: [this.initialValues?.email || '', [Validators.required, Validators.email]]
     });
     this.subscriptions.push(
       this.contactDetailsForm.valueChanges.subscribe(() => {
@@ -47,9 +51,15 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
     if (fieldControl?.hasError('required')) {
       return 'Enter data please';
     }
-    // if (fieldControl?.hasError('pattern')) {
-    //   return 'Invalid character';
-    // }
+    if (fieldControl?.hasError('pattern')) {
+      return 'Invalid character';
+    }
+    if (fieldControl?.hasError('minlength')) {
+      return 'Must be at least three digits';
+    }
+    if (fieldControl?.hasError('email')) {
+      return 'The email is invalid';
+    }
     return '';
   }
 }

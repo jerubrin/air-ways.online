@@ -19,7 +19,13 @@
     />
   </mat-date-range-input>
   <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-hint>{{ selectedDateFormat }} - {{ selectedDateFormat }}</mat-hint>
-  <mat-date-range-picker #picker></mat-date-range-picker>
+  <mat-hint *ngIf="departureDatepickerOpened"
+    >{{ selectedDateFormat }} - {{ selectedDateFormat }}</mat-hint
+  >
+  <mat-date-range-picker
+    #picker
+    (opened)="departureDatepickerOpened = true"
+    (closed)="departureDatepickerOpened = false"
+  ></mat-date-range-picker>
   <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
 </mat-form-field>
