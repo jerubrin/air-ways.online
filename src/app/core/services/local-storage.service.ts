@@ -20,7 +20,7 @@ export class LocalStorageService {
       LocalStorageKeys.Cart,
       JSON.stringify(cart)
     );
-    if (index === '' || !index) {
+    if (index === '') {
       localStorage.removeItem(LocalStorageKeys.CartIndex);
     } else {
       localStorage.setItem(

@@ -206,16 +206,17 @@ export class MainStoreService {
       cartItem.passengersResult = this.passengersResult;
       cartItem.queryParams = this.queryParamsService.getQueryParams();
       cartItem.cartPriceData = cartPriceData;
-      return;
+    } else {
+      // add new
+      this._cart.push({
+        id: uuid(),
+        isChecked: true,
+        cartPriceData,
+        flights: this.flights,
+        passengersResult: this.passengersResult,
+        queryParams: this.queryParamsService.getQueryParams()
+      });
     }
-    // add new
-    this._cart.push({
-      id: uuid(),
-      cartPriceData,
-      flights: this.flights,
-      passengersResult: this.passengersResult,
-      queryParams: this.queryParamsService.getQueryParams()
-    });
     this.flights = [];
     // this.passengersResult = undefined;
     this.queryParamsService.setInitialQueryParams();
@@ -239,6 +240,7 @@ export class MainStoreService {
     this.queryParams = {};
     this.selectedFlights = [0, 0];
     this.updateLocalStorage();
+    sessionStorage.clear();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);
   }
@@ -267,5 +269,14 @@ export class MainStoreService {
 
   get cart(): Cart[] {
     return this._cart;
+  }
+
+  selectCartItem(id: string, value: boolean) {
+    const cartItem = this._cart.find((item) => item.id === id);
+    if (cartItem) {
+      cartItem.isChecked = value;
+      this.updateLocalStorage();
+      this._cart$.next(this.cart);
+    }
   }
 }

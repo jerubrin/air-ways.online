@@ -10,6 +10,10 @@ export class SortTitleComponent {
 
   @Input() hideSort?: boolean;
 
+  @Input() isUpActive?: boolean;
+
+  @Input() isDownActive?: boolean;
+
   @Output() sortUpEmitter = new EventEmitter<() => void>();
 
   @Output() sortDownEmitter = new EventEmitter<() => void>();

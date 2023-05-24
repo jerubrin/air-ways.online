@@ -1,5 +1,15 @@
 <p class="title">{{title}}</p>
-<div class="buttons">
-  <button (click)="sortUp()"></button>
-  <button (click)="sortDown()"></button>
+<div class="buttons" *ngIf="!hideSort">
+  <button
+    [ngClass]="{
+      'up-sort-btn': true,
+      'up-sort-btn_active': isUpActive,
+    }"
+    (click)="sortUp()"></button>
+  <button
+    [ngClass]="{
+      'down-sort-btn': true,
+      'down-sort-btn_active': isDownActive,
+    }"
+    (click)="sortDown()"></button>
 </div>

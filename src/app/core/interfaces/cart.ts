@@ -5,6 +5,7 @@ import { PassengersResultData } from './passengers-result-data';
 
 export interface Cart {
   id: string,
+  isChecked: boolean,
   cartPriceData: CartPriceData,
   passengersResult: PassengersResultData,
   flights: Flight[],

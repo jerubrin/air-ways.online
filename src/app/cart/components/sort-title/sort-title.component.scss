@@ -1,10 +1,51 @@
-.title {
+@import "variables";
+@import "mixins";
 
+.title {
+  @include font($font-size-20, $font-weight-700, $color-black);
+  line-height: 20px;
 }
 
 .buttons {
   display: flex;
   flex-direction: column;
 
-  button {}
+  .up-sort-btn {
+    background-image: url(../../../../assets/sort-up.svg);
+
+    &_active {
+      background-image: url(../../../../assets/sort-up-active.svg);
+      cursor: default;
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  .down-sort-btn {
+    background-image: url(../../../../assets/sort-down.svg);
+
+    &_active {
+      background-image: url(../../../../assets/sort-down-active.svg);
+      cursor: default;
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  button {
+    width: 1.1rem;
+    height: 1.1rem;
+    border: none;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 }

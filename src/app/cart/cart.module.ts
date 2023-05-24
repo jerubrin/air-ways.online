@@ -6,9 +6,10 @@ import { SortTitleComponent } from './components/sort-title/sort-title.component
 import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
+import { TotalPriceComponent } from './components/total-price/total-price.component';
 
 @NgModule({
-  declarations: [CartPageComponent, SortTitleComponent, CartItemComponent],
+  declarations: [CartPageComponent, SortTitleComponent, CartItemComponent, TotalPriceComponent],
   imports: [
     CommonModule,
     CoreModule,

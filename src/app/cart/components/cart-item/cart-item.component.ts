@@ -14,18 +14,7 @@ export class CartItemComponent {
 
   @Output() delete = new EventEmitter();
 
-  @Output() selectEmitter = new EventEmitter<boolean>(false);
+  @Output() selectEmitter = new EventEmitter<boolean | undefined>(false);
 
-  private _select = false;
-
-  set select(value: boolean) {
-    this._select = value;
-    this.selectEmitter.emit(value);
-  }
-
-  get select(): boolean {
-    return this._select;
-  }
-
-  openMenu() {}
+  @Input() select?: boolean;
 }
