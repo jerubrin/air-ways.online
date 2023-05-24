@@ -48,6 +48,12 @@
         (delete)="delete(item.id)"
         (selectEmitter)="selectCartItem(item.id, $event)"
       ></app-cart-item>
+      <ng-template *ngIf="(store.cart$ | async)?.length; else noCart"></ng-template>
+      <ng-template #noCart>
+        <div class="no-flights">
+          <h2>There is no flights to pay... :(</h2>
+        </div>
+      </ng-template>
     </div>
     <app-total-price class="price-block" [cart$]="store.cart$" (addNew)="addNew()"></app-total-price>
     <div class="bottom-line"></div>

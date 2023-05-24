@@ -18,6 +18,15 @@
   margin: 0 3.1rem 2.7rem;
 }
 
+.no-flights {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14rem 0;
+  text-align: center;
+  @include font($font-size-24, $font-weight-500, $color-secondary-40)
+}
+
 .cart-header {
   display: flex;
   gap: $gap-index;
