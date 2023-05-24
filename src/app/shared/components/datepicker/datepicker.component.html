@@ -10,7 +10,11 @@
     (blur)="onDateChanged()"
   />
   <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
-  <mat-hint>{{ selectedDateFormat }}</mat-hint>
-  <mat-datepicker #departureDatepicker></mat-datepicker>
+  <mat-hint *ngIf="departureDatepickerOpened">{{ selectedDateFormat }}</mat-hint>
+  <mat-datepicker
+    #departureDatepicker
+    (opened)="departureDatepickerOpened = true"
+    (closed)="departureDatepickerOpened = false"
+  ></mat-datepicker>
   <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
 </mat-form-field>

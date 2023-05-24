@@ -36,6 +36,8 @@ export class DatepickerRangeComponent implements OnInit, OnDestroy {
 
   returnDateControl!: FormControl;
 
+  departureDatepickerOpened = false;
+
   private subscriptions: Subscription[] = [];
 
   constructor(private dateFormatService: DateFormatService, private elementRef: ElementRef) {}
