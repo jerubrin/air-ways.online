@@ -10,7 +10,7 @@
 </div>
 <form class="form" (ngSubmit)="onSubmit()">
   <p *ngIf="cart$">{{cart$ | selectedCount | async}} selected </p>
-  <button class="btn-forward" (click)="pay.emit()">
+  <button class="btn-forward" (click)="pay.emit()" [disabled]="isDisabled">
     Payment
   </button>
 </form>

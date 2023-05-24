@@ -13,17 +13,24 @@ import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 export class PaymentPageComponent {
   showPreloader = false;
 
+  isCart: string | null = '';
+
   constructor(
     private router: Router,
     public store: MainStoreService,
     private snackBar: MatSnackBar,
-  ) {}
+  ) {
+    this.isCart = sessionStorage.getItem(LocalStorageKeys.IsCartData);
+    sessionStorage.removeItem(LocalStorageKeys.IsCartData);
+    if (this.isCart !== 'true' && this.isCart !== 'false') {
+      this.router.navigate([RoutesPath.MainPage]);
+    }
+  }
 
   pay() {
-    const isCartData = sessionStorage.getItem(LocalStorageKeys.IsCartData) === 'true';
+    const isCartData = this.isCart === 'true';
     this.showPreloader = true;
     setTimeout(() => {
-      this.showPreloader = false;
       this.openSnackBar('Success!', 'OK');
       setTimeout(() => {
         if (this.store.currentCartItemId) {
@@ -38,7 +45,8 @@ export class PaymentPageComponent {
 
         sessionStorage.clear();
         this.router.navigate([RoutesPath.MainPage]);
-      }, 3000);
+        this.showPreloader = false;
+      }, 1000);
     }, 12000);
   }
 
