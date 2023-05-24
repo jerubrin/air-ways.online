@@ -22,19 +22,15 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
 
   countryCodes: CountryCode[] = CountryCodes;
 
-  selectedCountryCode!: string;
-
   private subscriptions: Subscription[] = [];
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.selectedCountryCode = this.initialValues?.countryCode || this.countryCodes[0].code;
-
     this.contactDetailsForm = this.formBuilder.group({
-      countryCode: [this.selectedCountryCode, Validators.required],
-      phone: [this.initialValues?.phone || '', Validators.required],
-      email: [this.initialValues?.email || '', Validators.required]
+      countryCode: [this.initialValues?.countryCode || '', Validators.required],
+      phone: [this.initialValues?.phone || '', [Validators.required, Validators.pattern(/^\d+$/)]],
+      email: [this.initialValues?.email || '', [Validators.required, Validators.email]]
     });
     this.subscriptions.push(
       this.contactDetailsForm.valueChanges.subscribe(() => {
@@ -55,9 +51,15 @@ export class ContactDetailsFormComponent implements OnInit, OnDestroy {
     if (fieldControl?.hasError('required')) {
       return 'Enter data please';
     }
-    // if (fieldControl?.hasError('pattern')) {
-    //   return 'Invalid character';
-    // }
+    if (fieldControl?.hasError('pattern')) {
+      return 'Invalid character';
+    }
+    if (fieldControl?.hasError('minlength')) {
+      return 'Must be at least three digits';
+    }
+    if (fieldControl?.hasError('email')) {
+      return 'The email is invalid';
+    }
     return '';
   }
 }

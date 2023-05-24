@@ -75,8 +75,6 @@ export class PassengersComponent implements OnInit, OnDestroy {
   }
 
   private setInitialValues(): void {
-    // console.log(this.mainStoreService.passengersResult.contactDetailsData.countryCode);
-
     this.passengersResultData = {
       ...this.mainStoreService.passengersResult,
       adults: this.mainStoreService.passengersResult.adults?.slice(0, this.adultsCounts) || [],
