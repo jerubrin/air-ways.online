@@ -10,4 +10,5 @@ export interface PassengersData {
   gender: Gender;
   dateOfBirth: string;
   specialAssistance?: boolean;
+  сheckedInBaggage?: boolean;
 }
