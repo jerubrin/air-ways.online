@@ -54,10 +54,6 @@ export class PassengersComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    // console.log(this.mainStoreService.passengersResult);
-
-    this.passengersResultData = this.mainStoreService.passengersResult;
-
     this.subscriptions.push(
       this.activatedRoute.queryParams.subscribe((currentParams) => {
         this.getCurrentPassengersCountsFromQueryParams(currentParams);
@@ -79,6 +75,14 @@ export class PassengersComponent implements OnInit, OnDestroy {
   }
 
   private setInitialValues(): void {
+    this.passengersResultData = {
+      ...this.mainStoreService.passengersResult,
+      adults: this.mainStoreService.passengersResult.adults?.slice(0, this.adultsCounts) || [],
+      children:
+        this.mainStoreService.passengersResult.children?.slice(0, this.childrenCounts) || [],
+      infants: this.mainStoreService.passengersResult.infants?.slice(0, this.infantsCounts) || []
+    };
+
     this.passengers = [];
     const { adults, children, infants } = this.passengersResultData;
 
@@ -91,6 +95,7 @@ export class PassengersComponent implements OnInit, OnDestroy {
         isValid
       });
     }
+
     for (let i = 0; i < this.childrenCounts; i += 1) {
       const passengerData = children?.[i] || null;
       const isValid = !!passengerData;
@@ -192,6 +197,7 @@ export class PassengersComponent implements OnInit, OnDestroy {
     if (!this.isFormValid) {
       return;
     }
+
     this.mainStoreService.passengersResult = this.passengersResultData;
 
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageReviewPayment}`], {
