@@ -261,7 +261,7 @@ export class MainStoreService {
   }
 
   removeFromCart(id: string) {
-    this._cart = this._cart.filter((item) => item.id === id);
+    this._cart = this._cart.filter((item) => item.id !== id);
     this.updateLocalStorage();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);

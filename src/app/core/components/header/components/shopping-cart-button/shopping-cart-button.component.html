@@ -1,3 +1,8 @@
-<button class="btn-shopping-cart flex-center" matBadge="15" matBadgeColor="warn">
+<button
+  class="btn-shopping-cart flex-center"
+  [matBadgeHidden]="store.cartSize$ | async | matBadgeHidden"
+  [matBadge]="store.cartSize$ | async"
+  matBadgeColor="warn"
+  (click)="navigateToCart()">
   <img src="./assets/icon_shopping_basket.svg" alt="Shopping basket" />
 </button>

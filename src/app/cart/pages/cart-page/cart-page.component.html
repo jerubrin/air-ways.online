@@ -20,7 +20,7 @@
         (selectEmitter)="selectCartItem(item.id, $event)"
       ></app-cart-item>
     </div>
-    <app-total-price class="price-block" [cart$]="store.cart$"></app-total-price>
+    <app-total-price class="price-block" [cart$]="store.cart$" (addNew)="addNew()"></app-total-price>
     <div class="bottom-line"></div>
     <app-promo-and-pay class="bottom-block" [cart$]="store.cart$"></app-promo-and-pay>
   </div>

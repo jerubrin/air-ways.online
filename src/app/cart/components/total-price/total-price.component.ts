@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Price } from 'src/app/booking/models/price.model';
 import { Cart } from 'src/app/core/interfaces/cart';
@@ -10,6 +10,8 @@ import { Cart } from 'src/app/core/interfaces/cart';
 })
 export class TotalPriceComponent implements OnInit {
   @Input() cart$?: Observable<Cart[]>;
+
+  @Output() addNew = new EventEmitter();
 
   cart$$?: Subscription;
 
