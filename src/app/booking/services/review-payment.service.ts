@@ -21,22 +21,7 @@ export class ReviewPaymentService {
     return this.formValid;
   }
 
-  constructor(private store: MainStoreService) {
-    // TODO: remove mock generator
-    // this.store.passengersResult = {
-    //   adults: [
-    //     { firstName: 'Harry', lastName: 'Potter', dateOfBirth: '', gender: Gender.Male, specialAssistance: false },
-    //     { firstName: 'LiLi', lastName: 'Potter', dateOfBirth: '', gender: Gender.Female, specialAssistance: true }
-    //   ],
-    //   children: [
-    //     { firstName: 'James', lastName: 'Potter', dateOfBirth: '', gender: Gender.Male, specialAssistance: false }
-    //   ],
-    //   infants: [
-    //     { firstName: 'Marusya', lastName: 'Potter', dateOfBirth: '', gender: Gender.Male, specialAssistance: false }
-    //   ],
-    //   contactDetailsData: { countryCode: '+7', phone: '777 77 77', email: 'test@example.com' }
-    // };
-  }
+  constructor(private store: MainStoreService) {}
 
   getPrices(): TotalPrices {
     return {

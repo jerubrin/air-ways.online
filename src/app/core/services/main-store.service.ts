@@ -1,17 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 import { Flight } from 'src/app/booking/models/flight.model';
 import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
-import { Observable, ReplaySubject } from 'rxjs';
 import { v4 as uuid } from 'uuid';
-import { Cart } from '../interfaces/cart';
-import { QueryParamsService } from './query-params.service';
-import { LocalStorageService } from './local-storage.service';
-import { PassengersResultData } from '../interfaces/passengers-result-data';
-import { getPassengers } from '../helpers/passengers-converter';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
+import { getTotalPrice } from '../helpers/get-total-price';
+import { getPassengers } from '../helpers/passengers-converter';
+import { Cart } from '../interfaces/cart';
+import { CartPriceData } from '../interfaces/cart-price-data';
+import { PassengersResultData } from '../interfaces/passengers-result-data';
 import { RandomData } from '../interfaces/random-data';
+import { LocalStorageService } from './local-storage.service';
+import { QueryParamsService } from './query-params.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,7 @@ import { RandomData } from '../interfaces/random-data';
 export class MainStoreService {
   private _cart: Cart[] = [];
 
-  private _currentCadrItemId = '';
+  private _currentCartItemId = '';
 
   private _passengersReview?: PassengerReview[];
 
@@ -174,29 +176,42 @@ export class MainStoreService {
     private queryParamsService: QueryParamsService,
     private localStorageService: LocalStorageService
   ) {
-    this._cart = localStorageService.getCart();
+    this.getCartDataFromLocalStorage();
+  }
+
+  private getCartDataFromLocalStorage() {
+    this._cart = this.localStorageService.getCart();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);
-    this._currentCadrItemId = localStorageService.getSelectedIndex();
+    this._currentCartItemId = this.localStorageService.getSelectedIndex();
   }
 
   private updateLocalStorage() {
-    this.localStorageService.setCart(this._cart, this._currentCadrItemId);
+    this.localStorageService.setCart(this._cart, this._currentCartItemId);
   }
 
   addAllDataToCart() {
+    const cartPriceData: CartPriceData = {
+      adults: this.passengersResult.adults.length,
+      children: this.passengersResult.children.length,
+      infants: this.passengersResult.infants.length,
+      totalPrice: { eur: 0, usd: 0, pln: 0, rub: 0 },
+    };
+    cartPriceData.totalPrice = getTotalPrice(cartPriceData, this.flights);
     if (!this.passengersResult) return;
     // edit
-    const cartItem = this._cart.find((item) => item.id === this._currentCadrItemId);
-    if (this._currentCadrItemId !== '' && cartItem) {
+    const cartItem = this._cart.find((item) => item.id === this._currentCartItemId);
+    if (this._currentCartItemId !== '' && cartItem) {
       cartItem.flights = this.flights;
       cartItem.passengersResult = this.passengersResult;
       cartItem.queryParams = this.queryParamsService.getQueryParams();
+      cartItem.cartPriceData = cartPriceData;
       return;
     }
     // add new
     this._cart.push({
       id: uuid(),
+      cartPriceData,
       flights: this.flights,
       passengersResult: this.passengersResult,
       queryParams: this.queryParamsService.getQueryParams()
@@ -204,7 +219,25 @@ export class MainStoreService {
     this.flights = [];
     // this.passengersResult = undefined;
     this.queryParamsService.setInitialQueryParams();
-    this._currentCadrItemId = '';
+    this._currentCartItemId = '';
+    this.flightResults = [];
+    this.flights = [];
+    this.passengersResult = {
+      adults: [],
+      children: [],
+      infants: [],
+      contactDetailsData: {
+        countryCode: '',
+        phone: '',
+        email: ''
+      }
+    };
+    this._passengersReview = [];
+    sessionStorage.removeItem(LocalStorageKeys.RandomData);
+    const random = this.randomData;
+    this.randomData = random;
+    this.queryParams = {};
+    this.selectedFlights = [0, 0];
     this.updateLocalStorage();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);
@@ -219,7 +252,7 @@ export class MainStoreService {
     this.flights = cartItem.flights;
     this.passengersResult = cartItem.passengersResult;
     this.queryParamsService.updateQueryParamOnCurrentPage(cartItem.queryParams);
-    this._currentCadrItemId = id;
+    this._currentCartItemId = id;
     this.updateLocalStorage();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);

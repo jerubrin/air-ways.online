@@ -12,7 +12,7 @@
     </div>
     <div class="cart-item">
       <app-cart-item
-        *ngFor="let item of store.cart"
+        *ngFor="let item of store.cart$ | async"
         [item]="item"
         (edit)="edit(item.id)"
         (delete)="delete(item.id)"

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { LocalStorageService } from 'src/app/core/services/local-storage.service';
 import { CurrencyEnum, CurrencySymbolsEnum } from 'src/app/shared/data/constants/CurrencyMenuItems';
 import { Observable, map } from 'rxjs';
-import { Price } from '../models/price.model';
+import { Price } from 'src/app/booking/models/price.model';
 
 @Pipe({
   name: 'price'
