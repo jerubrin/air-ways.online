@@ -1,0 +1,44 @@
+@import "variables";
+@import "mixins";
+
+.promo-container {
+  
+}
+
+.promo {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 374px;
+
+  input {
+    width: 374px;
+    padding: 1.2rem 1.6rem;
+    border: 0.5px solid $color-neutral-30;
+    border-radius: 4px;
+  }
+
+  button {
+    position: absolute;
+    right: 0.4rem;
+  }
+}
+
+.err-message {
+  position: absolute;
+  margin-top: 0.4rem;
+  @include font($font-size-14, $font-weight-500, $color-error);
+}
+
+.form {
+  display: flex;
+  gap: 3.8rem;
+  align-items: center;
+  
+  p {
+    @include font($font-size-16, $font-weight-400, $color-neutral-30);
+    line-height: 24px;
+  }
+}
+
+.btn-forward {}

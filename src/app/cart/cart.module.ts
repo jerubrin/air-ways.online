@@ -7,9 +7,11 @@ import { CartItemComponent } from './components/cart-item/cart-item.component';
 import { CoreModule } from '../core/core.module';
 import { SharedModule } from '../shared/shared.module';
 import { TotalPriceComponent } from './components/total-price/total-price.component';
+import { PromoAndPayComponent } from './components/promo-and-pay/promo-and-pay.component';
+import { SelectedCountPipe } from './pipes/selected-count.pipe';
 
 @NgModule({
-  declarations: [CartPageComponent, SortTitleComponent, CartItemComponent, TotalPriceComponent],
+  declarations: [CartPageComponent, SortTitleComponent, CartItemComponent, TotalPriceComponent, PromoAndPayComponent, SelectedCountPipe],
   imports: [
     CommonModule,
     CoreModule,
