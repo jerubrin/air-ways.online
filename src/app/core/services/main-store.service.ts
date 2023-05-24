@@ -110,7 +110,6 @@ export class MainStoreService {
   get randomData(): RandomData {
     const json = sessionStorage.getItem(LocalStorageKeys.RandomData);
     const initialValue = {
-      hasBaggage: Math.random() > 0.5,
       hasCabinBag: Math.random() > 0.5,
       symbols:
         Math.random() > 0.5

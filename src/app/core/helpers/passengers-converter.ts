@@ -24,7 +24,7 @@ export function getPassengers(
   if (!passengersResult || !randomData) {
     return [];
   }
-  const { hasBaggage, hasCabinBag } = randomData;
+  const { hasCabinBag } = randomData;
   let index = 0;
   const seats = getSeats(
     passengersResult.adults.length + passengersResult.children.length,
@@ -34,22 +34,22 @@ export function getPassengers(
     ...passengersResult.adults.map((passenger) => ({
       firstName: passenger.firstName,
       lastName: passenger.lastName,
-      hasBaggage: hasBaggage && hasCabinBag,
-      hasCabinBag,
+      hasCabinBag: hasCabinBag || passenger.checkedInBaggage,
+      hasBaggage: passenger.checkedInBaggage,
       seat: seats[index++],
     } as PassengerReview)),
     ...passengersResult.children.map((passenger) => ({
       firstName: passenger.firstName,
       lastName: passenger.lastName,
-      hasBaggage: hasBaggage && hasCabinBag,
-      hasCabinBag,
+      hasCabinBag: hasCabinBag || passenger.checkedInBaggage,
+      hasBaggage: passenger.checkedInBaggage,
       seat: seats[index++],
     } as PassengerReview)),
     ...passengersResult.infants.map((passenger) => ({
       firstName: passenger.firstName,
       lastName: passenger.lastName,
-      hasBaggage: hasBaggage && hasCabinBag,
-      hasCabinBag,
+      hasCabinBag: false,
+      hasBaggage: passenger.checkedInBaggage,
     } as PassengerReview)),
   ];
   return passengers;
