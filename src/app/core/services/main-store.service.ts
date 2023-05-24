@@ -51,10 +51,7 @@ export class MainStoreService {
     if (!value) {
       sessionStorage.removeItem(LocalStorageKeys.FlightResults);
     }
-    sessionStorage.setItem(
-      LocalStorageKeys.FlightResults,
-      JSON.stringify(value)
-    );
+    sessionStorage.setItem(LocalStorageKeys.FlightResults, JSON.stringify(value));
   }
 
   get flights(): Flight[] {
@@ -70,10 +67,7 @@ export class MainStoreService {
   }
 
   set flights(value: Flight[]) {
-    sessionStorage.setItem(
-      LocalStorageKeys.Flights,
-      JSON.stringify(value)
-    );
+    sessionStorage.setItem(LocalStorageKeys.Flights, JSON.stringify(value));
   }
 
   get passengersResult(): PassengersResultData {
@@ -100,10 +94,7 @@ export class MainStoreService {
 
   set passengersResult(value: PassengersResultData) {
     this._passengersReview = [];
-    sessionStorage.setItem(
-      LocalStorageKeys.PassengersResult,
-      JSON.stringify(value)
-    );
+    sessionStorage.setItem(LocalStorageKeys.PassengersResult, JSON.stringify(value));
   }
 
   get passengersReview(): PassengerReview[] {
@@ -119,10 +110,11 @@ export class MainStoreService {
     const initialValue = {
       hasBaggage: Math.random() > 0.5,
       hasCabinBag: Math.random() > 0.5,
-      symbols: Math.random() > 0.5
-        ? ['A', 'B', 'C', 'D', 'E', 'F']
-        : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
-      seatNum: Math.trunc(Math.random() * 60) + 1,
+      symbols:
+        Math.random() > 0.5
+          ? ['A', 'B', 'C', 'D', 'E', 'F']
+          : ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'],
+      seatNum: Math.trunc(Math.random() * 60) + 1
     };
     if (!json) {
       this.randomData = initialValue;
@@ -138,19 +130,13 @@ export class MainStoreService {
 
   set randomData(value: RandomData) {
     this._passengersReview = [];
-    sessionStorage.setItem(
-      LocalStorageKeys.RandomData,
-      JSON.stringify(value)
-    );
+    sessionStorage.setItem(LocalStorageKeys.RandomData, JSON.stringify(value));
   }
 
   set queryParams(value: any) {
     this._passengersReview = [];
     if (value) {
-      sessionStorage.setItem(
-        LocalStorageKeys.QueryParams,
-        JSON.stringify(value)
-      );
+      sessionStorage.setItem(LocalStorageKeys.QueryParams, JSON.stringify(value));
     }
   }
 
@@ -168,10 +154,7 @@ export class MainStoreService {
 
   set selectedFlights(value: number[]) {
     if (value) {
-      sessionStorage.setItem(
-        LocalStorageKeys.SelectedFlights,
-        JSON.stringify(value)
-      );
+      sessionStorage.setItem(LocalStorageKeys.SelectedFlights, JSON.stringify(value));
     }
   }
 
