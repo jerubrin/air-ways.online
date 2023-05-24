@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './core/guards/auth.guard';
+// import { AuthGuard } from './core/guards/auth.guard';
 import RoutesPath from './shared/data/enams/RoutesPath';
 import { NotFoundPageComponent } from './core/page/not-found-page/not-found-page.component';
 // import { FlightsSearchFormGuard } from './core/guards/flights-search-form.guard';
@@ -18,7 +18,7 @@ const routes: Routes = [
   {
     path: RoutesPath.CartPage,
     loadChildren: () => import('./cart/cart.module').then((m) => m.CartModule),
-    canActivate: [AuthGuard]
+    // canActivate: [AuthGuard]
   },
   { path: '**', component: NotFoundPageComponent }
 ];

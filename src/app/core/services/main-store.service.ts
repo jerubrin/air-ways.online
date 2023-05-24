@@ -1,14 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable no-underscore-dangle */
 import { Injectable } from '@angular/core';
+import { Observable, ReplaySubject } from 'rxjs';
 import { Flight } from 'src/app/booking/models/flight.model';
 import { PassengerReview } from 'src/app/shared/interfaces/passenger-review';
-import { Cart } from '../interfaces/cart';
-import { QueryParamsService } from './query-params.service';
-import { LocalStorageService } from './local-storage.service';
-import { PassengersResultData } from '../interfaces/passengers-result-data';
-import { getPassengers } from '../helpers/passengers-converter';
+import { v4 as uuid } from 'uuid';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
+import { getTotalPrice } from '../helpers/get-total-price';
+import { getPassengers } from '../helpers/passengers-converter';
+import { Cart } from '../interfaces/cart';
+import { CartPriceData } from '../interfaces/cart-price-data';
+import { PassengersResultData } from '../interfaces/passengers-result-data';
 import { RandomData } from '../interfaces/random-data';
+import { LocalStorageService } from './local-storage.service';
+import { QueryParamsService } from './query-params.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +21,21 @@ import { RandomData } from '../interfaces/random-data';
 export class MainStoreService {
   private _cart: Cart[] = [];
 
-  private _currentIndex = -1;
+  private _currentCartItemId = '';
 
   private _passengersReview?: PassengerReview[];
+
+  private _cartSize$ = new ReplaySubject<number>(1);
+
+  private _cart$ = new ReplaySubject<Cart[]>(1);
+
+  get cartSize$(): Observable<number> {
+    return this._cartSize$;
+  }
+
+  get cart$(): Observable<Cart[]> {
+    return this._cart$;
+  }
 
   get flightResults(): Flight[] | undefined {
     const json = sessionStorage.getItem(LocalStorageKeys.FlightResults);
@@ -159,54 +176,107 @@ export class MainStoreService {
     private queryParamsService: QueryParamsService,
     private localStorageService: LocalStorageService
   ) {
-    this._cart = localStorageService.getCart();
-    this._currentIndex = localStorageService.getSelectedIndex();
+    this.getCartDataFromLocalStorage();
+  }
+
+  private getCartDataFromLocalStorage() {
+    this._cart = this.localStorageService.getCart();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
+    this._currentCartItemId = this.localStorageService.getSelectedIndex();
   }
 
   private updateLocalStorage() {
-    this.localStorageService.setCart(this._cart, this._currentIndex);
+    this.localStorageService.setCart(this._cart, this._currentCartItemId);
   }
 
   addAllDataToCart() {
+    const cartPriceData: CartPriceData = {
+      adults: this.passengersResult.adults.length,
+      children: this.passengersResult.children.length,
+      infants: this.passengersResult.infants.length,
+      totalPrice: { eur: 0, usd: 0, pln: 0, rub: 0 },
+    };
+    cartPriceData.totalPrice = getTotalPrice(cartPriceData, this.flights);
     if (!this.passengersResult) return;
     // edit
-    if (this._currentIndex !== -1) {
-      const index = this._currentIndex;
-      this._cart[index].flights = this.flights;
-      this._cart[index].passengersResult = this.passengersResult;
-      this._cart[index].queryParams = this.queryParamsService.getQueryParams();
-      return;
+    const cartItem = this._cart.find((item) => item.id === this._currentCartItemId);
+    if (this._currentCartItemId !== '' && cartItem) {
+      cartItem.flights = this.flights;
+      cartItem.passengersResult = this.passengersResult;
+      cartItem.queryParams = this.queryParamsService.getQueryParams();
+      cartItem.cartPriceData = cartPriceData;
+    } else {
+      // add new
+      this._cart.push({
+        id: uuid(),
+        isChecked: true,
+        cartPriceData,
+        flights: this.flights,
+        passengersResult: this.passengersResult,
+        queryParams: this.queryParamsService.getQueryParams()
+      });
     }
-    // add new
-    this._cart.push({
-      flights: this.flights,
-      passengersResult: this.passengersResult,
-      queryParams: this.queryParamsService.getQueryParams()
-    });
     this.flights = [];
     // this.passengersResult = undefined;
     this.queryParamsService.setInitialQueryParams();
+    this._currentCartItemId = '';
+    this.flightResults = [];
+    this.flights = [];
+    this.passengersResult = {
+      adults: [],
+      children: [],
+      infants: [],
+      contactDetailsData: {
+        countryCode: '',
+        phone: '',
+        email: ''
+      }
+    };
+    this._passengersReview = [];
+    sessionStorage.removeItem(LocalStorageKeys.RandomData);
+    const random = this.randomData;
+    this.randomData = random;
+    this.queryParams = {};
+    this.selectedFlights = [0, 0];
     this.updateLocalStorage();
+    sessionStorage.clear();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
   }
 
-  setDataFromCart(index: number) {
-    if (index <= this._cart.length || index < 0) {
+  setDataFromCart(id: string) {
+    const cartItem = this._cart.find((item) => item.id === id);
+    if (!cartItem) {
       return;
     }
 
-    this.flights = this._cart[index].flights;
-    this.passengersResult = this._cart[index].passengersResult;
-    this.queryParamsService.updateQueryParamOnCurrentPage(this._cart[index].queryParams);
-    this._currentIndex = index;
+    this.flights = cartItem.flights;
+    this.passengersResult = cartItem.passengersResult;
+    this.queryParamsService.updateQueryParamOnCurrentPage(cartItem.queryParams);
+    this._currentCartItemId = id;
     this.updateLocalStorage();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
   }
 
-  removeFromCart(index: number) {
-    if (index <= this._cart.length || index < 0) {
-      return;
-    }
-
-    this._cart = this._cart.filter((_, i) => i !== index);
+  removeFromCart(id: string) {
+    this._cart = this._cart.filter((item) => item.id !== id);
     this.updateLocalStorage();
+    this._cartSize$.next(this.cart.length);
+    this._cart$.next(this.cart);
+  }
+
+  get cart(): Cart[] {
+    return this._cart;
+  }
+
+  selectCartItem(id: string, value: boolean) {
+    const cartItem = this._cart.find((item) => item.id === id);
+    if (cartItem) {
+      cartItem.isChecked = value;
+      this.updateLocalStorage();
+      this._cart$.next(this.cart);
+    }
   }
 }

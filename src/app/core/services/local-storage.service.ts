@@ -15,15 +15,19 @@ export class LocalStorageService {
     this.nextCurrency();
   }
 
-  setCart(cart: Cart[], index = -1) {
+  setCart(cart: Cart[], index = '') {
     localStorage.setItem(
       LocalStorageKeys.Cart,
       JSON.stringify(cart)
     );
-    localStorage.setItem(
-      LocalStorageKeys.CartIndex,
-      index.toString()
-    );
+    if (index === '') {
+      localStorage.removeItem(LocalStorageKeys.CartIndex);
+    } else {
+      localStorage.setItem(
+        LocalStorageKeys.CartIndex,
+        index
+      );
+    }
   }
 
   getCart(): Cart[] {
@@ -38,12 +42,8 @@ export class LocalStorageService {
     return [];
   }
 
-  getSelectedIndex(): number {
-    const index = localStorage.getItem(LocalStorageKeys.CartIndex);
-    if (index && !Number.isNaN(+index)) {
-      return +index;
-    }
-    return -1;
+  getSelectedIndex(): string {
+    return localStorage.getItem(LocalStorageKeys.CartIndex) ?? '';
   }
 
   setCurrency(currency: string) {
