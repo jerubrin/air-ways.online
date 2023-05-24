@@ -1,0 +1,45 @@
+@import "variables";
+@import "mixins";
+
+.payment {
+  width: 100%;
+  margin: 4rem 0 8rem;
+  background: $color-white;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0.8rem;
+}
+
+.title {
+  display: flex;
+  @include font($font-size-24, $font-weight-700, $color-primary);
+  line-height: 2.8rem;
+  padding: 3.3rem;
+}
+
+.text {
+  display: flex;
+  @include font($font-size-20, $font-weight-100, $color-neutral-20);
+  line-height: 2rem;
+  padding: 3.6rem 3.3rem 2.6rem;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-item {
+  display: flex;
+  gap: 2.4rem;
+  align-items: center;
+}
+
+.card-item {
+  padding: 2.3rem 3.4rem;
+}
+
+.bottom-line {
+  margin: 0 3.4rem;
+  height: 1px;
+  border: 1px solid $color-secondary-50;
+}

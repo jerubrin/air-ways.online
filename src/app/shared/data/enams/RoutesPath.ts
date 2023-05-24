@@ -5,6 +5,7 @@ enum RoutesPath {
   BookingPagePassengers = 'passengers',
   BookingPageReviewPayment = 'review-payment',
   CartPage = 'cart',
+  CartPagePayment = 'payment',
   NotFoundPage = '404'
 }
 

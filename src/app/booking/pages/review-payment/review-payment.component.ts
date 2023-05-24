@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LocalStorageKeys } from 'src/app/core/data/enams/local-storage.enum';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { StepperService } from 'src/app/core/services/stepper.service';
@@ -47,5 +48,10 @@ export class ReviewPaymentComponent implements OnInit {
   onSubmit() {
     this.store.addAllDataToCart();
     this.router.navigate([RoutesPath.CartPage]);
+  }
+
+  onPayment() {
+    sessionStorage.setItem(LocalStorageKeys.IsCartData, 'false');
+    this.router.navigate([RoutesPath.CartPage, RoutesPath.CartPagePayment]);
   }
 }

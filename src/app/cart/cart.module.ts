@@ -10,6 +10,9 @@ import { TotalPriceComponent } from './components/total-price/total-price.compon
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
 import { CartSortByPipe } from './pipes/cart-sort-by.pipe';
 import { SelectedCountPipe } from './pipes/selected-count.pipe';
+import { PaymentPageComponent } from './pages/payment-page/payment-page.component';
+import { CardItemComponent } from './components/card-item/card-item.component';
+import { PreloaderComponent } from './components/preloader/preloader.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,10 @@ import { SelectedCountPipe } from './pipes/selected-count.pipe';
     TotalPriceComponent,
     PromoAndPayComponent,
     SelectedCountPipe,
-    CartSortByPipe
+    CartSortByPipe,
+    PaymentPageComponent,
+    CardItemComponent,
+    PreloaderComponent
   ],
   imports: [
     CommonModule,

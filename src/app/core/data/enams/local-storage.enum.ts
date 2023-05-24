@@ -8,5 +8,7 @@ export enum LocalStorageKeys {
   RandomData = 'air-ways.online_store_random-data',
   FlightResults = 'air-ways.online_store_flight-results',
   QueryParams = 'air-ways.online_store_query-params',
-  SelectedFlights = 'air-ways.online_store_selected-flights'
+  SelectedFlights = 'air-ways.online_store_selected-flights',
+
+  IsCartData = 'air-ways.online_is_cart_data',
 }

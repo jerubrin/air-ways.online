@@ -23,10 +23,10 @@
   
   <form class="form" (ngSubmit)="onSubmit()">
     <button class="btn-transparent" (click)="goBack()">Back</button>
-    <button class="btn-transparent-border">
+    <button class="btn-transparent-border" type="submit">
       Add to order cart
     </button>
-    <button class="btn-forward">
+    <button class="btn-forward" type="button" (click)="onPayment()">
       Buy now
     </button>
   </form>

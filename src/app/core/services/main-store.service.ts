@@ -37,6 +37,10 @@ export class MainStoreService {
     return this._cart$;
   }
 
+  get currentCartItemId() {
+    return this._currentCartItemId;
+  }
+
   get flightResults(): Flight[] | undefined {
     const json = sessionStorage.getItem(LocalStorageKeys.FlightResults);
     if (!json) {

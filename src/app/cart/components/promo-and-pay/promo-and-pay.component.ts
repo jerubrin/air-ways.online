@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cart } from 'src/app/core/interfaces/cart';
 
@@ -9,6 +9,8 @@ import { Cart } from 'src/app/core/interfaces/cart';
 })
 export class PromoAndPayComponent {
   @Input() cart$?: Observable<Cart[] | null>;
+
+  @Output() pay = new EventEmitter();
 
   selectedCount = 0;
 
