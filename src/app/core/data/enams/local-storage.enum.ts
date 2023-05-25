@@ -11,4 +11,7 @@ export enum LocalStorageKeys {
   SelectedFlights = 'air-ways.online_store_selected-flights',
 
   IsCartData = 'air-ways.online_is_cart_data',
+
+  Token = 'air-ways.online_token',
+  UserName = 'air-ways.online_user-name'
 }

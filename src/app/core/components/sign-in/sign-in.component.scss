@@ -159,8 +159,6 @@
 }
 
 .gender {
-  margin-bottom: 2rem;
-
   ::ng-deep.mat-button-toggle-label-content {
     line-height: 4rem !important;
   }
@@ -183,6 +181,10 @@
   }
 }
 
+.gender-bottom {
+  margin-bottom: 2rem;
+}
+
 .tel-inputs {
   display: flex;
   flex-direction: row;
@@ -197,10 +199,13 @@
 }
 
 .checkbox {
-  margin-bottom: 2.8rem;
   &__text-wrap {
     margin-left: 0.8rem;
   }
+}
+
+.checkbox-bottom {
+  margin-bottom: 2.8rem;
 }
 
 .link {
@@ -216,4 +221,16 @@
 
 .submit-btn {
   height: 4.4rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.error-validation {
+  position: absolute;
+  font-size: $font-size-12;
+  font-weight: $font-weight-400;
+  letter-spacing: 0.0333333333em;
+  padding: 0 1.6rem;
 }

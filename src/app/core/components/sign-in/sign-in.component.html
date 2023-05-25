@@ -42,7 +42,7 @@
       formControlName="email"
       type="email"
       placeholder="example@email.com"
-      (input)="signInForm.get('phone')?.markAsTouched()"
+      (input)="signInForm.get('email')?.markAsTouched()"
       />
       <mat-error
         *ngIf="signInForm?.get('email')?.invalid && signInForm?.get('email')?.touched"
@@ -168,37 +168,63 @@
     name="gender"
     aria-label="Gender"
   >
-    <mat-button-toggle class="gender__item" [value]="gender.Male"
+    <mat-button-toggle class="gender__item" [value]="Gender.Male"
       ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
     >
-    <mat-button-toggle class="gender__item" [value]="gender.Female"
+    <mat-button-toggle class="gender__item" [value]="Gender.Female"
       ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
     >
   </mat-button-toggle-group>
+  <div class="relative">
+    <mat-error
+      class="error-validation"
+      *ngIf="signUpForm?.get('gender')?.invalid && signUpForm?.get('gender')?.touched"
+    >
+      Please select gender
+    </mat-error>
+  </div>
+  <div class="gender-bottom"></div>
 
   <div class="tel-inputs">
     <mat-form-field class="tel-inputs__item" appearance="outline">
       <mat-label>Country code</mat-label>
-      <mat-select [(value)]="firstCountryCode">
+      <mat-select formControlName="countryCode">
         <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
           {{ countryCode.name }} ({{ countryCode.code }})
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="signUpForm?.get('countryCode')?.errors"
+        >Please select country code</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field class="tel-inputs__item" appearance="outline">
       <mat-label>Mobile phone number</mat-label>
-      <input type="tel" matInput required />
+      <input
+        type="tel"
+        matInput
+        formControlName="phone"
+        placeholder="555 555 55 55"
+        (input)="signUpForm.get('phone')?.markAsTouched()"
+        />
+        <mat-error
+          *ngIf="signUpForm?.get('phone')?.invalid && signUpForm?.get('phone')?.touched"
+        >
+          {{ getErrorMessage('phone') }}
+      </mat-error>
     </mat-form-field>
   </div>
 
   <mat-form-field appearance="outline">
     <mat-label>Citizenship</mat-label>
-    <mat-select>
+    <mat-select formControlName="citizenship">
       <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
         {{ countryCode.name }}
       </mat-option>
     </mat-select>
+    <mat-error *ngIf="signUpForm?.get('citizenship')?.errors">
+      Please select country code
+    </mat-error>
   </mat-form-field>
 
   <mat-checkbox
@@ -209,8 +235,16 @@
   ><p class="checkbox__text-wrap label-medium">
     I agree to <a class="link" routerLink="">Airway's Privacy</a> Policy and
     <a class="link" routerLink="">Terms of Use</a>
-  </p></mat-checkbox
-  >
+  </p></mat-checkbox>
+  <div class="relative">
+    <mat-error
+      class="error-validation"
+      *ngIf="signUpForm?.get('agree')?.invalid && signUpForm?.get('agree')?.touched"
+    >
+      Please agree to Airway's Privacy Policy and Terms of Use
+    </mat-error>
+  </div>
+  <div class="checkbox-bottom"></div>
 
   <button class="submit-btn" mat-flat-button color="primary">Sign up</button>
 </form>

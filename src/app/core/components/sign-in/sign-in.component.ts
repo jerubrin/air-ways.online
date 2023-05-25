@@ -6,6 +6,7 @@ import { Gender } from 'src/app/core/interfaces/passengers-data';
 import { AuthService } from 'src/app/core/services/auth.service';
 import CountryCodes from 'src/app/shared/data/constants/CountryCode';
 import { CountryCode } from 'src/app/shared/interfaces/country-code';
+import dateOfBirthValidator from 'src/app/shared/validators/dateOfBirthValidator';
 import { SignUp } from '../../models/sign-up';
 
 @Component({
@@ -16,9 +17,7 @@ import { SignUp } from '../../models/sign-up';
 export class SignInComponent implements OnInit, OnDestroy {
   authAction = AuthAction;
 
-  gender = Gender;
-
-  genderValue: Gender = this.gender.Male;
+  Gender = Gender;
 
   countryCodes: CountryCode[] = CountryCodes;
 
@@ -52,31 +51,27 @@ export class SignInComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.signInForm.valueChanges.subscribe(() => {
         if (this.signInForm) {
-          const { valid, value } = this.signInForm;
-          const eventValue = { isValid: valid, formValue: value };
-          this.signInFormChanges(eventValue);
+          this.signInFormChanges(this.signInForm.valid);
         }
       })
     );
     // Sign Up
     this.signUpForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      firstName: ['', [Validators.required]],
-      lastName: ['', [Validators.required]],
-      dateOfBirth: ['', [Validators.required]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
+      dateOfBirth: ['', [Validators.required, dateOfBirthValidator]],
       gender: ['', [Validators.required]],
       countryCode: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       citizenship: ['', Validators.required],
-      agree: [false, Validators.required]
+      agree: ['', [Validators.required, Validators.requiredTrue]]
     });
     this.subscriptions.push(
       this.signUpForm.valueChanges.subscribe(() => {
         if (this.signUpForm) {
-          const { valid, value } = this.signUpForm;
-          const eventValue = { isValid: valid, formValue: value };
-          this.signUpFormChanges(eventValue);
+          this.signUpFormChanges(this.signUpForm.valid);
         }
       })
     );
@@ -101,36 +96,52 @@ export class SignInComponent implements OnInit, OnDestroy {
     if (fieldControl?.hasError('email')) {
       return 'The email is invalid';
     }
+    if (fieldControl?.hasError('pattern')) {
+      return 'Invalid character';
+    }
+    if (fieldControl?.hasError('dateOfBirthInvalid')) {
+      return 'Date of birth cannot be later than today';
+    }
     return '';
   }
 
-  signUpFormChanges({ isValid, formValue }: {
-    isValid: boolean,
-    formValue: SignUp,
-  }) {
+  signUpFormChanges(isValid: boolean) {
     this.isSignUpValid = isValid;
-    console.log(isValid, formValue);
   }
 
-  signInFormChanges({ isValid, formValue }: {
-    isValid: boolean,
-    formValue: SignUp,
-  }) {
+  signInFormChanges(isValid: boolean) {
     this.isLoginValid = isValid;
-    console.log(isValid, formValue);
   }
 
   loginSubmit() {
     if (!this.isLoginValid) {
       return;
     }
-    alert('Login!');
+    this.authService.login(this.signInForm?.value);
   }
 
   signUpSubmit() {
+    this.signUpForm?.get('gender')?.markAsTouched();
+    this.signUpForm?.get('gender')?.updateValueAndValidity();
+    this.signUpForm?.get('agree')?.markAsTouched();
+    this.signUpForm?.get('agree')?.updateValueAndValidity();
+
     if (!this.isSignUpValid) {
       return;
     }
-    alert('Sign up!');
+
+    const signUp = this.signUpForm?.value as Partial<SignUp>;
+
+    this.authService.signUp({
+      email: signUp.email ?? '',
+      password: signUp.password ?? '',
+      firstName: signUp.firstName ?? '',
+      lastName: signUp.lastName ?? '',
+      dateOfBirth: signUp.dateOfBirth ?? '',
+      gender: signUp.gender ?? '',
+      phone: signUp.phone ?? '',
+      countryCode: signUp.countryCode?.code ?? '',
+      citizenship: signUp.citizenship?.name ?? '',
+    });
   }
 }
