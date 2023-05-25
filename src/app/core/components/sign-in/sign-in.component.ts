@@ -12,8 +12,6 @@ import CountryCodes from 'src/app/shared/data/constants/CountryCode';
 export class SignInComponent {
   authAction = AuthAction;
 
-  authActionValue: AuthAction = this.authAction.Login;
-
   gender = Gender;
 
   genderValue: Gender = this.gender.Male;
@@ -22,5 +20,7 @@ export class SignInComponent {
 
   firstCountryCode = this.countryCodes[0];
 
-  constructor(public readonly authService: AuthService) {}
+  constructor(public authService: AuthService) {
+    this.authService.authActionValue = AuthAction.Login;
+  }
 }

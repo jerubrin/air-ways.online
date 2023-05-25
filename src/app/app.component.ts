@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import AuthAction from './core/interfaces/auth-action';
 import { AuthService } from './core/services/auth.service';
 
 @Component({
@@ -9,5 +10,14 @@ import { AuthService } from './core/services/auth.service';
 export class AppComponent {
   title = 'air-ways.online';
 
+  AuthAction = AuthAction;
+
   constructor(public readonly authService: AuthService) {}
+
+  closeModal() {
+    if (this.authService.isAuthModalVisible) {
+      console.log(this.authService.isAuthModalVisible);
+      this.authService.hideAuthModal();
+    }
+  }
 }

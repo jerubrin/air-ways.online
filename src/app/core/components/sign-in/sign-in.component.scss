@@ -45,9 +45,6 @@
 }
 
 :host {
-  position: absolute;
-  top: $header-height;
-  left: 90rem;
   width: 49.4rem;
   max-height: $sign-in-height;
   background-color: $color-white;
@@ -56,7 +53,7 @@
   padding: 3.2rem 2.4rem;
   display: flex;
   flex-direction: column;
-  z-index: 999;
+  z-index: 999991;
 
   //input borders on focus
   ::ng-deep.mdc-text-field--focused .mdc-notched-outline__leading,

@@ -1,6 +1,6 @@
 <mat-button-toggle-group
   class="auth-action label-medium"
-  [(value)]="authActionValue"
+  [(value)]="authService.authActionValue"
   name="fontStyle"
   aria-label="Font Style"
 >
@@ -23,7 +23,7 @@
 </button>
 
 <!-- LOGIN -->
-<ng-container *ngIf="authActionValue === authAction.Login">
+<ng-container *ngIf="authService.authActionValue === authAction.Login">
   <div class="or-message body-small">
     <span class="or-message__line"></span>
     <span class="or-message__text">or log in with your email</span>
@@ -46,7 +46,7 @@
 </ng-container>
 
 <!-- SIGNUP -->
-<ng-container *ngIf="authActionValue === authAction.Signup">
+<ng-container *ngIf="authService.authActionValue === authAction.Signup">
   <div class="or-message body-small">
     <span class="or-message__line"></span>
     <span class="or-message__text">or sign up with your email</span>
