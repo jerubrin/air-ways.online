@@ -33,6 +33,10 @@ export class AuthService {
   ) {
     this._token = localStorage.getItem(LocalStorageKeys.Token);
     const userName = localStorage.getItem(LocalStorageKeys.UserName);
+    const lsUserData = localStorage.getItem(LocalStorageKeys.UserData);
+    if (lsUserData) {
+      this.userData = JSON.parse(lsUserData);
+    }
     this._userName$.next(userName);
   }
 
@@ -63,6 +67,7 @@ export class AuthService {
         const userName = `${res.firstName} ${res.lastName}`;
         this._userName$.next(userName);
         localStorage.setItem(LocalStorageKeys.UserName, userName);
+        localStorage.setItem(LocalStorageKeys.UserData, JSON.stringify(res));
       });
   }
 
@@ -89,6 +94,7 @@ export class AuthService {
     this._userName$.next(null);
     localStorage.removeItem(LocalStorageKeys.Token);
     localStorage.removeItem(LocalStorageKeys.UserName);
+    localStorage.removeItem(LocalStorageKeys.UserData);
   }
 
   signUp(signUpReq: SignUpRequest) {

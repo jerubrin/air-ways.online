@@ -4,13 +4,14 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ContactDetails } from 'src/app/core/interfaces/contact-details';
-import { PassengersData } from 'src/app/core/interfaces/passengers-data';
+import { Gender, PassengersData } from 'src/app/core/interfaces/passengers-data';
 import { PassengersResultData } from 'src/app/core/interfaces/passengers-result-data';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
+import { AuthService } from 'src/app/core/services/auth.service';
 import { PassengersService } from '../../services/passengers.service';
 
 @Component({
@@ -43,6 +44,8 @@ export class PassengersComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
+  private initialDataFromUser: ContactDetails | null = null;
+
   constructor(
     private formBuilder: FormBuilder,
     private passengersService: PassengersService,
@@ -50,10 +53,18 @@ export class PassengersComponent implements OnInit, OnDestroy {
     private stepperService: StepperService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    private authService: AuthService,
     public mainStoreService: MainStoreService
   ) {}
 
   ngOnInit() {
+    if (this.authService.userData) {
+      this.initialDataFromUser = {
+        phone: this.authService.userData.phone,
+        email: this.authService.userData.email,
+        countryCode: this.authService.userData.countryCode,
+      };
+    }
     this.subscriptions.push(
       this.activatedRoute.queryParams.subscribe((currentParams) => {
         this.getCurrentPassengersCountsFromQueryParams(currentParams);
@@ -87,7 +98,18 @@ export class PassengersComponent implements OnInit, OnDestroy {
     const { adults, children, infants } = this.passengersResultData;
 
     for (let i = 0; i < this.adultsCounts; i += 1) {
-      const passengerData = adults?.[i] || null;
+      let passengerData = adults?.[i] || null;
+      if (!passengerData && i === 0 && this.authService.userData) {
+        passengerData = {
+          id: i,
+          firstName: this.authService.userData.firstName,
+          lastName: this.authService.userData.lastName,
+          dateOfBirth: this.authService.userData.dateOfBirth,
+          gender: this.authService.userData.gender === Gender.Male ? Gender.Male : Gender.Female,
+          checkedInBaggage: false,
+          specialAssistance: false,
+        };
+      }
       const isValid = !!passengerData;
       this.passengers.push({
         title: 'Adult',
@@ -116,6 +138,13 @@ export class PassengersComponent implements OnInit, OnDestroy {
     }
 
     this.contactDetailsInitialValue = this.passengersResultData.contactDetailsData || null;
+
+    if (this.initialDataFromUser) {
+      const { countryCode, email, phone } = this.contactDetailsInitialValue;
+      if (countryCode === '' && email === '' && phone === '') {
+        this.contactDetailsInitialValue = this.initialDataFromUser;
+      }
+    }
 
     this.contactDetailsFormIsValid = Object.values(this.contactDetailsInitialValue).every(
       (value) => value.trim() !== ''
