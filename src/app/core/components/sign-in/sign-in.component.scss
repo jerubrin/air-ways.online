@@ -53,7 +53,7 @@
   padding: 3.2rem 2.4rem;
   display: flex;
   flex-direction: column;
-  z-index: 999991;
+  z-index: 991;
 
   //input borders on focus
   ::ng-deep.mdc-text-field--focused .mdc-notched-outline__leading,
@@ -62,6 +62,13 @@
     border-width: 1px !important;
     border-color: $color-primary !important;
   }
+}
+
+.form {
+  width: 100%;
+  max-height: calc($sign-in-height - 4.8rem);
+  display: flex;
+  flex-direction: column;
 }
 
 .close {

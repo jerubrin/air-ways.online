@@ -16,7 +16,6 @@ export class AppComponent {
 
   closeModal() {
     if (this.authService.isAuthModalVisible) {
-      console.log(this.authService.isAuthModalVisible);
       this.authService.hideAuthModal();
     }
   }

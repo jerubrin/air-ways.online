@@ -23,7 +23,12 @@
 </button>
 
 <!-- LOGIN -->
-<ng-container *ngIf="authService.authActionValue === authAction.Login">
+<form
+  class="form"
+  *ngIf="authService.authActionValue === authAction.Login && signInForm"
+  [formGroup]="signInForm"
+  (ngSubmit)="loginSubmit()"
+>
   <div class="or-message body-small">
     <span class="or-message__line"></span>
     <span class="or-message__text">or log in with your email</span>
@@ -32,21 +37,48 @@
 
   <mat-form-field class="form__element" appearance="outline">
     <mat-label>Email</mat-label>
-    <input type="email" matInput required />
+    <input
+      matInput
+      formControlName="email"
+      type="email"
+      placeholder="example@email.com"
+      (input)="signInForm.get('phone')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="signInForm?.get('email')?.invalid && signInForm?.get('email')?.touched"
+      >
+        {{ getErrorMessage('email') }}
+      </mat-error>
   </mat-form-field>
 
   <mat-form-field class="form__element" appearance="outline">
     <mat-label>Password</mat-label>
-    <input type="password" matInput required />
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      placeholder="******"
+      (input)="signInForm.get('password')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="signInForm?.get('password')?.invalid && signInForm?.get('password')?.touched"
+      >
+        {{ getErrorMessage('password') }}
+      </mat-error>
   </mat-form-field>
 
   <a class="forgot-pass link label-medium" routerLink="">Forgot password?</a>
 
   <button class="submit-btn" mat-flat-button color="primary">Log in</button>
-</ng-container>
+</form>
 
 <!-- SIGNUP -->
-<ng-container *ngIf="authService.authActionValue === authAction.Signup">
+<form
+  class="form"
+  *ngIf="authService.authActionValue === authAction.Signup && signUpForm"
+  [formGroup]="signUpForm"
+  (ngSubmit)="signUpSubmit()"
+>
   <div class="or-message body-small">
     <span class="or-message__line"></span>
     <span class="or-message__text">or sign up with your email</span>
@@ -54,36 +86,87 @@
   </div>
   <mat-form-field class="form__element" appearance="outline">
     <mat-label>Email</mat-label>
-    <input type="email" matInput required />
+    <input
+      matInput
+      formControlName="email"
+      type="email"
+      placeholder="example@email.com"
+      (input)="signUpForm.get('phone')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="signUpForm?.get('email')?.invalid && signUpForm?.get('email')?.touched"
+      >
+        {{ getErrorMessage('email') }}
+      </mat-error>
   </mat-form-field>
 
   <mat-form-field class="form__element" appearance="outline">
     <mat-label>Password</mat-label>
-    <input type="password" matInput required />
+    <input
+      matInput
+      type="password"
+      formControlName="password"
+      placeholder="******"
+      (input)="signUpForm.get('password')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="signUpForm?.get('password')?.invalid && signUpForm?.get('password')?.touched"
+      >
+        {{ getErrorMessage('password') }}
+      </mat-error>
   </mat-form-field>
 
   <mat-form-field class="form__element" appearance="outline">
     <mat-label>First name</mat-label>
-    <input type="text" matInput required />
+    <input
+      matInput
+      formControlName="firstName"
+      type="text"
+      placeholder="Farhat"
+      (input)="signUpForm.get('firstName')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="signUpForm?.get('firstName')?.invalid && signUpForm?.get('firstName')?.touched"
+      >
+        {{ getErrorMessage('firstName') }}
+      </mat-error>
   </mat-form-field>
 
   <mat-form-field class="form__element" appearance="outline">
     <mat-label>Last name</mat-label>
-    <input type="text" matInput required />
+    <input
+      matInput
+      formControlName="lastName"
+      type="text"
+      placeholder="Orayev"
+      (input)="signUpForm.get('lastName')?.markAsTouched()"
+      />
+      <mat-error
+        *ngIf="signUpForm?.get('lastName')?.invalid && signUpForm?.get('lastName')?.touched"
+      >
+        {{ getErrorMessage('lastName') }}
+      </mat-error>
   </mat-form-field>
 
   <mat-form-field appearance="outline">
     <mat-label>Date of birth</mat-label>
-    <input matInput [matDatepicker]="picker" required />
+    <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [max]="today" />
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+    <mat-error
+        *ngIf="
+        signUpForm?.get('dateOfBirth')?.invalid && signUpForm?.get('dateOfBirth')?.touched
+        "
+      >
+        {{ getErrorMessage('dateOfBirth') }}
+      </mat-error>
   </mat-form-field>
 
   <mat-button-toggle-group
     class="gender label-medium"
-    name="fontStyle"
-    [(value)]="genderValue"
-    aria-label="Font Style"
+    formControlName="gender"
+    name="gender"
+    aria-label="Gender"
   >
     <mat-button-toggle class="gender__item" [value]="gender.Male"
       ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
@@ -118,15 +201,19 @@
     </mat-select>
   </mat-form-field>
 
-  <mat-checkbox class="checkbox" color="primary"
-    ><p class="checkbox__text-wrap label-medium">
-      I agree to <a class="link" routerLink="">Airway's Privacy</a> Policy and
-      <a class="link" routerLink="">Terms of Use</a>
-    </p></mat-checkbox
+  <mat-checkbox
+    class="checkbox"
+    color="primary"
+    name="agree"
+    formControlName="agree"
+  ><p class="checkbox__text-wrap label-medium">
+    I agree to <a class="link" routerLink="">Airway's Privacy</a> Policy and
+    <a class="link" routerLink="">Terms of Use</a>
+  </p></mat-checkbox
   >
 
   <button class="submit-btn" mat-flat-button color="primary">Sign up</button>
-</ng-container>
+</form>
 
 <div class="close" (click)="authService.hideAuthModal()">
   <img src="./assets/icon_close.svg" alt="close" />
