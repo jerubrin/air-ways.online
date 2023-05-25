@@ -90,8 +90,8 @@
 .btn-transparent-border {
   @include stepButton();
   border: solid 1px $color-primary;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-left: 2.4rem;
+  padding-right: 2.4rem;
   width: auto;
 
   &:hover {

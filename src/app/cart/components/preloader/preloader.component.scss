@@ -5,7 +5,7 @@
 	padding: 0;
 }
 .body {
-  font-size: calc(16px + (20 - 16) * (100vw - 320px) / (1280 - 320));
+  font-size: calc(1.6rem + (20 - 16) * (100vw - 32rem) / (1280 - 320));
   z-index: 99999999;
   position: fixed;
   top: 0;
@@ -64,12 +64,12 @@
 .cart__wheel1 {
 	animation-name: cartWheel1;
 	transform: rotate(-0.25turn);
-	transform-origin: 43px 111px;
+	transform-origin: 4.3rem 11.1rem;
 }
 .cart__wheel2 {
 	animation-name: cartWheel2;
 	transform: rotate(0.25turn);
-	transform-origin: 102px 111px;
+	transform-origin: 10.2rem 11.1rem;
 }
 .cart__wheel-stroke {
 	animation-name: cartWheelStroke

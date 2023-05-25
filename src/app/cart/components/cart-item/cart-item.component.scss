@@ -25,37 +25,37 @@
 .flight-no {
   width: $no-index;
   @include font($font-size-20, $font-weight-700, $color-secondary);
-  line-height: 24px;
+  line-height: 2.4rem;
 }
 
 .flights-list {
   width: $flight-index;
   @include font($font-size-20, $font-weight-500, $color-black);
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 .flights-type {
   width: $type-index;
   @include font($font-size-20, $font-weight-500, $color-black);
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 .date-time {
   width: $date-index;
   @include font($font-size-20, $font-weight-500, $color-black);
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 .passengers {
   width: $passengers-index;
   @include font($font-size-20, $font-weight-500, $color-black);
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 .price {
   width: $price-index;
   @include font($font-size-20, $font-weight-500, $color-highlight-green-0);
-  line-height: 32px;
+  line-height: 3.2rem;
 }
 
 .menu {
