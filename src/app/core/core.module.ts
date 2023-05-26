@@ -11,10 +11,9 @@ import { SignInButtonComponent } from './components/header/components/sign-in-bu
 import { StepperComponent } from './components/header/components/stepper/stepper.component';
 import { HeaderComponent } from './components/header/header.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
-import { SignInComponent } from './components/sign-in/sign-in.component';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
-import { PricePipe } from './pipes/price.pipe';
 import { MatBadgeHiddenPipe } from './pipes/mat-badge-hidden.pipe';
+import { PricePipe } from './pipes/price.pipe';
 
 @NgModule({
   declarations: [
@@ -29,10 +28,9 @@ import { MatBadgeHiddenPipe } from './pipes/mat-badge-hidden.pipe';
     FooterComponent,
     MessageDialogComponent,
     PricePipe,
-    SignInComponent,
-    MatBadgeHiddenPipe
+    MatBadgeHiddenPipe,
   ],
   imports: [CommonModule, SharedModule, HttpClientModule],
-  exports: [HeaderComponent, FooterComponent, SignInComponent, PricePipe]
+  exports: [HeaderComponent, FooterComponent, PricePipe]
 })
 export class CoreModule {}

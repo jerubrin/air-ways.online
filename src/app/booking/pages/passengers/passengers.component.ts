@@ -60,9 +60,9 @@ export class PassengersComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (this.authService.userData) {
       this.initialDataFromUser = {
-        phone: this.authService.userData.phone,
+        phone: this.authService.userData.phone ?? '',
         email: this.authService.userData.email,
-        countryCode: this.authService.userData.countryCode,
+        countryCode: this.authService.userData.countryCode ?? '',
       };
     }
     this.subscriptions.push(
@@ -104,7 +104,7 @@ export class PassengersComponent implements OnInit, OnDestroy {
           id: i,
           firstName: this.authService.userData.firstName,
           lastName: this.authService.userData.lastName,
-          dateOfBirth: this.authService.userData.dateOfBirth,
+          dateOfBirth: this.authService.userData.dateOfBirth ?? '',
           gender: this.authService.userData.gender === Gender.Male ? Gender.Male : Gender.Female,
           checkedInBaggage: false,
           specialAssistance: false,
