@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -17,7 +18,11 @@ import { UserResponse } from '../models/user.model';
 export class AuthService {
   private _token: string | null = null;
 
+  private _isOauth = false;
+
   private _userName$ = new ReplaySubject<string | null>(1);
+
+  private _userPicture$ = new ReplaySubject<string | null>(1);
 
   userData?: UserResponse;
 
@@ -30,14 +35,33 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private snackBar: MatSnackBar,
+    private socialAuthService: SocialAuthService
   ) {
-    this._token = localStorage.getItem(LocalStorageKeys.Token);
+    const lsUserData =
+      localStorage.getItem(LocalStorageKeys.UserData);
     const userName = localStorage.getItem(LocalStorageKeys.UserName);
-    const lsUserData = localStorage.getItem(LocalStorageKeys.UserData);
+    this._userName$.next(userName || null);
+
     if (lsUserData) {
       this.userData = JSON.parse(lsUserData);
+      this._token = localStorage.getItem(LocalStorageKeys.Token);
     }
-    this._userName$.next(userName);
+
+    // google facebook
+    this.socialAuthService.authState.subscribe(this.authUser.bind(this));
+  }
+
+  authUser(user: SocialUser) {
+    if (!user) return;
+    const { idToken, authToken, email, name, firstName, lastName, photoUrl } = user;
+    this.userData = { email, firstName, lastName, photoUrl };
+    this._userName$.next(name || null);
+    this._token = idToken ?? authToken;
+    this._isOauth = true;
+    localStorage.setItem(LocalStorageKeys.Token, idToken);
+    this._userPicture$.next(photoUrl);
+    localStorage.getItem(LocalStorageKeys.Token);
+    this.hideModalWindow();
   }
 
   get token(): string | null {
@@ -66,8 +90,10 @@ export class AuthService {
         this.userData = res;
         const userName = `${res.firstName} ${res.lastName}`;
         this._userName$.next(userName);
+        this._userPicture$.next(null);
         localStorage.setItem(LocalStorageKeys.UserName, userName);
         localStorage.setItem(LocalStorageKeys.UserData, JSON.stringify(res));
+        this.hideModalWindow();
       });
   }
 
@@ -85,13 +111,18 @@ export class AuthService {
       )
       .subscribe((res) => {
         this.setToken(res.token);
-        this.isAuthModalVisible = false;
+        this.hideModalWindow();
       });
   }
 
   logout(): void {
+    if (this._isOauth) {
+      this.socialAuthService.signOut();
+    }
     this._token = null;
     this._userName$.next(null);
+    this._userPicture$.next(null);
+    this.userData = undefined;
     localStorage.removeItem(LocalStorageKeys.Token);
     localStorage.removeItem(LocalStorageKeys.UserName);
     localStorage.removeItem(LocalStorageKeys.UserData);
@@ -110,9 +141,13 @@ export class AuthService {
       )
       .subscribe((res) => {
         this.setToken(res.token);
-        this.isAuthModalVisible = false;
-        this.authActionValue = AuthAction.Login;
+        this.hideModalWindow();
       });
+  }
+
+  hideModalWindow() {
+    this.isAuthModalVisible = false;
+    this.authActionValue = AuthAction.Login;
   }
 
   isAuthenticated(): boolean {

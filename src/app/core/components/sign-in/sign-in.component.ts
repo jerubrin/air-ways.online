@@ -1,3 +1,4 @@
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -37,6 +38,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
+    public authSocialService: SocialAuthService,
     private formBuilder: FormBuilder
   ) {
     this.authService.authActionValue = AuthAction.Login;
@@ -114,6 +116,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   loginSubmit() {
+    this.signInForm?.get('email')?.markAsTouched();
+    this.signInForm?.get('email')?.updateValueAndValidity();
+    this.signInForm?.get('password')?.markAsTouched();
+    this.signInForm?.get('password')?.updateValueAndValidity();
     if (!this.isLoginValid) {
       return;
     }
@@ -121,6 +127,18 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   signUpSubmit() {
+    this.signUpForm?.get('email')?.markAsTouched();
+    this.signUpForm?.get('email')?.updateValueAndValidity();
+    this.signUpForm?.get('password')?.markAsTouched();
+    this.signUpForm?.get('password')?.updateValueAndValidity();
+    this.signUpForm?.get('fistName')?.markAsTouched();
+    this.signUpForm?.get('fistName')?.updateValueAndValidity();
+    this.signUpForm?.get('lastName')?.markAsTouched();
+    this.signUpForm?.get('lastName')?.updateValueAndValidity();
+    this.signUpForm?.get('dateOfBirth')?.markAsTouched();
+    this.signUpForm?.get('dateOfBirth')?.updateValueAndValidity();
+    this.signUpForm?.get('phone')?.markAsTouched();
+    this.signUpForm?.get('phone')?.updateValueAndValidity();
     this.signUpForm?.get('gender')?.markAsTouched();
     this.signUpForm?.get('gender')?.updateValueAndValidity();
     this.signUpForm?.get('agree')?.markAsTouched();
@@ -143,5 +161,17 @@ export class SignInComponent implements OnInit, OnDestroy {
       countryCode: signUp.countryCode?.code ?? '',
       citizenship: signUp.citizenship?.name ?? '',
     });
+  }
+
+  signInWithFB(): void {
+    this.authSocialService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signInWithGoogle(): void {
+    this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authSocialService.signOut();
   }
 }

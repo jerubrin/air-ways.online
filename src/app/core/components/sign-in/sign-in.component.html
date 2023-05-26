@@ -9,13 +9,19 @@
     >Sign up</mat-button-toggle
   >
 </mat-button-toggle-group>
-<button class="auth-button title-xs-small" mat-stroked-button>
-  <img class="auth-button__img" src="./assets/icon_google.svg" alt="google" /><span
-    class="auth-button__text"
-    >Continue with Google</span
-  >
-</button>
-<button class="auth-button title-xs-small" mat-stroked-button>
+
+<asl-google-signin-button
+  class="auth-button"
+  type="standard"
+  text="signin_with"
+  shape="rectangular"
+  theme="outline"
+  logo_alignment="center"
+  width="444px"
+  locale="en"
+  class="auth-button title-xs-small" mat-stroked-button (click)="signInWithGoogle()">
+</asl-google-signin-button>
+<button class="auth-button title-xs-small" mat-stroked-button (click)="signInWithFB()">
   <img class="auth-button__img" src="./assets/icon_facebbok.svg" alt="facebook" /><span
     class="auth-button__text"
     >Continue with Facebook</span

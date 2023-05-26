@@ -2,6 +2,7 @@
   <form class="promo" (ngSubmit)="onSubmitPromo()">
     <input 
       [(ngModel)]="promo"
+      placeholder="Promo Code"
       [ngModelOptions]="{ standalone: true }"
       (ngModelChange)="message = ''"/>
     <button mat-flat-button>Apply</button>
