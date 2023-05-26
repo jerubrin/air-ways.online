@@ -7,7 +7,7 @@
         matInput
         type="text"
         formControlName="firstName"
-        placeholder="Enter your First Name"
+        placeholder="Aleh"
         (input)="passengerForm.get('firstName')?.markAsTouched()"
       />
       <mat-error
@@ -22,7 +22,7 @@
       <input
         matInput
         formControlName="lastName"
-        placeholder="Enter your Last Name"
+        placeholder="Serhiyenia"
         (input)="passengerForm.get('lastName')?.markAsTouched()"
       />
       <mat-error
@@ -48,7 +48,13 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Date of birth</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" [max]="today" />
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dateOfBirth"
+        placeholder="MM/DD/YYYY"
+        [max]="today"
+      />
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
       <mat-error

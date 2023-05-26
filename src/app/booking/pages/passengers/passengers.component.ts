@@ -12,7 +12,6 @@ import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PassengersService } from '../../services/passengers.service';
 
 @Component({
   selector: 'app-passengers',
@@ -48,7 +47,6 @@ export class PassengersComponent implements OnInit, OnDestroy {
 
   constructor(
     private formBuilder: FormBuilder,
-    private passengersService: PassengersService,
     private queryParamsService: QueryParamsService,
     private stepperService: StepperService,
     private activatedRoute: ActivatedRoute,
@@ -62,7 +60,7 @@ export class PassengersComponent implements OnInit, OnDestroy {
       this.initialDataFromUser = {
         phone: this.authService.userData.phone ?? '',
         email: this.authService.userData.email,
-        countryCode: this.authService.userData.countryCode ?? '',
+        countryCode: this.authService.userData.countryCode ?? ''
       };
     }
     this.subscriptions.push(
@@ -107,7 +105,7 @@ export class PassengersComponent implements OnInit, OnDestroy {
           dateOfBirth: this.authService.userData.dateOfBirth ?? '',
           gender: this.authService.userData.gender === Gender.Male ? Gender.Male : Gender.Female,
           checkedInBaggage: false,
-          specialAssistance: false,
+          specialAssistance: false
         };
       }
       const isValid = !!passengerData;
