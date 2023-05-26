@@ -1,4 +1,4 @@
-@import "variables";
+@import 'variables';
 
 :host-context(.main) .btn {
   background: $color-neutral-90;
@@ -15,6 +15,12 @@
   }
 }
 :host-context(.cart) .btn {
+  color: $color-primary;
+  img {
+    filter: $filter-blue;
+  }
+}
+:host-context(.user-account) .btn {
   color: $color-primary;
   img {
     filter: $filter-blue;

@@ -41,6 +41,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
               this.isShowBookFlights = false;
               this.headerClass = RoutesPath.CartPage;
               break;
+            case RoutesPath.UserAccountPage:
+              this.isShowStepper = false;
+              this.isShowBookFlights = false;
+              this.headerClass = RoutesPath.UserAccountPage;
+              break;
             default:
               this.isShowStepper = false;
               this.isShowBookFlights = true;
