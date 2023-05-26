@@ -18,7 +18,7 @@
         matInput
         formControlName="phone"
         type="tel"
-        placeholder="e.g. 1111111111"
+        placeholder="1111111111"
         maxlength="10"
         minlength="3"
         (input)="contactDetailsForm.get('phone')?.markAsTouched()"
@@ -38,7 +38,7 @@
         matInput
         type="email"
         formControlName="email"
-        placeholder="e.g. example@email.com"
+        placeholder="example@email.com"
         (input)="contactDetailsForm.get('email')?.markAsTouched()"
       />
       <mat-error
