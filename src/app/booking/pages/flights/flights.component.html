@@ -20,8 +20,8 @@
 </div>
 
 <form class="form" (ngSubmit)="onSubmit()">
-  <button class="btn-transparent" (click)="goBack()">Back</button>
-  <button class="btn-forward" [disabled]="!flightSearchService.isValid">
+  <button class="btn-transparent" type="button" (click)="goBack()">Back</button>
+  <button class="btn-forward" type="submit" [disabled]="!flightSearchService.isValid">
     Continue
   </button>
 </form>

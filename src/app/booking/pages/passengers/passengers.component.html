@@ -41,8 +41,8 @@
     </div>
 
     <div class="btn-wrapper">
-      <button class="btn-transparent" (click)="goBack()">Back</button>
-      <button class="btn-forward" [disabled]="!isFormValid" type="submit">Continue</button>
+      <button class="btn-transparent" type="button" (click)="goBack()">Back</button>
+      <button class="btn-forward" type="submit" [disabled]="!isFormValid" type="submit">Continue</button>
     </div>
   </form>
 </section>
