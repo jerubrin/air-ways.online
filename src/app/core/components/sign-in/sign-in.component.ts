@@ -116,6 +116,10 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   loginSubmit() {
+    this.signInForm?.get('email')?.markAsTouched();
+    this.signInForm?.get('email')?.updateValueAndValidity();
+    this.signInForm?.get('password')?.markAsTouched();
+    this.signInForm?.get('password')?.updateValueAndValidity();
     if (!this.isLoginValid) {
       return;
     }
@@ -123,6 +127,18 @@ export class SignInComponent implements OnInit, OnDestroy {
   }
 
   signUpSubmit() {
+    this.signUpForm?.get('email')?.markAsTouched();
+    this.signUpForm?.get('email')?.updateValueAndValidity();
+    this.signUpForm?.get('password')?.markAsTouched();
+    this.signUpForm?.get('password')?.updateValueAndValidity();
+    this.signUpForm?.get('fistName')?.markAsTouched();
+    this.signUpForm?.get('fistName')?.updateValueAndValidity();
+    this.signUpForm?.get('lastName')?.markAsTouched();
+    this.signUpForm?.get('lastName')?.updateValueAndValidity();
+    this.signUpForm?.get('dateOfBirth')?.markAsTouched();
+    this.signUpForm?.get('dateOfBirth')?.updateValueAndValidity();
+    this.signUpForm?.get('phone')?.markAsTouched();
+    this.signUpForm?.get('phone')?.updateValueAndValidity();
     this.signUpForm?.get('gender')?.markAsTouched();
     this.signUpForm?.get('gender')?.updateValueAndValidity();
     this.signUpForm?.get('agree')?.markAsTouched();
