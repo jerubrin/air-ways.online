@@ -1,3 +1,4 @@
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -37,6 +38,7 @@ export class SignInComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
+    public authSocialService: SocialAuthService,
     private formBuilder: FormBuilder
   ) {
     this.authService.authActionValue = AuthAction.Login;
@@ -143,5 +145,17 @@ export class SignInComponent implements OnInit, OnDestroy {
       countryCode: signUp.countryCode?.code ?? '',
       citizenship: signUp.citizenship?.name ?? '',
     });
+  }
+
+  signInWithFB(): void {
+    this.authSocialService.signIn(FacebookLoginProvider.PROVIDER_ID);
+  }
+
+  signInWithGoogle(): void {
+    this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  }
+
+  signOut(): void {
+    this.authSocialService.signOut();
   }
 }
