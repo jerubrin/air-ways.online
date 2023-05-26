@@ -11,7 +11,7 @@ import { CartService } from '../../services/cart.service';
 @Component({
   selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
-  styleUrls: ['./cart-page.component.scss'],
+  styleUrls: ['./cart-page.component.scss']
 })
 export class CartPageComponent {
   @Input() items?: Cart[];
@@ -35,6 +35,7 @@ export class CartPageComponent {
     if (!cartItem) return;
 
     this.store.setDataFromCart(id);
+
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
       queryParams: cartItem.queryParams
     });

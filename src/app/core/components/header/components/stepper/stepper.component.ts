@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ViewChild } from '@angular/core';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper } from '@angular/material/stepper';
-import { StepperService } from 'src/app/core/services/stepper.service';
+import { NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-stepper',
@@ -14,12 +15,86 @@ import { StepperService } from 'src/app/core/services/stepper.service';
     }
   ]
 })
-export class StepperComponent {
+export class StepperComponent implements AfterViewInit, OnDestroy {
   @ViewChild('stepper') stepper!: MatStepper;
 
-  constructor(private stepperService: StepperService) {}
+  private subscriptions: Subscription[] = [];
 
-  ngAfterViewInit() {
-    this.stepperService.setStepper(this.stepper);
+  private stepCompletionStatus: boolean[] = [false, false, false];
+
+  constructor(private router: Router) {}
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  ngAfterViewInit(): void {
+    this.subscriptions.push(
+      this.router.events.subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          setTimeout(() => {
+            this.updateStepFromRoute();
+          });
+        }
+      })
+    );
+    setTimeout(() => {
+      this.updateStepFromRoute();
+    });
+  }
+
+  private updateStepFromRoute(): void {
+    const { url } = this.router;
+
+    if (url.includes('flight')) {
+      this.goToFlightsStep();
+    } else if (url.includes('passengers')) {
+      this.goToPassengersStep();
+    } else if (url.includes('review')) {
+      this.goToReviewStep();
+    }
+  }
+
+  private setStepCompletionStatus(index: number, isCompleted: boolean): void {
+    this.stepCompletionStatus[index] = isCompleted;
+    sessionStorage.setItem(`step${index}CompletionStatus`, JSON.stringify(isCompleted));
+  }
+
+  private goToFlightsStep(): void {
+    this.stepper.selectedIndex = 0;
+
+    const step1Status = sessionStorage.getItem('step1CompletionStatus');
+    const step2Status = sessionStorage.getItem('step2CompletionStatus');
+
+    if (step1Status) {
+      this.stepper.steps.toArray()[1].completed = JSON.parse(step1Status);
+    }
+    if (step2Status) {
+      this.stepper.steps.toArray()[2].completed = JSON.parse(step2Status);
+    }
+  }
+
+  private goToPassengersStep(): void {
+    this.stepper.selectedIndex = 1;
+
+    this.setStepCompletionStatus(1, true);
+
+    const step2Status = sessionStorage.getItem('step2CompletionStatus');
+
+    if (step2Status) {
+      this.stepper.steps.toArray()[2].completed = JSON.parse(step2Status);
+    }
+  }
+
+  private goToReviewStep(): void {
+    this.stepper.selectedIndex = 2;
+
+    this.setStepCompletionStatus(2, true);
+
+    const step1Status = sessionStorage.getItem('step1CompletionStatus');
+
+    if (step1Status) {
+      this.stepper.steps.toArray()[1].completed = JSON.parse(step1Status);
+    }
   }
 }

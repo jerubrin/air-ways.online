@@ -8,7 +8,6 @@ import { Gender, PassengersData } from 'src/app/core/interfaces/passengers-data'
 import { PassengersResultData } from 'src/app/core/interfaces/passengers-result-data';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
-import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -48,7 +47,6 @@ export class PassengersComponent implements OnInit, OnDestroy {
   constructor(
     private formBuilder: FormBuilder,
     private queryParamsService: QueryParamsService,
-    private stepperService: StepperService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -217,20 +215,15 @@ export class PassengersComponent implements OnInit, OnDestroy {
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageFlights}`], {
       queryParams
     });
-    this.stepperService.previous();
   }
 
   onSubmit(): void {
     if (!this.isFormValid) {
       return;
     }
-
     this.mainStoreService.passengersResult = this.passengersResultData;
-
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPageReviewPayment}`], {
       queryParamsHandling: 'merge'
     });
-
-    this.stepperService.next();
   }
 }

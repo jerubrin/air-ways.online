@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { FlightSearchService } from 'src/app/core/services/flight-search.service';
@@ -21,12 +20,11 @@ export class FlightsComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private stepperService: StepperService,
     private queryParamsService: QueryParamsService,
     private activatedRoute: ActivatedRoute,
     public flightSearchService: FlightSearchService,
     public flightsApiService: FlightsApiService,
-    public mainStoreService: MainStoreService,
+    public mainStoreService: MainStoreService
   ) {}
 
   ngOnInit() {
@@ -37,8 +35,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
           this.flightSearchService.selectFlight(0, undefined);
           this.flightSearchService.selectFlight(1, undefined);
         }
-        this.flightSearchService.hasBackDate =
-          this.mainStoreService.flightResults.length === 2;
+        this.flightSearchService.hasBackDate = this.mainStoreService.flightResults.length === 2;
         this.flights = this.mainStoreService.flightResults;
       })
     );
@@ -73,13 +70,12 @@ export class FlightsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.mainStoreService.flights = this.flightSearchService.selectedFlights
-      .filter(Boolean) as Flight[];
+    this.mainStoreService.flights = this.flightSearchService.selectedFlights.filter(
+      Boolean
+    ) as Flight[];
 
     this.router.navigate([`/${RoutesPath.BookingPage}/${RoutesPath.BookingPagePassengers}`], {
       queryParamsHandling: 'merge'
     });
-
-    this.stepperService.next();
   }
 }
