@@ -29,3 +29,9 @@
     filter: $filter-blue;
   }
 }
+:host-context(.user-account) .btn {
+  color: $color-primary;
+  img {
+    filter: $filter-blue;
+  }
+}

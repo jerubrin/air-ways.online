@@ -38,4 +38,11 @@
       gap: 4rem;
     }
   }
+  .header.user-account {
+    background-color: $color-white;
+    color: $color-primary;
+    .right-side {
+      gap: 4rem;
+    }
+  }
 }
