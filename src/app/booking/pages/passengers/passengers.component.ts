@@ -83,6 +83,32 @@ export class PassengersComponent implements OnInit, OnDestroy {
     this.infantsCounts = params.infants ? Number(params.infants) : 0;
   }
 
+  private getFirstPassenger(passengerData: PassengersData | null, i: number): PassengersData {
+    if (
+      passengerData &&
+      (passengerData.firstName
+        && passengerData.lastName
+        && passengerData.gender
+        && passengerData.lastName)
+    ) {
+      return passengerData;
+    }
+    const { gender, firstName, lastName, dateOfBirth } = this.authService.userData;
+    // eslint-disable-next-line no-nested-ternary
+    const genderData = gender === Gender.Male
+      ? Gender.Male
+      : (gender === Gender.Female ? Gender.Female : undefined);
+    return {
+      id: i,
+      gender: genderData,
+      firstName: firstName ?? '',
+      lastName: lastName ?? '',
+      dateOfBirth: dateOfBirth ?? '',
+      specialAssistance: false,
+      checkedInBaggage: false,
+    };
+  }
+
   private setInitialValues(): void {
     this.passengersResultData = {
       ...this.mainStoreService.passengersResult,
@@ -97,23 +123,22 @@ export class PassengersComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < this.adultsCounts; i += 1) {
       let passengerData = adults?.[i] || null;
-      if (!passengerData && i === 0 && this.authService.userData) {
-        passengerData = {
-          id: i,
-          firstName: this.authService.userData.firstName,
-          lastName: this.authService.userData.lastName,
-          dateOfBirth: this.authService.userData.dateOfBirth ?? '',
-          gender: this.authService.userData.gender === Gender.Male ? Gender.Male : Gender.Female,
-          checkedInBaggage: false,
-          specialAssistance: false
-        };
+      if (i === 0) {
+        passengerData = this.getFirstPassenger(passengerData, i);
       }
-      const isValid = !!passengerData;
+      const isValid = !!passengerData
+        && !!passengerData.firstName
+        && !!passengerData.lastName
+        && !!passengerData.gender
+        && !!passengerData.dateOfBirth;
       this.passengers.push({
         title: 'Adult',
         initialValues: { ...passengerData, id: i },
         isValid
       });
+      if (i === 0) {
+        this.updatePassengerForms(isValid, 0, passengerData, 'Adult');
+      }
     }
 
     for (let i = 0; i < this.childrenCounts; i += 1) {

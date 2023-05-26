@@ -7,7 +7,7 @@ export interface PassengersData {
   id: number;
   firstName: string;
   lastName: string;
-  gender: Gender;
+  gender?: Gender;
   dateOfBirth: string;
   specialAssistance?: boolean;
   checkedInBaggage?: boolean;

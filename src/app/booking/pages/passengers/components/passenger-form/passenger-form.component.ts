@@ -64,6 +64,7 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
         this.passengerFormChanges.emit(eventValue);
       })
     );
+    console.log(this.passengerForm.value);
   }
 
   ngOnDestroy(): void {
@@ -80,7 +81,7 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
       return 'Invalid character';
     }
     if (fieldControl?.hasError('minlength')) {
-      return 'Must be at least 2 digits';
+      return 'Must be at least 2 characters';
     }
     if (fieldControl?.hasError('dateOfBirthInvalid')) {
       return 'Date of birth cannot be later than today';
