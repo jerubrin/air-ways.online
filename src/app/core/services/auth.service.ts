@@ -3,7 +3,9 @@ import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { Observable, ReplaySubject, catchError, throwError } from 'rxjs';
+import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
 import { API_CHECK_JWT, API_LOGIN, API_REGISTRATION, API_URL } from '../data/uri/api-url.constants';
 import AuthAction from '../interfaces/auth-action';
@@ -35,7 +37,8 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private snackBar: MatSnackBar,
-    private socialAuthService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private router: Router
   ) {
     const lsUserData =
       localStorage.getItem(LocalStorageKeys.UserData);
@@ -109,9 +112,12 @@ export class AuthService {
           return throwError(() => new Error('Error! Can not login!'));
         })
       )
-      .subscribe((res) => {
-        this.setToken(res.token);
-        this.hideModalWindow();
+      .subscribe({
+        next: (res) => {
+          this.setToken(res.token);
+          this.hideModalWindow();
+        },
+        error() {}
       });
   }
 
@@ -126,6 +132,8 @@ export class AuthService {
     localStorage.removeItem(LocalStorageKeys.Token);
     localStorage.removeItem(LocalStorageKeys.UserName);
     localStorage.removeItem(LocalStorageKeys.UserData);
+
+    this.router.navigate([RoutesPath.MainPage]);
   }
 
   signUp(signUpReq: SignUpRequest) {
@@ -139,9 +147,12 @@ export class AuthService {
           return throwError(() => new Error('Error! Can not create new user!'));
         })
       )
-      .subscribe((res) => {
-        this.setToken(res.token);
-        this.hideModalWindow();
+      .subscribe({
+        next: (res) => {
+          this.setToken(res.token);
+          this.hideModalWindow();
+        },
+        error: () => {}
       });
   }
 
@@ -155,6 +166,9 @@ export class AuthService {
   }
 
   showAuthModal(): void {
+    if (this._token) {
+      return;
+    }
     this.isAuthModalVisible = true;
   }
 

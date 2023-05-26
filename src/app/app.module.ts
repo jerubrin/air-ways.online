@@ -1,6 +1,7 @@
 import {
   FacebookLoginProvider,
   GoogleLoginProvider,
+  GoogleSigninButtonModule,
   SocialAuthServiceConfig,
   SocialLoginModule
 } from '@abacritt/angularx-social-login';
@@ -11,7 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { GOOGLE_AUTH_CLIENT_ID, FACEBOOK_AUTH_CLIENT_ID } from 'env';
+import { FACEBOOK_AUTH_CLIENT_ID, GOOGLE_AUTH_CLIENT_ID } from 'env';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
@@ -55,7 +56,8 @@ const SocialOauthProvider = {
     BrowserAnimationsModule,
     CoreModule,
     SharedModule,
-    SocialLoginModule
+    SocialLoginModule,
+    GoogleSigninButtonModule
   ],
   exports: [SignInComponent],
   bootstrap: [AppComponent]
