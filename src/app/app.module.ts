@@ -1,4 +1,9 @@
-import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import {
+  FacebookLoginProvider,
+  GoogleLoginProvider,
+  SocialAuthServiceConfig,
+  SocialLoginModule
+} from '@abacritt/angularx-social-login';
 import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -6,7 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { FACEBOOK_AUTH_CLIENT_ID, GOOGLE_AUTH_CLIENT_ID } from 'env';
+import { GOOGLE_AUTH_CLIENT_ID, FACEBOOK_AUTH_CLIENT_ID } from 'env';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
@@ -21,29 +26,22 @@ const SocialOauthProvider = {
     providers: [
       {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider(
-          GOOGLE_AUTH_CLIENT_ID
-        )
+        provider: new GoogleLoginProvider(GOOGLE_AUTH_CLIENT_ID)
       },
       {
         id: FacebookLoginProvider.PROVIDER_ID,
-        provider: new FacebookLoginProvider(
-          FACEBOOK_AUTH_CLIENT_ID
-        )
+        provider: new FacebookLoginProvider(FACEBOOK_AUTH_CLIENT_ID)
       }
     ],
     onError: (err) => {
       // eslint-disable-next-line no-console
       console.error(err);
     }
-  } as SocialAuthServiceConfig,
+  } as SocialAuthServiceConfig
 };
 
 @NgModule({
-  declarations: [
-    SignInComponent,
-    AppComponent
-  ],
+  declarations: [SignInComponent, AppComponent],
   providers: [SocialOauthProvider],
   imports: [
     BrowserModule,
