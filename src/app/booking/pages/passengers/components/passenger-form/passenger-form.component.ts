@@ -1,13 +1,12 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import {
-  AbstractControl,
   FormBuilder,
   FormGroup,
-  ValidationErrors,
   Validators
 } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Gender, PassengersData } from 'src/app/core/interfaces/passengers-data';
+import dateOfBirthValidator from 'src/app/shared/validators/dateOfBirthValidator';
 
 @Component({
   selector: 'app-passenger-form',
@@ -51,10 +50,10 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
       gender: [this.initialValues?.gender || '', [Validators.required]],
       dateOfBirth: [
         this.initialValues?.dateOfBirth || '',
-        [Validators.required, this.dateOfBirthValidator]
+        [Validators.required, dateOfBirthValidator]
       ],
       specialAssistance: [this.initialValues?.specialAssistance || false, [Validators.required]],
-      сheckedInBaggage: [this.initialValues?.сheckedInBaggage || false, [Validators.required]]
+      checkedInBaggage: [this.initialValues?.checkedInBaggage || false, [Validators.required]]
     });
     this.subscriptions.push(
       this.passengerForm.valueChanges.subscribe(() => {
@@ -73,18 +72,6 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscriptions.forEach((s) => s.unsubscribe());
-  }
-
-  dateOfBirthValidator(control: AbstractControl): ValidationErrors | null {
-    const selectedDate: Date = control.value;
-    const today: Date = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    if (selectedDate > today) {
-      return { dateOfBirthInvalid: true };
-    }
-
-    return null;
   }
 
   getErrorMessage(fieldName: string): string {

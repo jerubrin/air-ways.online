@@ -1,4 +1,11 @@
-<button class="btn" mat-stroked-button>
+<button
+  class="btn"
+  mat-stroked-button
+  (click)="click()"
+>
   <img src="./assets/icon_login.svg" alt="Login icon" />
-  Sign in
+  <span *ngIf="authService.userName$ | async; else signIn;">{{authService.userName$ | async}}</span>
+  <ng-template #signIn>
+    <span>Sign in</span>
+  </ng-template>
 </button>

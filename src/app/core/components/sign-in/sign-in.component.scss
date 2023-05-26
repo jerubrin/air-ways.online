@@ -45,9 +45,6 @@
 }
 
 :host {
-  position: absolute;
-  top: $header-height;
-  left: 90rem;
   width: 49.4rem;
   max-height: $sign-in-height;
   background-color: $color-white;
@@ -56,7 +53,7 @@
   padding: 3.2rem 2.4rem;
   display: flex;
   flex-direction: column;
-  z-index: 999;
+  z-index: 991;
 
   //input borders on focus
   ::ng-deep.mdc-text-field--focused .mdc-notched-outline__leading,
@@ -65,6 +62,13 @@
     border-width: 1px !important;
     border-color: $color-primary !important;
   }
+}
+
+.form {
+  width: 100%;
+  max-height: calc($sign-in-height - 4.8rem);
+  display: flex;
+  flex-direction: column;
 }
 
 .close {
@@ -155,8 +159,6 @@
 }
 
 .gender {
-  margin-bottom: 2rem;
-
   ::ng-deep.mat-button-toggle-label-content {
     line-height: 4rem !important;
   }
@@ -179,6 +181,10 @@
   }
 }
 
+.gender-bottom {
+  margin-bottom: 2rem;
+}
+
 .tel-inputs {
   display: flex;
   flex-direction: row;
@@ -193,10 +199,13 @@
 }
 
 .checkbox {
-  margin-bottom: 2.8rem;
   &__text-wrap {
     margin-left: 0.8rem;
   }
+}
+
+.checkbox-bottom {
+  margin-bottom: 2.8rem;
 }
 
 .link {
@@ -212,4 +221,16 @@
 
 .submit-btn {
   height: 4.4rem;
+}
+
+.relative {
+  position: relative;
+}
+
+.error-validation {
+  position: absolute;
+  font-size: $font-size-12;
+  font-weight: $font-weight-400;
+  letter-spacing: 0.0333333333em;
+  padding: 0 1.6rem;
 }

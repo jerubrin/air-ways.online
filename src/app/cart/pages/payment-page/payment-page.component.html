@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="payment">
+    <p class="title">Payment</p>
+    <div class="card-list">
+      <app-card-item
+        class="card-item"
+        picture="visa"
+        number="4444 **** **** 1467"
+        (pay)="pay()"></app-card-item>
+        <div class="bottom-line"></div>
+      <app-card-item
+        class="card-item"
+        picture="visa"
+        number="4254 **** **** 3854"
+        (pay)="pay()"></app-card-item>
+        <div class="bottom-line"></div>
+      <app-card-item
+        class="card-item"
+        picture="mastercard"
+        number="5372 **** **** 2805"
+        (pay)="pay()"></app-card-item>
+        <div class="bottom-line"></div>
+    </div>
+    <p class="text">Select your payment card...</p>
+  </div>
+</div>
+<app-preloader *ngIf="showPreloader"></app-preloader>

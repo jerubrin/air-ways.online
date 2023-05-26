@@ -37,6 +37,10 @@ export class MainStoreService {
     return this._cart$;
   }
 
+  get currentCartItemId() {
+    return this._currentCartItemId;
+  }
+
   get flightResults(): Flight[] | undefined {
     const json = sessionStorage.getItem(LocalStorageKeys.FlightResults);
     if (!json) {
@@ -110,7 +114,6 @@ export class MainStoreService {
   get randomData(): RandomData {
     const json = sessionStorage.getItem(LocalStorageKeys.RandomData);
     const initialValue = {
-      hasBaggage: Math.random() > 0.5,
       hasCabinBag: Math.random() > 0.5,
       symbols:
         Math.random() > 0.5

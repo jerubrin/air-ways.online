@@ -3,7 +3,7 @@
 
 .title {
   @include font($font-size-20, $font-weight-700, $color-black);
-  line-height: 20px;
+  line-height: 2rem;
 }
 
 .buttons {

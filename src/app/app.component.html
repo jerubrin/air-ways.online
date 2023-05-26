@@ -1,6 +1,17 @@
-<div class="wrapper">
+<div [ngClass]="{
+  wrapper: true,
+  'login-height':
+    authService.isAuthModalVisible
+    && authService.authActionValue === AuthAction.Login,
+  'signup-height':
+    authService.isAuthModalVisible
+    && authService.authActionValue === AuthAction.Signup,
+}">
   <app-header></app-header>
-  <app-sign-in *ngIf="authService.isAuthModalVisible"></app-sign-in>
+  <div class="login-modal" *ngIf="authService.isAuthModalVisible">
+    <div class="back-black" (click)="closeModal()"></div>
+    <app-sign-in></app-sign-in>
+  </div>
   <main>
     <router-outlet></router-outlet>
   </main>

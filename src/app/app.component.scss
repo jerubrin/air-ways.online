@@ -1,0 +1,26 @@
+@import 'variables';
+
+.login-modal {
+  position: absolute;
+  display: flex;
+  left: calc(50% - 24.7rem);
+  top: calc($header-height + 2rem);
+  z-index: 990;
+}
+
+.back-black {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 990;
+  background: $color-neutral-70;
+}
+
+.login-height {
+  min-height: 83rem;
+}
+.signup-height {
+  min-height: 130rem;
+}
