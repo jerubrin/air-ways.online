@@ -20,8 +20,6 @@ export class StepperComponent implements AfterViewInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  private stepCompletionStatus: boolean[] = [false, false, false];
-
   constructor(private router: Router) {}
 
   ngOnDestroy(): void {
@@ -56,7 +54,6 @@ export class StepperComponent implements AfterViewInit, OnDestroy {
   }
 
   private setStepCompletionStatus(index: number, isCompleted: boolean): void {
-    this.stepCompletionStatus[index] = isCompleted;
     sessionStorage.setItem(`step${index}CompletionStatus`, JSON.stringify(isCompleted));
   }
 
