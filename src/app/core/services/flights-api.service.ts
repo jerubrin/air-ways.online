@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Observable, catchError, debounceTime, filter, map, switchMap, tap, throwError } from 'rxjs';
 import { Flight } from 'src/app/booking/models/flight.model';
 import { Airport } from 'src/app/shared/interfaces/airport.model';
@@ -15,6 +15,8 @@ export class FlightsApiService {
   timeZone = '';
 
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) {}
+
+  prevParams: Params = {};
 
   getAirportStream(searchText: string) {
     return this.http.get<Airport[]>(`${API_URL}${API_AIRPORT}?q=${searchText}`).pipe(
@@ -33,6 +35,18 @@ export class FlightsApiService {
         forwardDate: params['forwardDate'].substring(0, 10),
         backDate: params['backDate'].substring(0, 10)
       })),
+      filter((params) => {
+        if (!this.prevParams) {
+          this.prevParams = params;
+          return true;
+        }
+        const isChanged = this.prevParams['fromKey'] !== params?.fromKey ||
+          this.prevParams['toKey'] !== params?.toKey ||
+          this.prevParams['forwardDate'] !== params?.forwardDate ||
+          this.prevParams['backDate'] !== params?.backDate;
+        this.prevParams = params;
+        return isChanged;
+      }),
       switchMap((body) => this.http.post<Flight[]>(`${API_URL}${API_FLIGHT}`, body)),
       map((flights) => flights.map((flight) => {
         const takeoffDate = `${flight?.takeoffDate?.substring(0, 19) ?? ''}${this.timeZone}`;
