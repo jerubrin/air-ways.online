@@ -1,4 +1,4 @@
-<div class="item"  *ngIf="item">
+<div class="item" *ngIf="item">
   <div class="tick">
     <mat-checkbox
       [checked]="select"
@@ -7,10 +7,12 @@
     ></mat-checkbox>
   </div>
   <div class="item-data">
-    <div class="flight-no">{{item.flights[0].flightNumber}}</div>
+    <div class="flight-no">{{ item.flights[0].flightNumber }}</div>
     <div class="flights-list" *ngIf="item?.flights">
-      <p>{{item.flights[0].form.city}} &mdash; {{item.flights[0].to.city}}</p>
-      <p *ngIf="item.flights[1]">{{item.flights[1].form.city}} &mdash; {{item.flights[1].to.city}}</p>
+      <p>{{ item.flights[0].form.city }} &mdash; {{ item.flights[0].to.city }}</p>
+      <p *ngIf="item.flights[1]">
+        {{ item.flights[1].form.city }} &mdash; {{ item.flights[1].to.city }}
+      </p>
     </div>
     <div class="flights-type">
       <p *ngIf="item.flights[1]">Round Trip</p>
@@ -18,19 +20,21 @@
     </div>
     <div class="date-time">
       <p *ngIf="item.flights[0]">
-        {{item.flights[0].takeoffDate | date:'d MMM, y, H:mm'}} &mdash; {{item.flights[0].landingDate | date:'H:mm'}}
+        {{ item.flights[0].takeoffDate | date : 'd MMM, y, H:mm' }} &mdash;
+        {{ item.flights[0].landingDate | date : 'H:mm' }}
       </p>
       <p *ngIf="item.flights[1]">
-        {{item.flights[1].takeoffDate | date:'d MMM, y, H:mm'}} &mdash; {{item.flights[1].landingDate | date:'H:mm'}}
+        {{ item.flights[1].takeoffDate | date : 'd MMM, y, H:mm' }} &mdash;
+        {{ item.flights[1].landingDate | date : 'H:mm' }}
       </p>
     </div>
     <div class="passengers">
-      <p *ngIf="item.cartPriceData.adults > 0">{{item.cartPriceData.adults}} x Adult</p>
-      <p *ngIf="item.cartPriceData.children > 0">{{item.cartPriceData.children}} x Child</p>
-      <p *ngIf="item.cartPriceData.infants > 0">{{item.cartPriceData.infants}} x Infant</p>
+      <p *ngIf="item.cartPriceData.adults > 0">{{ item.cartPriceData.adults }} x Adult</p>
+      <p *ngIf="item.cartPriceData.children > 0">{{ item.cartPriceData.children }} x Child</p>
+      <p *ngIf="item.cartPriceData.infants > 0">{{ item.cartPriceData.infants }} x Infant</p>
     </div>
     <div class="price">
-      {{item.cartPriceData.totalPrice | price | async}}
+      {{ item.cartPriceData.totalPrice | price | async }}
     </div>
   </div>
   <div class="menu">
@@ -38,6 +42,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
+      <!-- <button mat-menu-item (click)="edit.emit()">Edit</button> -->
       <button mat-menu-item (click)="edit.emit()">Edit</button>
       <button mat-menu-item (click)="delete.emit()">Delete</button>
     </mat-menu>

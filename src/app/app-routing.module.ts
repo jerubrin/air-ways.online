@@ -20,8 +20,7 @@ const routes: Routes = [
   },
   {
     path: RoutesPath.UserAccountPage,
-    loadChildren: () =>
-      import('./user-account/user-account.module').then((m) => m.UserAccountModule),
+    loadChildren: () => import('./user-account/user-account.module').then((m) => m.UserAccountModule),
     canActivate: [AuthGuard]
   },
   { path: '**', component: NotFoundPageComponent }

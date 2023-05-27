@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { LocalStorageKeys } from 'src/app/core/data/enams/local-storage.enum';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
-import { StepperService } from 'src/app/core/services/stepper.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { ReviewPaymentService } from '../../services/review-payment.service';
 
@@ -13,14 +12,12 @@ import { ReviewPaymentService } from '../../services/review-payment.service';
   templateUrl: './review-payment.component.html',
   styleUrls: ['./review-payment.component.scss']
 })
-
 export class ReviewPaymentComponent implements OnInit {
   form!: FormGroup;
 
   constructor(
     private router: Router,
     public reviewPaymentService: ReviewPaymentService,
-    private stepperService: StepperService,
     private fb: FormBuilder,
     public store: MainStoreService,
     private queryParamsService: QueryParamsService
@@ -38,11 +35,9 @@ export class ReviewPaymentComponent implements OnInit {
 
   goBack(): void {
     const queryParams = this.queryParamsService.getQueryParams();
-    this.router.navigate([
-      RoutesPath.BookingPage,
-      RoutesPath.BookingPagePassengers
-    ], { queryParams });
-    this.stepperService.previous();
+    this.router.navigate([RoutesPath.BookingPage, RoutesPath.BookingPagePassengers], {
+      queryParams
+    });
   }
 
   onSubmit() {
