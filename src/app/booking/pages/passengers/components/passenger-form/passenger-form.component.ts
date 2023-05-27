@@ -64,7 +64,6 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
         this.passengerFormChanges.emit(eventValue);
       })
     );
-    console.log(this.passengerForm.value);
   }
 
   ngOnDestroy(): void {
