@@ -4,6 +4,7 @@ import { Price } from 'src/app/booking/models/price.model';
 import { LocalStorageKeys } from 'src/app/core/data/enams/local-storage.enum';
 import { Cart } from 'src/app/core/interfaces/cart';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
+import { PaymentService } from 'src/app/core/services/payment.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { SortBy } from '../../enum/sort-by';
 import { CartService } from '../../services/cart.service';
@@ -23,7 +24,8 @@ export class CartPageComponent {
   constructor(
     public store: MainStoreService,
     public cartService: CartService,
-    private router: Router
+    private router: Router,
+    private paymentService: PaymentService,
   ) {}
 
   addNew() {
@@ -52,6 +54,11 @@ export class CartPageComponent {
 
   payment() {
     sessionStorage.setItem(LocalStorageKeys.IsCartData, 'true');
+    this.paymentService.paymentItemsForPay = this.store.cart
+      .filter((item) => item.isChecked)
+      .map(({ id, cartPriceData, flights, passengersResult }) => ({
+        id, cartPriceData, flights, passengersResult
+      }));
     this.router.navigate([RoutesPath.CartPage, RoutesPath.CartPagePayment]);
   }
 }

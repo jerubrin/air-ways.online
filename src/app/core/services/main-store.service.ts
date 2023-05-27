@@ -11,6 +11,7 @@ import { getPassengers } from '../helpers/passengers-converter';
 import { Cart } from '../interfaces/cart';
 import { CartPriceData } from '../interfaces/cart-price-data';
 import { PassengersResultData } from '../interfaces/passengers-result-data';
+import { Payment } from '../interfaces/payment.model';
 import { RandomData } from '../interfaces/random-data';
 import { LocalStorageService } from './local-storage.service';
 import { QueryParamsService } from './query-params.service';
@@ -193,7 +194,17 @@ export class MainStoreService {
     this.localStorageService.setCart(this._cart, this._currentCartItemId);
   }
 
-  addAllDataToCart() {
+  getDataForPay(): Payment {
+    const cartPriceData = this.getCartPriceData();
+    return {
+      id: uuid(),
+      cartPriceData,
+      flights: this.flights,
+      passengersResult: this.passengersResult
+    };
+  }
+
+  private getCartPriceData(): CartPriceData {
     const cartPriceData: CartPriceData = {
       adults: this.passengersResult.adults.length,
       children: this.passengersResult.children.length,
@@ -201,6 +212,11 @@ export class MainStoreService {
       totalPrice: { eur: 0, usd: 0, pln: 0, rub: 0 },
     };
     cartPriceData.totalPrice = getTotalPrice(cartPriceData, this.flights);
+    return cartPriceData;
+  }
+
+  addAllDataToCart() {
+    const cartPriceData = this.getCartPriceData();
     if (!this.passengersResult) return;
     // edit
     const cartItem = this._cart.find((item) => item.id === this._currentCartItemId);

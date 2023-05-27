@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SignInComponent } from './core/components/sign-in/sign-in.component';
 import { CoreModule } from './core/core.module';
+import { CustomLoginProvider } from './core/helpers/custom-provider';
 import { metaReducers, reducers } from './redux';
 import { SharedModule } from './shared/shared.module';
 
@@ -32,7 +33,11 @@ const SocialOauthProvider = {
       {
         id: FacebookLoginProvider.PROVIDER_ID,
         provider: new FacebookLoginProvider(FACEBOOK_AUTH_CLIENT_ID)
-      }
+      },
+      {
+        id: CustomLoginProvider.PROVIDER_ID,
+        provider: CustomLoginProvider,
+      },
     ],
     onError: (err) => {
       // eslint-disable-next-line no-console

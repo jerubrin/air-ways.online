@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LocalStorageKeys } from 'src/app/core/data/enams/local-storage.enum';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
+import { PaymentService } from 'src/app/core/services/payment.service';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { ReviewPaymentService } from '../../services/review-payment.service';
@@ -20,7 +21,8 @@ export class ReviewPaymentComponent implements OnInit {
     public reviewPaymentService: ReviewPaymentService,
     private fb: FormBuilder,
     public store: MainStoreService,
-    private queryParamsService: QueryParamsService
+    private queryParamsService: QueryParamsService,
+    private paymentService: PaymentService
   ) {}
 
   ngOnInit() {
@@ -47,6 +49,7 @@ export class ReviewPaymentComponent implements OnInit {
 
   onPayment() {
     sessionStorage.setItem(LocalStorageKeys.IsCartData, 'false');
+    this.paymentService.paymentItemsForPay = [this.store.getDataForPay()];
     this.router.navigate([RoutesPath.CartPage, RoutesPath.CartPagePayment]);
   }
 }

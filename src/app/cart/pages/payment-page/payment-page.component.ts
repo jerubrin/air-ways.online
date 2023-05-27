@@ -49,12 +49,11 @@ export class PaymentPageComponent {
               this.store.removeFromCart(item.id);
             });
           }
-
-          this.store.clearDataInSessionStorage();
         },
         error: (error) => { this.openSnackBar(JSON.parse(error.error).message, 'OK'); }
       });
       setTimeout(() => {
+        sessionStorage.clear();
         this.router.navigate([RoutesPath.MainPage]);
         this.showPreloader = false;
       }, 1000);

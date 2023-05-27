@@ -5,13 +5,13 @@
       placeholder="Promo Code"
       [ngModelOptions]="{ standalone: true }"
       (ngModelChange)="message = ''"/>
-    <button mat-flat-button>Apply</button>
+    <button mat-flat-button type="submit" (click)="onSubmitPromo()">Apply</button>
   </form>
   <p class="err-message" *ngIf="message">{{message}}</p>
 </div>
-<form class="form" (ngSubmit)="onSubmit()">
+<div class="form">
   <p *ngIf="cart$">{{cart$ | selectedCount | async}} selected </p>
-  <button class="btn-forward" type="submit" (click)="pay.emit()" [disabled]="isDisabled">
+  <button class="btn-forward" type="button" (click)="pay.emit()" [disabled]="isDisabled">
     Payment
   </button>
-</form>
+</div>

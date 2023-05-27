@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -8,6 +8,7 @@ import { Observable, ReplaySubject, catchError, throwError } from 'rxjs';
 import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { LocalStorageKeys } from '../data/enams/local-storage.enum';
 import { API_CHECK_JWT, API_LOGIN, API_REGISTRATION, API_URL } from '../data/uri/api-url.constants';
+import { CustomLoginProvider } from '../helpers/custom-provider';
 import AuthAction from '../interfaces/auth-action';
 import { LoginRequest } from '../models/login.model';
 import { SignUpRequest } from '../models/sign-up.model';
@@ -25,6 +26,8 @@ export class AuthService {
   private _userName$ = new ReplaySubject<string | null>(1);
 
   private _userPicture$ = new ReplaySubject<string | null>(1);
+
+  private provider = '';
 
   userData?: UserResponse;
 
@@ -51,20 +54,33 @@ export class AuthService {
     }
 
     // google facebook
+    this.refreshToken();
     this.socialAuthService.authState.subscribe(this.authUser.bind(this));
   }
 
   authUser(user: SocialUser) {
     if (!user) return;
-    const { idToken, authToken, email, name, firstName, lastName, photoUrl } = user;
+    const { provider, idToken, authToken, email, name, firstName, lastName, photoUrl } = user;
+    this.provider = provider; // "GOOGLE" | "FACEBOOK"
     this.userData = { email, firstName, lastName, photoUrl };
     this._userName$.next(name || null);
     this._token = idToken ?? authToken;
     this._isOauth = true;
     localStorage.setItem(LocalStorageKeys.Token, idToken);
+    localStorage.setItem(LocalStorageKeys.UserData, JSON.stringify(this.userData));
+    localStorage.setItem(LocalStorageKeys.UserName, name);
+    localStorage.setItem(LocalStorageKeys.Provider, this.provider);
     this._userPicture$.next(photoUrl);
-    localStorage.getItem(LocalStorageKeys.Token);
     this.hideModalWindow();
+  }
+
+  refreshToken(): void {
+    if (this.provider === 'GOOGLE') {
+      this.socialAuthService.refreshAccessToken(GoogleLoginProvider.PROVIDER_ID);
+    }
+    if (this.provider === 'FACEBOOK') {
+      this.socialAuthService.refreshAccessToken(FacebookLoginProvider.PROVIDER_ID);
+    }
   }
 
   get token(): string | null {
@@ -78,7 +94,9 @@ export class AuthService {
   }
 
   private setToken(token: string) {
+    this.socialAuthService.signIn(CustomLoginProvider.PROVIDER_ID);
     localStorage.setItem(LocalStorageKeys.Token, token);
+    localStorage.removeItem(LocalStorageKeys.Provider);
     this._token = token;
     this.me();
   }
@@ -120,7 +138,7 @@ export class AuthService {
           this.setToken(res.token);
           this.hideModalWindow();
         },
-        error() {}
+        error: () => {}
       });
   }
 
@@ -135,6 +153,7 @@ export class AuthService {
     localStorage.removeItem(LocalStorageKeys.Token);
     localStorage.removeItem(LocalStorageKeys.UserName);
     localStorage.removeItem(LocalStorageKeys.UserData);
+    localStorage.removeItem(LocalStorageKeys.Provider);
 
     if (!this.router.url.includes('flight') && !this.router.url.includes('main')) {
       this.router.navigate([RoutesPath.MainPage]);
