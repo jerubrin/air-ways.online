@@ -2,9 +2,9 @@
   'date-time': true,
   'date-time_right': turnRight,
 }">
-  <p class="date-time__date">{{date | date:'E, d MMM YYYY'}}</p>
+  <p class="date-time__date">{{date | addSubtractHours:subHours | date:'E, d MMM YYYY':'+0000'}}</p>
   <div class="date-time__time-block">
-    <p class="date-time__time">{{date | date:'h:mm'}}</p>
+    <p class="date-time__time">{{date | addSubtractHours:subHours | date:'H:mm':'+0000'}}</p>
     <p class="date-time__gmt">{{airport?.gmt | gmt}}</p>
   </div>
   <div class="date-time__city">{{airport?.city}}</div>

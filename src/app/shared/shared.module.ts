@@ -10,6 +10,7 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { DatepickerRangeComponent } from './components/datepicker-range/datepicker-range.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DestinationFormFieldComponent } from './components/destination-form-field/destination-form-field.component';
+import { AddSubtractHoursPipe } from './pipes/add-subtract-hours.pipe';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DestinationFormFieldComponent } from './components/destination-form-fie
     PassengersFormFieldComponent,
     DatepickerComponent,
     DatepickerRangeComponent,
-    DestinationFormFieldComponent
+    DestinationFormFieldComponent,
+    AddSubtractHoursPipe
   ],
   imports: [CommonModule, MaterialModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -29,7 +31,8 @@ import { DestinationFormFieldComponent } from './components/destination-form-fie
     MaterialModule,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AddSubtractHoursPipe
   ]
 })
 export class SharedModule {}

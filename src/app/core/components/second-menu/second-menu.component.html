@@ -16,9 +16,9 @@
       <p>{{backDate ? 'Return' : 'One Way'}}</p>
       <div class="circle"></div>
       <p>
-        {{forwardDate | date:'d MMM'}}
+        {{forwardDate | date:'d MMM':'+0000'}}
         <ng-template [ngIf]="!!backDate">
-          - {{backDate | date:'d MMM'}}
+          - {{backDate | date:'d MMM':'+0000'}}
         </ng-template>
       </p>
       <div class="circle"></div>

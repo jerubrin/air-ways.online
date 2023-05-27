@@ -13,4 +13,6 @@ export class DateTimeBlockComponent {
   @Input() airport?: Airport;
 
   @Input() turnRight?: boolean;
+
+  @Input() subHours = 0;
 }
