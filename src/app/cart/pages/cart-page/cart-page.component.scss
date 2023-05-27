@@ -28,12 +28,13 @@
 }
 
 .cart-header {
+  position: relative;
   display: flex;
   gap: $gap-index;
   justify-content: space-between;
   height: 6.7rem;
   align-items: center;
-  padding: 0 7.2rem;
+  padding: 0 7.2rem 0 0;
   background-color: $color-neutral-80;
 }
 
@@ -59,6 +60,15 @@
   &-price {
     width: $price-index;
   }
+}
+
+.h-col-select-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7.2rem;
+  height: 100%;
+  margin-right: -3.2%;
 }
 
 .cart-item-list {

@@ -2,6 +2,13 @@
   <div class="cart">
     <h3 class="cart-title">Cart</h3>
     <div class="cart-header">
+      <div class="h-col h-col-select-all">
+        <mat-checkbox
+          [checked]="allSelected"
+          color="primary"
+          (change)="selectAll($event.checked)"
+        ></mat-checkbox>
+      </div>
       <app-sort-title
         class="h-col h-col-no"
         title="No."

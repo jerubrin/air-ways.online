@@ -21,11 +21,11 @@
     <div class="date-time">
       <p *ngIf="item.flights[0]">
         {{ item.flights[0].takeoffDate | date : 'd MMM, y, H:mm':'+0000' }} &mdash;
-        {{ item.flights[0].landingDate | date : 'H:mm':'+0000' }}
+        {{ item.flights[0].landingDate | addSubtractHours: getGmt(0) | date : 'H:mm':'+0000' }}
       </p>
       <p *ngIf="item.flights[1]">
         {{ item.flights[1].takeoffDate | date : 'd MMM, y, H:mm':'+0000' }} &mdash;
-        {{ item.flights[1].landingDate | date : 'H:mm':'+0000' }}
+        {{ item.flights[1].landingDate | addSubtractHours: getGmt(1)| date : 'H:mm':'+0000' }}
       </p>
     </div>
     <div class="passengers">
