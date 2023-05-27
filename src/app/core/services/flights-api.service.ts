@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Airport } from 'src/app/shared/interfaces/airport.model';
-import { debounceTime, catchError, throwError, Observable, filter, map, switchMap, tap } from 'rxjs';
-import { Flight } from 'src/app/booking/models/flight.model';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, catchError, debounceTime, filter, map, switchMap, tap, throwError } from 'rxjs';
+import { Flight } from 'src/app/booking/models/flight.model';
+import { Airport } from 'src/app/shared/interfaces/airport.model';
 import { API_AIRPORT, API_FLIGHT, API_URL } from '../data/uri/api-url.constants';
 
 const DEBOUNCE_TIME = 500;
@@ -39,7 +39,8 @@ export class FlightsApiService {
         const landingDate = `${flight?.landingDate?.substring(0, 19) ?? ''}${this.timeZone}`;
         const flightClone = { ...flight, takeoffDate, landingDate };
         return flightClone;
-      }))
+      })),
+      catchError(() => [])
     );
   }
 }

@@ -1,4 +1,4 @@
-<div class="flights-list">
+<div class="flights-list" *ngIf="flights.length; else noFlights">
   <app-flight-container
     *ngIf="flights[0]"
     [flight]="flights[0]"
@@ -18,6 +18,13 @@
   >
   </app-flight-container>
 </div>
+
+<ng-template #noFlights>
+  <div class="no-flights">
+    <div class="no-flights-img"></div>
+    <p class="no-flights-text">Nothing to found...</p>
+  </div>
+</ng-template>
 
 <form class="form" (ngSubmit)="onSubmit()">
   <button class="btn-transparent" type="button" (click)="goBack()">Back</button>
