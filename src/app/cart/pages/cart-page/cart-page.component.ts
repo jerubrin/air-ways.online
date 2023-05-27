@@ -27,6 +27,7 @@ export class CartPageComponent {
   ) {}
 
   addNew() {
+    sessionStorage.clear();
     this.router.navigate([RoutesPath.MainPage]);
   }
 

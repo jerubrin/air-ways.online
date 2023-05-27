@@ -243,9 +243,18 @@ export class MainStoreService {
     this.queryParams = {};
     this.selectedFlights = [0, 0];
     this.updateLocalStorage();
-    sessionStorage.clear();
+    this.clearDataInSessionStorage();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);
+  }
+
+  clearDataInSessionStorage() {
+    sessionStorage.removeItem(LocalStorageKeys.FlightResults);
+    sessionStorage.removeItem(LocalStorageKeys.Flights);
+    sessionStorage.removeItem(LocalStorageKeys.PassengersResult);
+    sessionStorage.removeItem(LocalStorageKeys.QueryParams);
+    sessionStorage.removeItem(LocalStorageKeys.RandomData);
+    sessionStorage.removeItem(LocalStorageKeys.SelectedFlights);
   }
 
   setDataFromCart(id: string) {

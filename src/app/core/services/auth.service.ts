@@ -82,22 +82,23 @@ export class AuthService {
   }
 
   me() {
-    this.http.get<UserResponse>(`${API_URL}/${API_CHECK_JWT}`, { headers: { Authorization: `Bearer ${this.token}` } })
-      .pipe(
-        catchError(() => {
-          this.logout();
-          return throwError(() => new Error('Error! User is not authorized!'));
-        })
-      )
-      .subscribe((res) => {
-        this.userData = res;
-        const userName = `${res.firstName} ${res.lastName}`;
-        this._userName$.next(userName);
-        this._userPicture$.next(null);
-        localStorage.setItem(LocalStorageKeys.UserName, userName);
-        localStorage.setItem(LocalStorageKeys.UserData, JSON.stringify(res));
-        this.hideModalWindow();
-      });
+    this.http.get<UserResponse>(
+      `${API_URL}/${API_CHECK_JWT}`,
+      { headers: { Authorization: `Bearer ${this.token}` } }
+    ).pipe(
+      catchError(() => {
+        this.logout();
+        return throwError(() => new Error('Error! User is not authorized!'));
+      })
+    ).subscribe((res) => {
+      this.userData = res;
+      const userName = `${res.firstName} ${res.lastName}`;
+      this._userName$.next(userName);
+      this._userPicture$.next(null);
+      localStorage.setItem(LocalStorageKeys.UserName, userName);
+      localStorage.setItem(LocalStorageKeys.UserData, JSON.stringify(res));
+      this.hideModalWindow();
+    });
   }
 
   login(loginReq: LoginRequest): void {
@@ -133,7 +134,9 @@ export class AuthService {
     localStorage.removeItem(LocalStorageKeys.UserName);
     localStorage.removeItem(LocalStorageKeys.UserData);
 
-    this.router.navigate([RoutesPath.MainPage]);
+    if (!this.router.url.includes('flight') && !this.router.url.includes('main')) {
+      this.router.navigate([RoutesPath.MainPage]);
+    }
   }
 
   signUp(signUpReq: SignUpRequest) {

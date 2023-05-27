@@ -9,3 +9,7 @@ export const API_CHECK_JWT = 'auth/me';
 export const API_FLIGHT = '/search/flight';
 
 export const API_AIRPORT = '/search/airport';
+
+export const API_PAY = '/payments/pay';
+
+export const API_PAY_LIST = '/payments/list';
