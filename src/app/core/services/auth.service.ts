@@ -71,6 +71,8 @@ export class AuthService {
     return this._token;
   }
 
+  get isOauth() { return this._isOauth; }
+
   get userName$(): Observable<string | null> {
     return this._userName$;
   }
