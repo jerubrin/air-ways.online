@@ -38,7 +38,7 @@ export class ReviewPaymentComponent implements AfterViewInit {
       sessionStorage.removeItem(LocalStorageKeys.Booked);
     }
 
-    if (!this.isBooked && !sessionStorage.getItem(LocalStorageKeys.SelectedFlights)) {
+    if (!this.isBooked && !this.store.flights) {
       this.router.navigate([RoutesPath.MainPage]);
     }
   }
