@@ -25,7 +25,7 @@ export class CartListComponent {
 
   @Output() selectCartItem = new EventEmitter<{ id: string, value: boolean }>();
 
-  SortBy = SortBy;
+  @Input() cart?: Cart[];
 
-  cart?: Cart[];
+  SortBy = SortBy;
 }
