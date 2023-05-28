@@ -10,6 +10,7 @@ import AuthAction from 'src/app/core/interfaces/auth-action';
 import { Gender } from 'src/app/core/interfaces/passengers-data';
 import { AuthService } from 'src/app/core/services/auth.service';
 import CountryCodes from 'src/app/shared/data/constants/CountryCode';
+import ToolTips from 'src/app/shared/data/constants/ToolTips';
 import { CountryCode } from 'src/app/shared/interfaces/country-code';
 import dateOfBirthValidator from 'src/app/shared/validators/dateOfBirthValidator';
 import { SignUp } from '../../models/sign-up';
@@ -37,6 +38,8 @@ export class SignInComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   today: Date = new Date();
+
+  toolTips = ToolTips;
 
   isLoginValid = false;
 

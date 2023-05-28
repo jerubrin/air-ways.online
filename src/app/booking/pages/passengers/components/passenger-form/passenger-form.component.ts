@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Gender, PassengersData } from 'src/app/core/interfaces/passengers-data';
+import ToolTips from 'src/app/shared/data/constants/ToolTips';
 import dateOfBirthValidator from 'src/app/shared/validators/dateOfBirthValidator';
 
 @Component({
@@ -28,6 +29,8 @@ export class PassengerFormComponent implements OnInit, OnDestroy {
   gender = Gender;
 
   today: Date = new Date();
+
+  toolTips = ToolTips;
 
   private subscriptions: Subscription[] = [];
 

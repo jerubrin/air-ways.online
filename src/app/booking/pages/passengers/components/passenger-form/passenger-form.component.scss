@@ -21,8 +21,6 @@
   }
   ::ng-deep .mdc-text-field--outlined {
     background-color: $color-secondary-90;
-    // border-radius: 0.4rem;
-    // border: 0.1rem solid #d0d9df;
   }
   ::ng-deep .mdc-text-field--focused {
     border: 1px solid $color-primary;
@@ -100,4 +98,17 @@
 }
 ::ng-deep.mat-mdc-slide-toggle .mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after {
   background-color: $color-white !important;
+}
+
+.icon-error {
+  color: $color-error;
+}
+::ng-deep .mdc-tooltip__surface {
+  background: $color-white !important;
+  color: $color-neutral-0 !important;
+  border-radius: 4px !important;
+  border: 1px solid $color-neutral-60 !important;
+  padding: 1rem 1.5rem !important;
+  font-size: 1.2rem !important;
+  text-align: left !important;
 }
