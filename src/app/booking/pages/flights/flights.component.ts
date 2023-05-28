@@ -32,6 +32,8 @@ export class FlightsComponent implements OnInit, OnDestroy {
       this.flightsApiService.flightsStream$.subscribe((flights) => {
         if (!this.mainStoreService.flightResults) {
           this.mainStoreService.flightResults = flights;
+          this.flightSearchService.selectFlight(0, undefined);
+          this.flightSearchService.selectFlight(1, undefined);
           this.mainStoreService.selectedFlights = [0, 0];
         }
         this.flightSearchService.hasBackDate = this.mainStoreService.flightResults.length === 2;
@@ -48,6 +50,8 @@ export class FlightsComponent implements OnInit, OnDestroy {
           if (params['children'] !== this.mainStoreService.queryParams.children) return;
           if (params['infants'] !== this.mainStoreService.queryParams.infants) return;
           this.mainStoreService.flightResults = undefined;
+          this.flightSearchService.selectFlight(0, undefined);
+          this.flightSearchService.selectFlight(1, undefined);
         }
       })
     );
@@ -57,6 +61,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((subs) => {
       subs.unsubscribe();
     });
+    this.flightsApiService.prevParams = undefined;
   }
 
   goBack(): void {

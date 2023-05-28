@@ -1,16 +1,6 @@
 @import "variables";
 @import "mixins";
 
-.cart {
-  width: 112.8rem;
-  margin-top: 4rem;
-  margin-bottom: 8rem;
-  background: $color-white;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
-  border-radius: 0.8rem;
-  padding-top: 3.3rem;
-}
-
 .cart-title {
   display: flex;
   @include font($font-size-24, $font-weight-700, $color-primary);
@@ -79,23 +69,4 @@
 .cart-item {
   display: flex;
   flex-direction: column;
-}
-
-.price-block {
-  padding: 4.0rem 3.4rem 2.8rem;
-  display: flex;
-  justify-content: space-between;
-}
-
-.bottom-line {
-  margin: 0 3.4rem;
-  height: 1px;
-  border: 1px solid $color-secondary-50;
-}
-
-.bottom-block {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 4rem 3.4rem;
 }

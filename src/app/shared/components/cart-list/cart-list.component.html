@@ -2,6 +2,7 @@
 <div class="cart-header">
   <div class="h-col h-col-select-all">
     <mat-checkbox
+      *ngIf="allSelected !== undefined"
       [checked]="allSelected"
       color="primary"
       (change)="selectAll.emit($event.checked)"
@@ -49,6 +50,7 @@
     *ngFor="let item of cart| cartSortBy:cartService.sortBy$ | async"
     [item]="item"
     [select]="item.isChecked"
+    [editText]="allSelected !== undefined ? 'Edit' : 'More Info'"
     (edit)="edit.emit(item.id)"
     (delete)="delete.emit(item.id)"
     (selectEmitter)="selectCartItem.emit({id: item.id, value: $event})"

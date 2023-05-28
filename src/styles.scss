@@ -34,6 +34,15 @@ main {
   margin: 0 auto;
   overflow: hidden;
 }
+.cart-container {
+  width: 112.8rem;
+  margin-top: 4rem;
+  margin-bottom: 8rem;
+  background: $color-white;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0.8rem;
+  padding-top: 3.3rem;
+}
 li {
   list-style: none;
 }

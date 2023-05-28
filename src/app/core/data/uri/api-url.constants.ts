@@ -17,3 +17,7 @@ export const API_PAY_LIST = '/payments/list';
 export const API_PAY_OAUTH = '/payments/oauth-pay';
 
 export const API_PAY_LIST_OAUTH = '/payments/oauth-list';
+
+export const API_PAY_DELETE = '/payments/delete';
+
+export const API_PAY_DELETE_OAUTH = '/payments/oauth-delete';

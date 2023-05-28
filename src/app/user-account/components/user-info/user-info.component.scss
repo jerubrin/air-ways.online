@@ -1,0 +1,58 @@
+@import "variables";
+@import "mixins";
+
+.user-info {
+  padding: 2rem;
+  display: flex;
+  gap: 2rem;
+}
+
+.info {
+  gap: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  @include font($font-size-30, $font-weight-700, $color-primary);
+}
+
+.email {
+  margin-top: -0.8rem;
+  @include font($font-size-16, $font-weight-400, $color-neutral-30);
+}
+
+.gender {
+  @include font($font-size-14, $font-weight-700, $color-neutral-10);
+}
+
+.flex {
+  display: flex;
+  align-items: flex-end;
+}
+
+.g-4 {
+  gap: 0.4rem;
+}
+
+.date-of-birth {
+  @include font($font-size-14, $font-weight-700, $color-secondary);
+}
+
+.citizenship {
+  @include font($font-size-12, $font-weight-100, $color-neutral-10);
+}
+
+.phone {
+  @include font($font-size-16, $font-weight-400, $color-primary);
+}
+
+.picture {
+  width: 10rem;
+  height: 10rem;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 50%;
+}

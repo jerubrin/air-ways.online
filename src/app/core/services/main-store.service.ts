@@ -30,6 +30,24 @@ export class MainStoreService {
 
   private _cart$ = new ReplaySubject<Cart[]>(1);
 
+  private _selectedPayment?: Cart;
+
+  get selectedPayment(): Cart | undefined {
+    return this._selectedPayment;
+  }
+
+  set selectedPayment(value: Cart) {
+    const {
+      flights, passengersResult, randomData
+    } = value;
+    this.flights = flights;
+    this.passengersResult = passengersResult;
+    this.randomData = randomData;
+    this._selectedPayment = value;
+  }
+
+  // passengersReview: PassengerReview[];
+
   get cartSize$(): Observable<number> {
     return this._cartSize$;
   }
@@ -200,7 +218,8 @@ export class MainStoreService {
       id: uuid(),
       cartPriceData,
       flights: this.flights,
-      passengersResult: this.passengersResult
+      passengersResult: this.passengersResult,
+      randomData: this.randomData
     };
   }
 
@@ -233,7 +252,8 @@ export class MainStoreService {
         cartPriceData,
         flights: this.flights,
         passengersResult: this.passengersResult,
-        queryParams: this.queryParamsService.getQueryParams()
+        queryParams: this.queryParamsService.getQueryParams(),
+        randomData: this.randomData,
       });
     }
     this.flights = [];

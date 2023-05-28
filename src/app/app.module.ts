@@ -39,10 +39,7 @@ const SocialOauthProvider = {
         provider: CustomLoginProvider,
       },
     ],
-    onError: (err) => {
-      // eslint-disable-next-line no-console
-      console.error(err);
-    }
+    onError: () => {}
   } as SocialAuthServiceConfig
 };
 

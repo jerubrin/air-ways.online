@@ -72,8 +72,8 @@ export class CartPageComponent {
     sessionStorage.setItem(LocalStorageKeys.IsCartData, 'true');
     this.paymentService.paymentItemsForPay = this.store.cart
       .filter((item) => item.isChecked)
-      .map(({ id, cartPriceData, flights, passengersResult }) => ({
-        id, cartPriceData, flights, passengersResult
+      .map(({ id, cartPriceData, flights, passengersResult, randomData }) => ({
+        id, cartPriceData, flights, passengersResult, randomData
       }));
     this.router.navigate([RoutesPath.CartPage, RoutesPath.CartPagePayment]);
   }

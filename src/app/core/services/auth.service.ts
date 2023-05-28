@@ -43,6 +43,7 @@ export class AuthService {
     private socialAuthService: SocialAuthService,
     private router: Router
   ) {
+    this._isOauth = !!localStorage.getItem(LocalStorageKeys.IsOauth);
     const lsUserData =
       localStorage.getItem(LocalStorageKeys.UserData);
     const userName = localStorage.getItem(LocalStorageKeys.UserName);
@@ -66,6 +67,7 @@ export class AuthService {
     this._userName$.next(name || null);
     this._token = idToken ?? authToken;
     this._isOauth = true;
+    localStorage.setItem(LocalStorageKeys.IsOauth, 'true');
     localStorage.setItem(LocalStorageKeys.Token, idToken);
     localStorage.setItem(LocalStorageKeys.UserData, JSON.stringify(this.userData));
     localStorage.setItem(LocalStorageKeys.UserName, name);
@@ -98,6 +100,7 @@ export class AuthService {
     localStorage.setItem(LocalStorageKeys.Token, token);
     localStorage.removeItem(LocalStorageKeys.Provider);
     this._token = token;
+    localStorage.removeItem(LocalStorageKeys.IsOauth);
     this.me();
   }
 

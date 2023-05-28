@@ -1,6 +1,7 @@
 <div class="item" *ngIf="item">
   <div class="tick">
     <mat-checkbox
+      *ngIf="select !== undefined"
       [checked]="select"
       color="primary"
       (change)="selectEmitter.emit($event.checked)"
@@ -42,7 +43,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="edit.emit()">Edit</button>
+      <button mat-menu-item (click)="edit.emit()">{{editText}}</button>
       <button mat-menu-item (click)="delete.emit()">Delete</button>
     </mat-menu>
   </div>

@@ -16,7 +16,7 @@ export class FlightsApiService {
 
   constructor(private http: HttpClient, private activatedRoute: ActivatedRoute) {}
 
-  prevParams: Params = {};
+  prevParams?: Params;
 
   getAirportStream(searchText: string) {
     return this.http.get<Airport[]>(`${API_URL}${API_AIRPORT}?q=${searchText}`).pipe(
@@ -33,14 +33,15 @@ export class FlightsApiService {
         fromKey: (params['fromKey'] as string | undefined ?? '').toUpperCase(),
         toKey: (params['toKey'] as string | undefined ?? '').toUpperCase(),
         forwardDate: params['forwardDate'].substring(0, 10),
-        backDate: params['backDate'].substring(0, 10)
+        backDate: params['backDate'] ? params['backDate'].substring(0, 10) : undefined
       })),
       filter((params) => {
         if (!this.prevParams) {
           this.prevParams = params;
           return true;
         }
-        const isChanged = this.prevParams['fromKey'] !== params?.fromKey ||
+        const isChanged =
+          this.prevParams['fromKey'] !== params?.fromKey ||
           this.prevParams['toKey'] !== params?.toKey ||
           this.prevParams['forwardDate'] !== params?.forwardDate ||
           this.prevParams['backDate'] !== params?.backDate;

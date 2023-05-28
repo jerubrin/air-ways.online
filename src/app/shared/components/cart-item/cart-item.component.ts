@@ -18,6 +18,8 @@ export class CartItemComponent {
 
   @Input() select?: boolean;
 
+  @Input() editText?: string;
+
   getGmt(index: number) {
     const diff = +this.item.flights[index].to.gmt - +this.item.flights[index].form.gmt;
     return Number.isNaN(diff) ? 0 : diff;
