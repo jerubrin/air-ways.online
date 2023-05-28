@@ -228,10 +228,18 @@ export class MainStoreService {
       adults: this.passengersResult.adults.length,
       children: this.passengersResult.children.length,
       infants: this.passengersResult.infants.length,
+      baggage: this.getBaggageCount(this.passengersResult),
       totalPrice: { eur: 0, usd: 0, pln: 0, rub: 0 },
     };
     cartPriceData.totalPrice = getTotalPrice(cartPriceData, this.flights);
     return cartPriceData;
+  }
+
+  getBaggageCount(passengersResult: PassengersResultData): number {
+    return passengersResult.adults
+      .reduce((sum, pers) => (pers.checkedInBaggage ? sum + 1 : sum), 0) +
+      passengersResult.children
+        .reduce((sum, pers) => (pers.checkedInBaggage ? sum + 1 : sum), 0);
   }
 
   addAllDataToCart() {

@@ -29,7 +29,10 @@ export class ReviewPaymentService {
         this.getPricesSum(
           this.store?.flights[0]?.price,
           this.store?.flights[1]?.price,
-          this.store.passengersResult?.adults.length
+          this.store.passengersResult?.adults.length,
+          this.store.passengersResult?.adults.reduce(
+            (sum, p) => p.checkedInBaggage ? sum + 1 : sum, 0
+          )
         )
       ),
       adultsCount: this.store.passengersResult?.adults.length ?? 0,
@@ -37,7 +40,10 @@ export class ReviewPaymentService {
         this.getPricesSum(
           this.store?.flights[0]?.price,
           this.store?.flights[1]?.price,
-          this.store.passengersResult?.children.length
+          this.store.passengersResult?.children.length,
+          this.store.passengersResult?.children.reduce(
+            (sum, p) => p.checkedInBaggage ? sum + 1 : sum, 0
+          )
         ),
         0.6
       ),
@@ -76,12 +82,12 @@ export class ReviewPaymentService {
     return { fullPrice, fare, tax };
   }
 
-  private getPricesSum(priceOne?: Price, priceTwo?: Price, factor = 0): Price {
+  private getPricesSum(priceOne?: Price, priceTwo?: Price, factor = 0, baggage = 0): Price {
     return {
-      eur: ((priceOne?.eur ?? 0) + (priceTwo?.eur ?? 0)) * factor,
-      usd: ((priceOne?.eur ?? 0) + (priceTwo?.usd ?? 0)) * factor,
-      pln: ((priceOne?.eur ?? 0) + (priceTwo?.pln ?? 0)) * factor,
-      rub: ((priceOne?.eur ?? 0) + (priceTwo?.rub ?? 0)) * factor
+      eur: ((priceOne?.eur ?? 0) + (priceTwo?.eur ?? 0)) * factor + ((priceOne?.eur ?? 0) * baggage * 0.2),
+      usd: ((priceOne?.usd ?? 0) + (priceTwo?.usd ?? 0)) * factor + ((priceOne?.usd ?? 0) * baggage * 0.2),
+      pln: ((priceOne?.pln ?? 0) + (priceTwo?.pln ?? 0)) * factor + ((priceOne?.pln ?? 0) * baggage * 0.2),
+      rub: ((priceOne?.rub ?? 0) + (priceTwo?.rub ?? 0)) * factor + ((priceOne?.rub ?? 0) * baggage * 0.2)
     };
   }
 }
