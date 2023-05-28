@@ -1,11 +1,29 @@
 <button
   class="btn"
+  *ngIf="authService.userName$ | async; else signIn;"
   mat-stroked-button
-  (click)="click()"
+  [matMenuTriggerFor]="menu"
 >
   <img src="./assets/icon_login.svg" alt="Login icon" />
-  <span *ngIf="authService.userName$ | async; else signIn;">{{authService.userName$ | async}}</span>
-  <ng-template #signIn>
-    <span>Sign in</span>
-  </ng-template>
+  <span >{{authService.userName$ | async}}</span>
 </button>
+<ng-template #signIn>
+  <button
+    class="btn"
+    (click)="click()"
+    mat-stroked-button
+  >
+    <img src="./assets/icon_login.svg" alt="Login icon" />
+    <span>Sign in</span>
+  </button>
+</ng-template>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="goToProfile()">
+    <mat-icon>person</mat-icon>
+    <span>User Profile</span>
+  </button>
+  <button mat-menu-item (click)="click()">
+    <mat-icon>logout</mat-icon>
+    <span>Log out</span>
+  </button>
+</mat-menu>

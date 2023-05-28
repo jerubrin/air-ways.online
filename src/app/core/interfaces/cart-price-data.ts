@@ -5,4 +5,5 @@ export interface CartPriceData {
   adults: number,
   children: number,
   infants: number,
+  baggage: number,
 }

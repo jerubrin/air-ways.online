@@ -1,3 +1,11 @@
 <div class="container">
-  <p>user-account-page works!</p>
+  <app-user-info></app-user-info>
+  <div class="cart-container">
+    <app-cart-list
+      title="Booked flights"
+      [cart]="this.paymentService.payments$ | async"
+      (edit)="show($event)"
+      (delete)="delete($event)"
+    ></app-cart-list>
+  </div>
 </div>

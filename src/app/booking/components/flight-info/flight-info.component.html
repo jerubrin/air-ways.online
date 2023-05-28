@@ -1,7 +1,11 @@
 <div class="flight-info">
   <div class="main-block">
   
-    <app-date-time-block [date]="flight?.takeoffDate" [airport]="flight?.form"></app-date-time-block>
+    <app-date-time-block
+      [date]="flight?.takeoffDate"
+      [airport]="flight?.form"
+      [subHours]="0"
+    ></app-date-time-block>
     
     <div class="flight-info__center">
       <div class="flight-info__center-text">{{flight?.timeMins | flightTime}}</div>
@@ -21,6 +25,7 @@
       [date]="flight?.landingDate"
       [airport]="flight?.to"
       [turnRight]="true"
+      [subHours]="gmtDiffer"
     ></app-date-time-block>
   
   </div>

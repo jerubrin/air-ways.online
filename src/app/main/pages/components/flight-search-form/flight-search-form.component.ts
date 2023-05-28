@@ -1,14 +1,14 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
-import { Subscription } from 'rxjs';
 import * as moment from 'moment';
+import { Subscription } from 'rxjs';
 import { QueryParamsService } from 'src/app/core/services/query-params.service';
 import { DatepickerRangeComponent } from 'src/app/shared/components/datepicker-range/datepicker-range.component';
 import { DatepickerComponent } from 'src/app/shared/components/datepicker/datepicker.component';
 import { DestinationFormFieldComponent } from 'src/app/shared/components/destination-form-field/destination-form-field.component';
 import { PassengersFormFieldComponent } from 'src/app/shared/components/passengers-form-field/passengers-form-field.component';
+import RoutesPath from 'src/app/shared/data/enams/RoutesPath';
 import { Passengers } from 'src/app/shared/interfaces/passengers.model';
 
 @Component({
@@ -88,13 +88,15 @@ export class FlightSearchFormComponent implements OnInit, OnDestroy {
 
   handleValidValueFrom(value: string): void {
     this.fromValue = value;
-    const [city, key] = value.split(' ');
+    const city = value.split(' ').slice(0, -1).join(' ');
+    const key = value.split(' ').at(-1);
     this.queryParamsService.updateQueryParamOnCurrentPage({ fromWhere: city, fromKey: key });
   }
 
   handleValidValueDestination(value: string): void {
     this.destinationValue = value;
-    const [city, key] = value.split(' ');
+    const city = value.split(' ').slice(0, -1).join(' ');
+    const key = value.split(' ').at(-1);
     this.queryParamsService.updateQueryParamOnCurrentPage({ toWhere: city, toKey: key });
   }
 

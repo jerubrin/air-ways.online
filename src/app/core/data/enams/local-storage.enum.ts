@@ -14,5 +14,9 @@ export enum LocalStorageKeys {
 
   Token = 'air-ways.online_token',
   UserName = 'air-ways.online_user-name',
-  UserData = 'air-ways.online_user-data'
+  UserData = 'air-ways.online_user-data',
+  IsOauth = 'air-ways.online_is-oauth',
+  Provider = 'air-ways.online_provider',
+
+  Booked = 'air-ways.online_booked'
 }

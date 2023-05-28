@@ -1,0 +1,35 @@
+<div class="cart-container user-info">
+  <div
+    *ngIf="authService.userData?.photoUrl"
+    class="picture"
+    [style.backgroundImage]="'url(' + authService.userData.photoUrl + ')'"
+  ></div>
+  <div class="info">
+    <div class="flex g-4">
+      <div class="name">{{authService.userName$ | async}}</div>
+      <div
+        class="gender"
+        *ngIf="authService.userData?.gender"
+      >{{authService.userData?.gender}}</div>
+    </div>
+    <div
+      class="email"
+      *ngIf="authService.userData?.email"
+    >{{authService.userData?.email}}</div>
+
+    <div
+      class="date-of-birth"
+      *ngIf="authService.userData?.dateOfBirth"
+    >{{authService.userData?.dateOfBirth | date:'d MMMM y'}}</div>
+
+    <div
+      class="citizenship"
+      *ngIf="authService.userData?.citizenship"
+    >{{authService.userData.citizenship}}</div>
+
+    <div
+      class="phone"
+      *ngIf="authService.userData?.countryCode && authService.userData?.phone"
+    >{{authService.userData?.countryCode}}{{authService.userData.phone}}</div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 <div class="item" *ngIf="item">
   <div class="tick">
     <mat-checkbox
+      *ngIf="select !== undefined"
       [checked]="select"
       color="primary"
       (change)="selectEmitter.emit($event.checked)"
@@ -20,12 +21,12 @@
     </div>
     <div class="date-time">
       <p *ngIf="item.flights[0]">
-        {{ item.flights[0].takeoffDate | date : 'd MMM, y, H:mm' }} &mdash;
-        {{ item.flights[0].landingDate | date : 'H:mm' }}
+        {{ item.flights[0].takeoffDate | date : 'd MMM, y, H:mm':'+0000' }} &mdash;
+        {{ item.flights[0].landingDate | addSubtractHours: getGmt(0) | date : 'H:mm':'+0000' }}
       </p>
       <p *ngIf="item.flights[1]">
-        {{ item.flights[1].takeoffDate | date : 'd MMM, y, H:mm' }} &mdash;
-        {{ item.flights[1].landingDate | date : 'H:mm' }}
+        {{ item.flights[1].takeoffDate | date : 'd MMM, y, H:mm':'+0000' }} &mdash;
+        {{ item.flights[1].landingDate | addSubtractHours: getGmt(1)| date : 'H:mm':'+0000' }}
       </p>
     </div>
     <div class="passengers">
@@ -42,8 +43,7 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <!-- <button mat-menu-item (click)="edit.emit()">Edit</button> -->
-      <button mat-menu-item (click)="edit.emit()">Edit</button>
+      <button mat-menu-item (click)="edit.emit()">{{editText}}</button>
       <button mat-menu-item (click)="delete.emit()">Delete</button>
     </mat-menu>
   </div>

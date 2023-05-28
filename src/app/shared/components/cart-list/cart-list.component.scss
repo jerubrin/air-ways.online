@@ -1,0 +1,72 @@
+@import "variables";
+@import "mixins";
+
+.cart-title {
+  display: flex;
+  @include font($font-size-24, $font-weight-700, $color-primary);
+  line-height: 2.8rem;
+  margin: 0 3.1rem 2.7rem;
+}
+
+.no-flights {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14rem 0;
+  text-align: center;
+  @include font($font-size-24, $font-weight-500, $color-secondary-40)
+}
+
+.cart-header {
+  position: relative;
+  display: flex;
+  gap: $gap-index;
+  justify-content: space-between;
+  height: 6.7rem;
+  align-items: center;
+  padding: 0 7.2rem 0 0;
+  background-color: $color-neutral-80;
+}
+
+.h-col {
+  display: flex;
+  gap: 0.6rem;
+
+  &-no {
+    width: $no-index;
+  }
+  &-flight {
+    width: $flight-index;
+  }
+  &-type {
+    width: $type-index;
+  }
+  &-date-time {
+    width: $date-index;
+  }
+  &-passengers {
+    width: $passengers-index;
+  }
+  &-price {
+    width: $price-index;
+  }
+}
+
+.h-col-select-all {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 7.2rem;
+  height: 100%;
+  margin-right: -3.2%;
+}
+
+.cart-item-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+}

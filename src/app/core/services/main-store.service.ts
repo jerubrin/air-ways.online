@@ -11,6 +11,7 @@ import { getPassengers } from '../helpers/passengers-converter';
 import { Cart } from '../interfaces/cart';
 import { CartPriceData } from '../interfaces/cart-price-data';
 import { PassengersResultData } from '../interfaces/passengers-result-data';
+import { Payment } from '../interfaces/payment.model';
 import { RandomData } from '../interfaces/random-data';
 import { LocalStorageService } from './local-storage.service';
 import { QueryParamsService } from './query-params.service';
@@ -28,6 +29,24 @@ export class MainStoreService {
   private _cartSize$ = new ReplaySubject<number>(1);
 
   private _cart$ = new ReplaySubject<Cart[]>(1);
+
+  private _selectedPayment?: Cart;
+
+  get selectedPayment(): Cart | undefined {
+    return this._selectedPayment;
+  }
+
+  set selectedPayment(value: Cart) {
+    const {
+      flights, passengersResult, randomData
+    } = value;
+    this.flights = flights;
+    this.passengersResult = passengersResult;
+    this.randomData = randomData;
+    this._selectedPayment = value;
+  }
+
+  // passengersReview: PassengerReview[];
 
   get cartSize$(): Observable<number> {
     return this._cartSize$;
@@ -114,7 +133,7 @@ export class MainStoreService {
   get randomData(): RandomData {
     const json = sessionStorage.getItem(LocalStorageKeys.RandomData);
     const initialValue = {
-      hasCabinBag: Math.random() > 0.5,
+      hasCabinBag: true,
       symbols:
         Math.random() > 0.5
           ? ['A', 'B', 'C', 'D', 'E', 'F']
@@ -193,14 +212,38 @@ export class MainStoreService {
     this.localStorageService.setCart(this._cart, this._currentCartItemId);
   }
 
-  addAllDataToCart() {
+  getDataForPay(): Payment {
+    const cartPriceData = this.getCartPriceData();
+    return {
+      id: uuid(),
+      cartPriceData,
+      flights: this.flights,
+      passengersResult: this.passengersResult,
+      randomData: this.randomData
+    };
+  }
+
+  private getCartPriceData(): CartPriceData {
     const cartPriceData: CartPriceData = {
       adults: this.passengersResult.adults.length,
       children: this.passengersResult.children.length,
       infants: this.passengersResult.infants.length,
+      baggage: this.getBaggageCount(this.passengersResult),
       totalPrice: { eur: 0, usd: 0, pln: 0, rub: 0 },
     };
     cartPriceData.totalPrice = getTotalPrice(cartPriceData, this.flights);
+    return cartPriceData;
+  }
+
+  getBaggageCount(passengersResult: PassengersResultData): number {
+    return passengersResult.adults
+      .reduce((sum, pers) => (pers.checkedInBaggage ? sum + 1 : sum), 0) +
+      passengersResult.children
+        .reduce((sum, pers) => (pers.checkedInBaggage ? sum + 1 : sum), 0);
+  }
+
+  addAllDataToCart() {
+    const cartPriceData = this.getCartPriceData();
     if (!this.passengersResult) return;
     // edit
     const cartItem = this._cart.find((item) => item.id === this._currentCartItemId);
@@ -217,7 +260,8 @@ export class MainStoreService {
         cartPriceData,
         flights: this.flights,
         passengersResult: this.passengersResult,
-        queryParams: this.queryParamsService.getQueryParams()
+        queryParams: this.queryParamsService.getQueryParams(),
+        randomData: this.randomData,
       });
     }
     this.flights = [];
