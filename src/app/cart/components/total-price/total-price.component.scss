@@ -1,0 +1,18 @@
+@import "variables";
+@import "mixins";
+
+.price {
+  display: flex;
+  gap: 2rem;
+  align-items: center
+}
+
+.price-text {
+  @include font($font-size-20, $font-weight-700, $color-black);
+  line-height: 2rem;
+}
+
+.price-total {
+  @include font($font-size-30, $font-weight-700, $color-primary);
+  line-height: 3.6rem;
+}

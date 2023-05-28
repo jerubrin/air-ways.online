@@ -1,0 +1,330 @@
+<mat-button-toggle-group
+  class="auth-action label-medium"
+  [(value)]="authService.authActionValue"
+  name="fontStyle"
+  aria-label="Font Style"
+>
+  <mat-button-toggle class="auth-action__item" [value]="authAction.Login">Log in</mat-button-toggle>
+  <mat-button-toggle class="auth-action__item" [value]="authAction.Signup"
+    >Sign up</mat-button-toggle
+  >
+</mat-button-toggle-group>
+
+<asl-google-signin-button
+  class="auth-button"
+  type="standard"
+  text="signin_with"
+  shape="rectangular"
+  theme="outline"
+  logo_alignment="center"
+  width="444px"
+  locale="en"
+  class="auth-button title-xs-small"
+  mat-stroked-button
+  (click)="signInWithGoogle()"
+>
+</asl-google-signin-button>
+<button class="auth-button title-xs-small" mat-stroked-button (click)="signInWithFB()">
+  <img class="auth-button__img" src="./assets/icon_facebbok.svg" alt="facebook" /><span
+    class="auth-button__text"
+    >Continue with Facebook</span
+  >
+</button>
+
+<!-- LOGIN -->
+<form
+  class="form"
+  *ngIf="authService.authActionValue === authAction.Login && signInForm"
+  [formGroup]="signInForm"
+  (ngSubmit)="loginSubmit()"
+>
+  <div class="or-message body-small">
+    <span class="or-message__line"></span>
+    <span class="or-message__text">or log in with your email</span>
+    <span class="or-message__line"></span>
+  </div>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      type="email"
+      placeholder="example@email.com"
+      (input)="signInForm.get('email')?.markAsTouched()"
+    />
+    <mat-error *ngIf="signInForm?.get('email')?.invalid && signInForm?.get('email')?.touched">
+      {{ getErrorMessageSignInForm('email') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      autocomplete="on"
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+      placeholder="********"
+      (input)="signInForm.get('password')?.markAsTouched()"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="hide = !hide"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="hide"
+    >
+      <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+    </button>
+    <mat-error *ngIf="signInForm?.get('password')?.invalid && signInForm?.get('password')?.touched">
+      {{ getErrorMessageSignInForm('password') }}
+    </mat-error>
+  </mat-form-field>
+
+  <a class="forgot-pass link label-medium" routerLink="">Forgot password?</a>
+
+  <button class="submit-btn" mat-flat-button color="primary">Log in</button>
+</form>
+
+<!-- SIGNUP -->
+<form
+  class="form"
+  *ngIf="authService.authActionValue === authAction.Signup && signUpForm"
+  [formGroup]="signUpForm"
+  (ngSubmit)="signUpSubmit()"
+>
+  <div class="or-message body-small">
+    <span class="or-message__line"></span>
+    <span class="or-message__text">or sign up with your email</span>
+    <span class="or-message__line"></span>
+  </div>
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input
+      matInput
+      formControlName="email"
+      type="email"
+      placeholder="example@email.com"
+      (input)="signUpForm.get('email')?.markAsTouched()"
+    />
+    <mat-error *ngIf="signUpForm?.get('email')?.invalid && signUpForm?.get('email')?.touched">
+      {{ getErrorMessageSignUpForm('email') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      autocomplete="on"
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password"
+      placeholder="********"
+      (input)="signUpForm.get('password')?.markAsTouched()"
+    />
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      [matTooltip]="toolTips.password"
+      matTooltipPosition="right"
+    >
+      <mat-icon
+        *ngIf="
+          (signUpForm?.get('password')?.dirty && signUpForm?.get('password')?.valid) ||
+          !signUpForm?.get('password')?.touched
+        "
+      >
+        error_outline
+      </mat-icon>
+      <mat-icon
+        class="icon-error"
+        *ngIf="signUpForm?.get('password')?.touched && signUpForm?.get('password')?.errors"
+      >
+        info
+      </mat-icon>
+    </button>
+    <mat-error *ngIf="signUpForm?.get('password')?.invalid && signUpForm?.get('password')?.touched">
+      {{ getErrorMessageSignUpForm('password') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>First name</mat-label>
+    <input
+      matInput
+      formControlName="firstName"
+      type="text"
+      placeholder="Aleh"
+      (input)="signUpForm.get('firstName')?.markAsTouched()"
+    />
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      [matTooltip]="toolTips.name"
+      matTooltipPosition="right"
+    >
+      <mat-icon
+        *ngIf="
+          (signUpForm?.get('firstName')?.dirty && signUpForm?.get('firstName')?.valid) ||
+          !signUpForm?.get('firstName')?.touched
+        "
+      >
+        error_outline
+      </mat-icon>
+      <mat-icon
+        class="icon-error"
+        *ngIf="signUpForm?.get('firstName')?.touched && signUpForm?.get('firstName')?.errors"
+      >
+        info
+      </mat-icon>
+    </button>
+    <mat-error
+      *ngIf="signUpForm?.get('firstName')?.invalid && signUpForm?.get('firstName')?.touched"
+    >
+      {{ getErrorMessageSignUpForm('firstName') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="form__element" appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input
+      matInput
+      formControlName="lastName"
+      type="text"
+      placeholder="Serhiyenia"
+      (input)="signUpForm.get('lastName')?.markAsTouched()"
+    />
+    <button
+      type="button"
+      mat-icon-button
+      matSuffix
+      [matTooltip]="toolTips.lastName"
+      matTooltipPosition="right"
+    >
+      <mat-icon
+        *ngIf="
+          (signUpForm?.get('lastName')?.dirty && signUpForm?.get('lastName')?.valid) ||
+          !signUpForm?.get('lastName')?.touched
+        "
+      >
+        error_outline
+      </mat-icon>
+      <mat-icon
+        class="icon-error"
+        *ngIf="signUpForm?.get('lastName')?.touched && signUpForm?.get('lastName')?.errors"
+      >
+        info
+      </mat-icon>
+    </button>
+    <mat-error *ngIf="signUpForm?.get('lastName')?.invalid && signUpForm?.get('lastName')?.touched">
+      {{ getErrorMessageSignUpForm('lastName') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Date of birth</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      formControlName="dateOfBirth"
+      placeholder="MM/DD/YYYY"
+      [max]="today"
+    />
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error
+      *ngIf="signUpForm?.get('dateOfBirth')?.invalid && signUpForm?.get('dateOfBirth')?.touched"
+    >
+      {{ getErrorMessageSignUpForm('dateOfBirth') }}
+    </mat-error>
+  </mat-form-field>
+
+  <mat-button-toggle-group
+    class="gender label-medium"
+    formControlName="gender"
+    name="gender"
+    aria-label="Gender"
+  >
+    <mat-button-toggle class="gender__item" [value]="Gender.Male"
+      ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
+    >
+    <mat-button-toggle class="gender__item" [value]="Gender.Female"
+      ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+  <div class="relative">
+    <mat-error
+      class="error-validation"
+      *ngIf="signUpForm?.get('gender')?.invalid && signUpForm?.get('gender')?.touched"
+    >
+      Please select gender
+    </mat-error>
+  </div>
+  <div class="gender-bottom"></div>
+
+  <div class="tel-inputs">
+    <mat-form-field class="tel-inputs__item" appearance="outline">
+      <mat-label>Country code</mat-label>
+      <mat-select formControlName="countryCode">
+        <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
+          {{ countryCode.name }} ({{ countryCode.code }})
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="signUpForm?.get('countryCode')?.errors"
+        >Please select country code</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field class="tel-inputs__item" appearance="outline">
+      <mat-label>Mobile phone number</mat-label>
+      <input
+        type="tel"
+        matInput
+        formControlName="phone"
+        placeholder="1111111111"
+        (input)="signUpForm.get('phone')?.markAsTouched()"
+      />
+      <mat-error *ngIf="signUpForm?.get('phone')?.invalid && signUpForm?.get('phone')?.touched">
+        {{ getErrorMessageSignUpForm('phone') }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Citizenship</mat-label>
+    <mat-select formControlName="citizenship">
+      <mat-option *ngFor="let countryCode of countryCodes" [value]="countryCode">
+        {{ countryCode.name }}
+      </mat-option>
+    </mat-select>
+    <mat-error *ngIf="signUpForm?.get('citizenship')?.errors">
+      Please select citizenship
+    </mat-error>
+  </mat-form-field>
+
+  <mat-checkbox class="checkbox" color="primary" name="agree" formControlName="agree"
+    ><p class="checkbox__text-wrap label-medium">
+      I agree to <a class="link" routerLink="">Airway's Privacy</a> Policy and
+      <a class="link" routerLink="">Terms of Use</a>
+    </p></mat-checkbox
+  >
+  <div class="relative">
+    <mat-error
+      class="error-validation"
+      *ngIf="signUpForm?.get('agree')?.invalid && signUpForm?.get('agree')?.touched"
+    >
+      Please agree to Airway's Privacy Policy and Terms of Use
+    </mat-error>
+  </div>
+  <div class="checkbox-bottom"></div>
+
+  <button class="submit-btn" mat-flat-button color="primary" type="submit">Sign up</button>
+</form>
+
+<div class="close" (click)="authService.hideAuthModal()">
+  <img src="./assets/icon_close.svg" alt="close" />
+</div>

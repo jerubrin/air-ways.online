@@ -1,0 +1,32 @@
+@import "variables";
+@import "mixins";
+
+.top {
+  display: flex;
+  gap: 2rem;
+}
+
+.flight-no {
+  @include font($font-size-20, $font-weight-700, $color-primary);
+  line-height: 2.4rem;
+}
+
+.flight-airports {
+  @include font($font-size-20, $font-weight-700, $color-black);
+  line-height: 2.4rem;
+}
+
+.bottom {
+  display: flex;
+  gap: 3.6rem;
+}
+
+.date {
+  @include font($font-size-16, $font-weight-400, $color-black);
+  line-height: 2.4rem;
+}
+
+.time {
+  @include font($font-size-16, $font-weight-400, $color-black);
+  line-height: 2.4rem;
+}

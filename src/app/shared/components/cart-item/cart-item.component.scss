@@ -1,0 +1,73 @@
+@import "variables";
+@import "mixins";
+
+.item {
+  display: flex;
+  width: 100%;
+  padding: 2rem 0;
+}
+
+.item-data {
+  display: flex;
+  width: 100%;
+  gap: $gap-index;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tick {
+  display: flex;
+  width: 7.2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.flight-no {
+  width: $no-index;
+  @include font($font-size-20, $font-weight-700, $color-secondary);
+  line-height: 2.4rem;
+}
+
+.flights-list {
+  width: $flight-index;
+  @include font($font-size-20, $font-weight-500, $color-black);
+  line-height: 3.2rem;
+}
+
+.flights-type {
+  width: $type-index;
+  @include font($font-size-20, $font-weight-500, $color-black);
+  line-height: 3.2rem;
+}
+
+.date-time {
+  width: $date-index;
+  @include font($font-size-20, $font-weight-500, $color-black);
+  line-height: 3.2rem;
+}
+
+.passengers {
+  width: $passengers-index;
+  @include font($font-size-20, $font-weight-500, $color-black);
+  line-height: 3.2rem;
+}
+
+.price {
+  width: $price-index;
+  @include font($font-size-20, $font-weight-500, $color-highlight-green-0);
+  line-height: 3.2rem;
+}
+
+.menu {
+  display: flex;
+  width: 7.2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.bottom-line {
+  margin: 0 3.4rem;
+  height: 1px;
+  border: 1px solid $color-secondary-50;
+}
+

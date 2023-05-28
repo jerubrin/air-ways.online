@@ -1,0 +1,26 @@
+@import "variables";
+@import "mixins";
+
+.picture {
+  width: 10rem;
+  height: 4rem;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.visa {
+  background-image: url(../../../../assets/icon_visa.svg);
+}
+
+.mastercard {
+  background-image: url(../../../../assets/icon_mastercard.svg);
+}
+
+.number {
+  @include font($font-size-24, $font-weight-300, $color-neutral-0)
+}
+
+.pay-btn {
+  margin: auto 4rem auto auto;
+}

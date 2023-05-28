@@ -1,0 +1,20 @@
+<app-direction-title
+  [fromCityName]="flight?.form?.city"
+  [toCityName]="flight?.to?.city"
+  [isForward]="isForward"
+></app-direction-title>
+<app-top-date-cards
+  [seats]="flight?.seats"
+  [date]="flight?.takeoffDate"
+  [flights]="flight?.otherFlights"
+  [flight]="flight"
+  [isSelected]="isSelected"
+  (selectEmitter)="select($event)"
+  [select]="selected"
+></app-top-date-cards>
+<app-flight-block
+  [flight]="selectedFlight"
+  [isSelected]="isSelected"
+  [isForward]="isForward"
+  (setSelection)="setSelection($event)"
+></app-flight-block>

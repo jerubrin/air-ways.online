@@ -1,0 +1,17 @@
+<div class="promo-container">
+  <form class="promo" (ngSubmit)="onSubmitPromo()">
+    <input 
+      [(ngModel)]="promo"
+      placeholder="Promo Code"
+      [ngModelOptions]="{ standalone: true }"
+      (ngModelChange)="message = ''"/>
+    <button mat-flat-button type="submit" (click)="onSubmitPromo()">Apply</button>
+  </form>
+  <p class="err-message" *ngIf="message">{{message}}</p>
+</div>
+<div class="form">
+  <p *ngIf="cart$">{{cart$ | selectedCount | async}} selected </p>
+  <button class="btn-forward" type="button" (click)="pay.emit()" [disabled]="isDisabled">
+    Payment
+  </button>
+</div>

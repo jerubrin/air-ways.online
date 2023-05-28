@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="cart-container">
+    <app-cart-list
+      title="Cart"
+      [cart]="store.cart$ | async"
+      [allSelected]="allSelected"
+      (selectAll)="selectAll($event)"
+      (edit)="edit($event)"
+      (delete)="delete($event)"
+      (selectCartItem)="selectCartItem($event.id, $event.value)"
+    ></app-cart-list>
+    <app-total-price class="price-block" [cart$]="store.cart$" (addNew)="addNew()"></app-total-price>
+    <div class="bottom-line"></div>
+    <app-promo-and-pay class="bottom-block" [cart$]="store.cart$" (pay)="payment()"></app-promo-and-pay>
+  </div>
+</div>

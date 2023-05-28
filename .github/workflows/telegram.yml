@@ -1,0 +1,130 @@
+name: Test Build
+
+on:
+  pull_request:
+    branches: [ "**" ]
+    types: [opened, synchronize, closed, reopened]
+  pull_request_review:
+    types: [created, edited, dismissed, submitted]
+  issue_comment:
+    types: [created]
+
+jobs:
+  notification:
+    name: "PR tg notification"
+    runs-on: ubuntu-latest
+    steps:
+      # Pull Requests
+      - name: "Create Pull Request"
+        if: (github.event_name == 'pull_request' && github.event.action == 'opened')
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> создал ⤴️<i>Pull Request</i>
+            <code>"${{ github.event.pull_request.title }}"</code>
+            из ветки <code>${{ github.head_ref }}</code> в ветку <code>${{ github.base_ref }}</code>.
+
+            🟦 <a href="${{ github.event.pull_request.html_url }}">link...</a>
+      - name: "Commit to Pull Request"
+        if: (github.event_name == 'pull_request' && github.event.action == 'synchronize')
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> добавил 🔘<i>commit</i> в ⤴️<i>Pull Request</i>
+            <code>"${{ github.event.pull_request.title }}"</code>.
+            из ветки <code>${{ github.head_ref }}</code> в ветку <code>${{ github.base_ref }}</code>.
+
+            🟦 <a href="${{ github.event.pull_request.html_url }}">link...</a>
+      - name: "Merged Pull Request"
+        if: (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == true)
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> замержил ⤴️<i>Pull Request</i>
+            <code>"${{ github.event.pull_request.title }}"</code>
+            созданный 👤 <u><b>${{ github.event.pull_request.user.login }}</b></u>
+            из ветки <code>${{ github.head_ref }}</code> в ветку <code>${{ github.base_ref }}</code>.
+
+            🟦 <a href="${{ github.event.pull_request.html_url }}">link...</a>
+      - name: "Closed Pull Request"
+        if: (github.event_name == 'pull_request' && github.event.action == 'closed' && github.event.pull_request.merged == false)
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> закрыл <i>Pull Request</i> <u><b>без мержа!</b></u>
+            <code>"${{ github.event.pull_request.title }}"</code>
+            созданный 👤 <u><b>${{ github.event.pull_request.user.login }}</b></u>
+            из ветки <code>${{ github.head_ref }}</code> в ветку <code>${{ github.base_ref }}</code>.
+
+            🟦 <a href="${{ github.event.pull_request.html_url }}">link...</a>
+      - name: "Reopened Pull Request"
+        if: (github.event_name == 'pull_request' && github.event.action == 'reopened')
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> снова открыл <i>Pull Request</i>
+            <code>"${{ github.event.pull_request.title }}"</code>
+            из ветки <code>${{ github.head_ref }}</code> в ветку <code>${{ github.base_ref }}</code>.
+
+            🟦 <a href="${{ github.event.pull_request.html_url }}">link...</a>
+
+      # Issie Added
+      - name: issue_comment
+        if: (github.event_name == 'issue_comment')
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> добавил коментарий к <i>Pull Request</i>
+            <code>"${{ github.event.issue.title }}"</code>
+
+            <i>${{ github.event.comment.body }}</i>
+
+            🟦 <a href="${{ github.event.comment.html_url }}">link...</a>
+
+      # Comment Added
+      - name: pull_request_review
+        if: (github.event_name == 'pull_request_review')
+        uses: "appleboy/telegram-action@master"
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: HTML
+          message: |
+            ⚫️ <b>${{ github.repository }}</b> ⚫️
+
+            👤 <u><b>${{ github.actor }}</b></u> сделал ревью на <i>Pull Request</i>
+            <code>"${{ github.event.pull_request.title }}"</code>
+
+            ❗️<b>Статус:</b> <u>${{ github.event.review.state }}</u>
+
+            🟦 <a href="${{ github.event.review.html_url }}">link...</a>

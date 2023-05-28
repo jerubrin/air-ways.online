@@ -1,0 +1,22 @@
+@import "mixins";
+@import "variables";
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  @include font($font-size-24, $font-weight-700, $color-primary);
+  line-height: 2.8rem;
+
+  margin-bottom: 1.6rem;
+}
+
+.forward-icon {
+  @include icon(2rem);
+  background-image: url(../../../../assets/airplane-forward.svg);
+}
+
+.back-icon {
+  @include icon(2rem);
+  background-image: url(../../../../assets/airplane-back.svg);
+}

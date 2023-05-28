@@ -1,0 +1,25 @@
+@import 'variables';
+:host {
+  .footer {
+    height: $footer-height;
+    border-top: 0.1rem solid $color-secondary-40;
+    background-color: $color-neutral-80;
+  }
+  .payment-method {
+    gap: 2.7rem;
+    ul {
+      gap: 1.6rem;
+    }
+  }
+  .developers-info {
+    gap: 2.7rem;
+  }
+  .developer-link {
+    gap: 0.7rem;
+    text-decoration: none;
+    color: $color-primary;
+    img {
+      color: $color-primary;
+    }
+  }
+}

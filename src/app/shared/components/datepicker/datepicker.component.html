@@ -1,0 +1,20 @@
+<mat-form-field class="date-range-form-field" appearance="fill">
+  <mat-label>Date</mat-label>
+  <input
+    matInput
+    [matDatepicker]="departureDatepicker"
+    [formControl]="departureDateControl"
+    placeholder="Departure Date"
+    [min]="minDate"
+    (dateChange)="onDateChanged()"
+    (blur)="onDateChanged()"
+  />
+  <mat-datepicker-toggle matSuffix [for]="departureDatepicker"></mat-datepicker-toggle>
+  <mat-hint *ngIf="departureDatepickerOpened">{{ selectedDateFormat }}</mat-hint>
+  <mat-datepicker
+    #departureDatepicker
+    (opened)="departureDatepickerOpened = true"
+    (closed)="departureDatepickerOpened = false"
+  ></mat-datepicker>
+  <mat-error>{{ getDepartureFromErrorMessage() }}</mat-error>
+</mat-form-field>

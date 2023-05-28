@@ -1,0 +1,25 @@
+<div [ngClass]="{'right-block': true, 'right-block_selected': isSelected}">
+  <button
+    [ngClass]="{
+      'btn-flat': isSelected,
+      'btn-select': !isSelected,
+    }"
+    (click)="setSelectionFn(!isSelected)">
+    {{isSelected ? 'Edit' : 'Select'}}
+  </button>
+  <div [ngClass]="{
+    'right-block__price': true,
+    'display-none': isSelected,
+  }">
+    <div class="right-block__seats" [appBgSeats]="seats">
+      <p>{{seats?.avaible}} seats</p>
+      <p>available</p>
+    </div>
+    <p class="right-block__price-title">Price:</p>
+    <p class="right-block__price-text">{{price | price | async}}</p>
+  </div>
+  <p [ngClass]="{
+    'right-block__price-title-selected': true,
+    'display-none': !isSelected,
+  }">{{price | price | async}}</p>
+</div>

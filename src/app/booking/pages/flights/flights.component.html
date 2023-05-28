@@ -1,0 +1,34 @@
+<div class="flights-list" *ngIf="flights.length; else noFlights">
+  <app-flight-container
+    *ngIf="flights[0]"
+    [flight]="flights[0]"
+    [isForward]="true"
+    (selectEmitter)="flightSearchService.selectFlight(0, $event)"
+    [isSelected]="!!flightSearchService.selectedFlights[0]"
+    [selected]="mainStoreService.selectedFlights[0]"
+  >
+  </app-flight-container>
+  <app-flight-container
+    *ngIf="flights[1]"
+    [flight]="flights[1]"
+    [isForward]="false"
+    (selectEmitter)="flightSearchService.selectFlight(1, $event)"
+    [isSelected]="!!flightSearchService.selectedFlights[1]"
+    [selected]="mainStoreService.selectedFlights[1]"
+  >
+  </app-flight-container>
+</div>
+
+<ng-template #noFlights>
+  <div class="no-flights">
+    <div class="no-flights-img"></div>
+    <p class="no-flights-text">Nothing to found...</p>
+  </div>
+</ng-template>
+
+<form class="form" (ngSubmit)="onSubmit()">
+  <button class="btn-transparent" type="button" (click)="goBack()">Back</button>
+  <button class="btn-forward" type="submit" [disabled]="!flightSearchService.isValid">
+    Continue
+  </button>
+</form>

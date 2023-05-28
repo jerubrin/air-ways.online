@@ -1,0 +1,75 @@
+$color-primary: #11397e;
+$color-error: #b3261e;
+$color-red: rgba(179, 38, 30, 0.3);
+$color-black: #000000;
+$color-white: #ffffff;
+
+$color-secondary: #0090bd;
+$color-secondary-10: #7abfd4;
+$color-secondary-40: #d0d9df;
+$color-secondary-50: #e1e5eb;
+$color-secondary-60: #e9edf1;
+$color-secondary-80: #f1f3f6;
+$color-secondary-90: #f4f6f9;
+$color-secondary-100: #fafafa;
+
+$color-neutral-0: #1c1b1f;
+$color-neutral-10: #49454f;
+$color-neutral-20: #454a53;
+$color-neutral-30: #74767a;
+$color-neutral-40: rgba(116, 118, 122, 0.6);
+$color-neutral-50: rgba(0, 0, 0, 0.25);
+$color-neutral-55:#D0D9DF;
+$color-neutral-60: #cecece;
+$color-neutral-65: rgba(255, 255, 255, 0.85);
+$color-neutral-70: rgba(116, 118, 122, 0.2);
+$color-neutral-75: rgba(168, 171, 177);
+$color-neutral-80: #f5f5f5;
+$color-neutral-90: rgba(241, 243, 246, 0.15);
+$color-neutral-100: #ffffff;
+
+$color-highlight-green-0: #7f8906;
+$color-highlight-green-30: rgba(127, 137, 6, 0.3);
+$color-highlight-yellow-0: #f1c933;
+$color-highlight-yellow-30: rgba(241, 201, 51, 0.3);
+$color-highlight-gradient: linear-gradient(
+  108.75deg,
+  #0090bd 59.91%,
+  #073590 95.36%
+);
+
+$filter-white: brightness(0) invert(1);
+$filter-grey: invert(26%) sepia(0%) saturate(1075%) hue-rotate(121deg)
+  brightness(98%) contrast(86%);
+$filter-blue: invert(18%) sepia(84%) saturate(1149%) hue-rotate(193deg)
+  brightness(96%) contrast(100%);
+
+$font-weight-100: 100;
+$font-weight-300: 300;
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-700: 700;
+
+$font-size-8: 0.8rem;
+$font-size-12: 1.2rem;
+$font-size-14: 1.4rem;
+$font-size-16: 1.6rem;
+$font-size-20: 2rem;
+$font-size-24: 2.4rem;
+$font-size-30: 3rem;
+
+$line-height-28: 2.8rem;
+$line-height-24: 2.4rem;
+$line-height-16: 1.6rem;
+
+$header-height: 8.8rem;
+$footer-height: 9.2rem;
+$sign-in-height: 106.6rem;
+
+$gap-index: 2.842639593908629%;
+$no-index: 11.979695431472081%;
+$flight-index: 18.071065989847716%;
+$type-index: 10.355329949238579%;
+$date-index: 26.395939086294416%;
+$passengers-index: 10.761421319796954%;
+$price-index: 8.223350253807107%;

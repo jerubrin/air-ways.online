@@ -1,0 +1,66 @@
+@import "variables";
+@import "mixins";
+@import "buttons";
+
+.second-menu {
+  height: 6.8rem;
+  background-color: $color-secondary-100;
+  box-shadow: 0px 1px 0.4rem rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  height: 6.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.direction {
+  display: flex;
+  gap: 1.6rem;
+  margin-right: 4rem;
+}
+
+.city-name {
+  @include font($font-size-16, $font-weight-500, $color-black);
+  line-height: 2.4rem;
+}
+
+.trip-icon {
+  @include icon(2.4rem);
+}
+
+.return-trip-icon {
+  background-image: url("../../../../assets/return_trip.svg");
+}
+
+.one-way-trip-icon {
+  background-image: url("../../../../assets/one_way_trip.svg");
+}
+
+.dates {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-right: 6.4rem;
+
+  p {
+    @include font($font-size-14, $font-weight-500, $color-neutral-30);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    line-height: 2rem;
+  }
+}
+
+.circle {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 0.2rem;
+  background: $color-secondary;
+}
+
+.account-icon {
+  @include icon(1.6rem);
+  display: inline-block;
+  background-image: url(../../../../assets/account.svg);
+}

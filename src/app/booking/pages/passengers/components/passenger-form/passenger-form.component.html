@@ -1,0 +1,125 @@
+<form ngNoForm [formGroup]="passengerForm" class="form">
+  <h3 class="title">{{ passengerIndex + 1 }}. {{ passengerTitle }}</h3>
+  <div class="form-fields-wrapper">
+    <mat-form-field>
+      <mat-label>First name</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="firstName"
+        placeholder="Aleh"
+        (input)="passengerForm.get('firstName')?.markAsTouched()"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        [matTooltip]="toolTips.lastName"
+        matTooltipPosition="right"
+      >
+        <mat-icon
+          *ngIf="
+            (passengerForm?.get('firstName')?.dirty && passengerForm?.get('firstName')?.valid) ||
+            !passengerForm?.get('firstName')?.touched
+          "
+        >
+          error_outline
+        </mat-icon>
+        <mat-icon
+          class="icon-error"
+          *ngIf="
+            passengerForm?.get('firstName')?.touched && passengerForm?.get('firstName')?.errors
+          "
+        >
+          info
+        </mat-icon>
+      </button>
+      <mat-error
+        *ngIf="passengerForm?.get('firstName')?.invalid && passengerForm?.get('firstName')?.touched"
+      >
+        {{ getErrorMessage('firstName') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Last name</mat-label>
+      <input
+        matInput
+        formControlName="lastName"
+        placeholder="Serhiyenia"
+        (input)="passengerForm.get('lastName')?.markAsTouched()"
+      />
+      <button
+        type="button"
+        mat-icon-button
+        matSuffix
+        [matTooltip]="toolTips.name"
+        matTooltipPosition="right"
+      >
+        <mat-icon
+          *ngIf="
+            (passengerForm?.get('lastName')?.dirty && passengerForm?.get('lastName')?.valid) ||
+            !passengerForm?.get('lastName')?.touched
+          "
+        >
+          error_outline
+        </mat-icon>
+        <mat-icon
+          class="icon-error"
+          *ngIf="passengerForm?.get('lastName')?.touched && passengerForm?.get('lastName')?.errors"
+        >
+          info
+        </mat-icon>
+      </button>
+      <mat-error
+        *ngIf="passengerForm?.get('lastName')?.invalid && passengerForm?.get('lastName')?.touched"
+      >
+        {{ getErrorMessage('lastName') }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-button-toggle-group
+      class="gender label-medium"
+      formControlName="gender"
+      name="gender"
+      aria-label="Gender"
+    >
+      <mat-button-toggle class="gender-item flex-center" [value]="gender.Male"
+        ><img src="./assets/icon_tick.svg" alt="tick" /> Male</mat-button-toggle
+      >
+      <mat-button-toggle class="gender-item flex-center" [value]="gender.Female"
+        ><img src="./assets/icon_tick.svg" alt="tick" /> Female</mat-button-toggle
+      >
+    </mat-button-toggle-group>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Date of birth</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="dateOfBirth"
+        placeholder="MM/DD/YYYY"
+        [max]="today"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error
+        *ngIf="
+          passengerForm?.get('dateOfBirth')?.invalid && passengerForm?.get('dateOfBirth')?.touched
+        "
+      >
+        {{ getErrorMessage('dateOfBirth') }}
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div *ngIf="passengerTitle !== 'Infant'" class="slide-toggle-wrapper flex-center">
+    <mat-slide-toggle formControlName="specialAssistance" color="primary"
+      ><mat-icon><img src="./assets/icon_wheelchair.svg" alt="Special Assistance" /> </mat-icon>Need
+      special assistance?</mat-slide-toggle
+    >
+    <mat-slide-toggle formControlName="checkedInBaggage" color="primary">
+      <mat-icon>{{ passengerForm.get('checkedInBaggage')?.value ? 'work' : 'work_off' }}</mat-icon>
+      Need checked-in baggage?
+    </mat-slide-toggle>
+  </div>
+</form>

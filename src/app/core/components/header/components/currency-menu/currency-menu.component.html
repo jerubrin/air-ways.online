@@ -1,0 +1,12 @@
+<button class="btn btn-currency-menu" mat-stroked-button [matMenuTriggerFor]="currencyMenu">
+  {{ selectedCurrencyItem }}
+</button>
+<mat-menu class="currency-menu" #currencyMenu="matMenu">
+  <button
+    mat-menu-item
+    *ngFor="let currencyItem of currencyMenuItems"
+    (click)="clickCurrencyMenuItem(currencyItem)"
+  >
+    {{ currencyItem }}
+  </button>
+</mat-menu>

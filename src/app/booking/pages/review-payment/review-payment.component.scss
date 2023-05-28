@@ -1,0 +1,75 @@
+@import "variables";
+@import "mixins";
+@import "buttons";
+
+.form {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  gap: 4rem;
+  margin-top: 4rem;
+}
+
+.review {
+  padding-top: 4rem;
+  padding-bottom: 4.8rem;
+}
+
+.title {
+  padding: 0.8rem 0;
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+
+.review-icon {
+  width: 2.4rem;
+  height: 2.4rem;
+  background: url(../../../../assets/summary.svg) center no-repeat;
+  background-size: contain;
+}
+
+.review-title {
+  @include font($font-size-24, $font-weight-700, $color-primary);
+  line-height: 2.8rem;
+}
+
+.price-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.price-block {
+  width: 55.2rem;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  border: 1px solid $color-secondary-50;
+  border-radius: 0.8rem;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  background: $color-white;
+}
+
+.review-flights {
+  display: flex;
+  gap: 2.4rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.review-flight {
+  width: 55.1rem;
+  border: 1px solid $color-secondary-50;
+  border-radius: 0.8rem;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.btn-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: right;
+  gap: 4rem;
+}

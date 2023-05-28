@@ -1,0 +1,8 @@
+<div [className]="'picture ' + picture"></div>
+<div class="number">{{number}}</div>
+<button
+  mat-flat-button
+  class="pay-btn"
+  color="primary"
+  (click)="pay.emit()"
+>Pay</button>

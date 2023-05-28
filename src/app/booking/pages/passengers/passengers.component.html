@@ -1,0 +1,48 @@
+<section>
+  <form [formGroup]="passengersForm" (ngSubmit)="onSubmit()">
+    <h2 class="flex-center">
+      <div class="passengers-icon"></div>
+      Passengers
+    </h2>
+    <p class="sub-title">
+      Enter the passenger's names as they appear on document (passport or ID).
+    </p>
+
+    <div class="passengers-forms-container" *ngIf="hasPassengers()">
+      <app-passenger-form
+        *ngFor="let passenger of passengers; let i = index"
+        [passengerIndex]="i"
+        [passengerTitle]="passenger.title"
+        [initialValues]="passenger.initialValues"
+        (passengerFormChanges)="
+          updatePassengerForms(
+            $event.isValid,
+            $event.passengerIndex,
+            $event.formValue,
+            $event.passengerTitle
+          )
+        "
+      ></app-passenger-form>
+    </div>
+
+    <h2 class="flex-center">
+      <div class="contact-details-icon"></div>
+      Contact details
+    </h2>
+    <p class="sub-title">
+      We need contact details to be able to deliver the latest information regarding your flight.
+    </p>
+
+    <div class="contact-details-form-container" *ngIf="hasPassengers()">
+      <app-contact-details-form
+        [initialValues]="contactDetailsInitialValue"
+        (contactDetailsFormChanges)="updateContactDetailsForm($event.isValid, $event.formValue)"
+      ></app-contact-details-form>
+    </div>
+
+    <div class="btn-wrapper">
+      <button class="btn-transparent" type="button" (click)="goBack()">Back</button>
+      <button class="btn-forward" type="submit" [disabled]="!isFormValid" type="submit">Continue</button>
+    </div>
+  </form>
+</section>

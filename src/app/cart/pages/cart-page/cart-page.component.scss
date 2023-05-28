@@ -1,0 +1,21 @@
+@import "variables";
+@import "mixins";
+
+.price-block {
+  padding: 4.0rem 3.4rem 2.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-line {
+  margin: 0 3.4rem;
+  height: 1px;
+  border: 1px solid $color-secondary-50;
+}
+
+.bottom-block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4rem 3.4rem;
+}

@@ -1,0 +1,30 @@
+<div class="booking-page">
+  <app-second-menu
+    (editClick)="editClick()"
+    [isShowingEditButton]="editShow"
+    [fromCityName]="fromWhereInitialValue"
+    [toCityName]="toWhereInitialValue"
+    [forwardDate]="departureDateInitialValue"
+    [backDate]="returnDateInitialValue"
+    [persons]="adultsInitialValue + childrenInitialValue + infantsInitialValue"
+  ></app-second-menu>
+  <div class="container">
+    <app-edit-flight-search-form
+      class="relative"
+      [showEditForm]="showEditForm && editShow"
+      [isRoundTrip]="isRoundTrip"
+      [fromWhereInitialValue]="fromWhereInitialValue"
+      [fromWhereInitialValue]="fromWhereInitialValue"
+      [toWhereInitialValue]="toWhereInitialValue"
+      [departureDateInitialValue]="departureDateInitialValue"
+      [returnDateInitialValue]="returnDateInitialValue"
+      [adultsInitialValue]="adultsInitialValue"
+      [childrenInitialValue]="childrenInitialValue"
+      [infantsInitialValue]="infantsInitialValue"
+    ></app-edit-flight-search-form>
+  </div>
+
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</div>
