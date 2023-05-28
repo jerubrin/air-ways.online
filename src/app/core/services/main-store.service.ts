@@ -287,9 +287,9 @@ export class MainStoreService {
     this.queryParams = {};
     this.selectedFlights = [0, 0];
     this.updateLocalStorage();
-    this.clearDataInSessionStorage();
     this._cartSize$.next(this.cart.length);
     this._cart$.next(this.cart);
+    this.clearDataInSessionStorage();
   }
 
   clearDataInSessionStorage() {
@@ -299,6 +299,20 @@ export class MainStoreService {
     sessionStorage.removeItem(LocalStorageKeys.QueryParams);
     sessionStorage.removeItem(LocalStorageKeys.RandomData);
     sessionStorage.removeItem(LocalStorageKeys.SelectedFlights);
+    this.flightResults = [];
+    this.flights = [];
+    this.passengersResult = {
+      adults: [],
+      children: [],
+      infants: [],
+      contactDetailsData: {
+        countryCode: '',
+        phone: '',
+        email: ''
+      }
+    };
+    this.queryParams = {};
+    this.selectedFlights = [0, 0];
   }
 
   setDataFromCart(id: string) {

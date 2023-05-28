@@ -65,11 +65,17 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
                     .getAirportStream(searchValue)
                     .pipe(
                       tap((airports) => {
-                        if (airports.length === 0) {
-                          const errors = { required: true, notFound: true };
+                        if (
+                          this.route.snapshot.queryParams['fromKey'] === this.route.snapshot.queryParams['toKey'] &&
+                          !!this.route.snapshot.queryParams['fromKey']
+                        ) {
+                          const errors = { required: false, notFound: false, sameCity: true };
+                          this.destinationControl.setErrors(errors);
+                        } else if (airports.length === 0) {
+                          const errors = { required: true, notFound: true, sameCity: false };
                           this.destinationControl.setErrors(errors);
                         } else {
-                          const errors = { required: true, notFound: false };
+                          const errors = { required: true, notFound: false, sameCity: false };
                           this.destinationControl.setErrors(errors);
                         }
                         this.options = airports;
@@ -92,15 +98,6 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
       const errors = { required: false, notFound: false, sameCity: true };
       this.destinationControl.setErrors(errors);
     }
-
-    this.subscriptions.push(
-      this.route.queryParams.subscribe((param) => {
-        if ((param['fromKey'] === param['toKey']) && !!param['toKey']) {
-          const errors = { required: false, notFound: false, sameCity: true };
-          this.destinationControl.setErrors(errors);
-        }
-      })
-    );
   }
 
   ngOnDestroy(): void {

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalStorageKeys } from 'src/app/core/data/enams/local-storage.enum';
 import { MainStoreService } from 'src/app/core/services/main-store.service';
 import { PaymentService } from 'src/app/core/services/payment.service';
@@ -20,6 +20,7 @@ export class ReviewPaymentComponent implements AfterViewInit {
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     public reviewPaymentService: ReviewPaymentService,
     private fb: FormBuilder,
     public store: MainStoreService,
@@ -38,7 +39,13 @@ export class ReviewPaymentComponent implements AfterViewInit {
       sessionStorage.removeItem(LocalStorageKeys.Booked);
     }
 
-    if (!this.isBooked && !this.store.flights) {
+    if (!this.isBooked
+      && !this.route.snapshot.queryParams['fromKey']
+      && !this.route.snapshot.queryParams['toKey']
+      && !this.route.snapshot.queryParams['forwardDate']
+    ) {
+      this.store.clearDataInSessionStorage();
+      sessionStorage.clear();
       this.router.navigate([RoutesPath.MainPage]);
     }
   }
