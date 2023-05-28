@@ -15,12 +15,20 @@
   @media screen and (max-width: 1290px) {
     width: 100vw;
   }
+  @media screen and (max-width: 800px) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
 }
 
 .direction {
   display: flex;
   gap: 1.6rem;
   margin-right: 4rem;
+  @media screen {
+    gap: 0.6rem;
+    margin-right: 1.6rem;
+  }
 }
 
 .city-name {
@@ -45,6 +53,10 @@
   align-items: center;
   gap: 0.8rem;
   margin-right: 6.4rem;
+  @media screen {
+    gap: 0.6rem;
+    margin-right: 1.6rem;
+  }
 
   p {
     @include font($font-size-14, $font-weight-500, $color-neutral-30);
