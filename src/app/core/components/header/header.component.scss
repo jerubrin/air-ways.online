@@ -1,34 +1,103 @@
 @import 'variables';
 
 :host {
+  .container {
+    justify-content: space-between;
+  }
   .header {
     position: fixed;
     top: 0;
-    // z-index: 999;
-    z-index: 1000;
+    z-index: 900;
     width: 100%;
-    height: $header-height;
+    min-height: $header-height;
+    @media screen and (max-width: 1100px) {
+      min-height: $header-height-1100;
+    }
     transition: all 0.2s;
   }
   .left-side {
     gap: 1.7rem;
+    @media screen and (max-width: 1100px) {
+      gap: 1.7rem;
+      margin-right: 0.8rem;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
   }
   .header.main {
     background-color: $color-neutral-70;
     color: $color-white;
     &.active {
       background-color: $color-neutral-75;
-      // z-index: 999;
+    }
+    @media screen and (max-width: 1100px) {
+      height: $header-height-1100;
+    }
+    @media screen and (max-width: 1100px) {
+      .container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.8rem
+      }
+      .spacer {
+        display: none;
+      }
     }
     .right-side {
       gap: 4rem;
+      margin-left: auto;
+      @media screen and (max-width: 1100px) {
+        gap: 1.7rem;
+        margin-left: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      @media screen and (max-width: 700px) {
+        margin-top: 5rem;
+        align-items: center;
+        flex-wrap: revert;
+      }
+      @media screen and (max-width: 500px) {
+        transform: scale(0.9);
+        gap: 0.4rem;
+        margin-left: 0;
+      }
     }
   }
   .header.booking {
     background-color: $color-white;
     color: $color-neutral-10;
+    @media screen and (max-width: 1100px) {
+      height: $header-height-1100;
+    }
+    @media screen and (max-width: 1100px) {
+      .container {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .spacer {
+        display: none;
+      }
+    }
     .right-side {
       gap: 1.7rem;
+      margin-left: auto;
+      @media screen and (max-width: 1100px) {
+        gap: 1.7rem;
+        margin-left: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      @media screen and (max-width: 700px) {
+        margin-top: 5rem;
+        align-items: center;
+        flex-wrap: revert;
+      }
+      @media screen and (max-width: 500px) {
+        transform: scale(0.9);
+        gap: 0.4rem;
+        margin-left: 0;
+      }
     }
   }
   .header.cart {
@@ -36,6 +105,27 @@
     color: $color-primary;
     .right-side {
       gap: 4rem;
+      margin-left: auto;
+      @media screen and (max-width: 1100px) {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      @media screen and (max-width: 1100px) {
+        gap: 1.7rem;
+        margin-left: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      @media screen and (max-width: 700px) {
+        margin-top: 5rem;
+        align-items: center;
+        flex-wrap: revert;
+      }
+      @media screen and (max-width: 500px) {
+        transform: scale(0.9);
+        gap: 0.4rem;
+        margin-left: 0;
+      }
     }
   }
   .header.user-account {
@@ -43,6 +133,57 @@
     color: $color-primary;
     .right-side {
       gap: 4rem;
+      margin-left: auto;
+      @media screen and (max-width: 1100px) {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      @media screen and (max-width: 1100px) {
+        gap: 1.7rem;
+        margin-left: 0.8rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      @media screen and (max-width: 700px) {
+        margin-top: 5rem;
+        align-items: center;
+        flex-wrap: revert;
+      }
+      @media screen and (max-width: 500px) {
+        transform: scale(0.9);
+        gap: 0.4rem;
+        margin-left: 0;
+      }
     }
   }
+}
+
+.container {
+  overflow: visible;
+  @media screen and (max-width: 1290px) {
+    width: 100vw;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .app-logo {
+    transform: scale(0.8);
+    position: absolute;
+    top: 0.8rem;
+    left: 0.8rem;
+  }
+}
+@media screen and (max-width: 480px) {
+  .app-logo {
+    max-width: 40px;
+    overflow: hidden;
+  }
+
+  .right-side-text {
+    display: none;
+  }
+}
+
+.currency-menu {
+  
 }

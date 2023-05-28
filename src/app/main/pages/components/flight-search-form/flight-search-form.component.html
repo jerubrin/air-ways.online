@@ -25,20 +25,23 @@
         (validValue)="handleValidValueDestination($event)"
       ></app-destination-form-field>
     </div>
-    <div class="flex-center">
+    <div class="flex-center date-and-passengers">
       <app-datepicker-range
+        class="datapicker-range"
         *ngIf="isRoundTrip()"
         [departureDateInitialValue]="departureDateInitialValue"
         [returnDateInitialValue]="returnDateInitialValue"
         (validDateRange)="onValidDateRange($event)"
       ></app-datepicker-range>
       <app-datepicker
+        class="datapicker-range"
         *ngIf="isOneWay()"
         [initialValue]="departureDateInitialValue"
         (validDate)="onValidDate($event)"
       ></app-datepicker>
       <span class="spacer"></span>
       <app-passengers-form-field
+        class="datapicker-range"
         [adultsInitialValue]="adultsInitialValue"
         [childrenInitialValue]="childrenInitialValue"
         [infantsInitialValue]="infantsInitialValue"

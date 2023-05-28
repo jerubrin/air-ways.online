@@ -1,5 +1,11 @@
 .date-range-form-field {
   width: 31.1rem;
+
+  @media screen and (max-width: 640px) {
+    width: 100%;
+    flex-basis: 0;
+    flex-grow: 1;
+  }
 }
 ::ng-deep.mat-datepicker-content {
   margin-top: 2rem;

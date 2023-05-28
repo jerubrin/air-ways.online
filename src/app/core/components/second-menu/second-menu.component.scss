@@ -12,6 +12,9 @@
   height: 6.8rem;
   display: flex;
   align-items: center;
+  @media screen and (max-width: 1290px) {
+    width: 100vw;
+  }
 }
 
 .direction {

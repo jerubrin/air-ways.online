@@ -12,14 +12,47 @@
   }
   ::ng-deep .mat-step-header {
     pointer-events: none;
+    @media screen and (max-width: 1100px) {
+      padding: 0 4px;
+    }
   }
   ::ng-deep.mat-step-header .mat-step-icon-selected,
   ::ng-deep.mat-step-header .mat-step-icon-state-edit,
   ::ng-deep.mat-step-header .mat-step-icon-state-done {
     background-color: $color-secondary;
+    @media screen and (max-width: 1100px) {
+      padding: 0 4px;
+    }
+  }
+  ::ng-deep .mat-horizontal-stepper-header{
+    @media screen and (max-width: 1100px) {
+      padding: 0 4px;
+      max-height: 3.2rem;
+    }
+  }
+  ::ng-deep .mat-horizontal-stepper-wrapper {
+    @media screen and (max-width: 70rem) {
+      transform: scale(0.7);
+      position: absolute;
+      top: 0;
+      right: -4rem;
+    }
+    @media screen and (max-width: 40rem) {
+      transform: scale(0.65);
+    }
   }
   ::ng-deep .mat-step-header[aria-selected='false']:not([ng-reflect-state='done']) {
     pointer-events: none;
     opacity: 0.5;
+    @media screen and (max-width: 1100px) {
+      padding: 1rem;
+    }
+  }
+  ::ng-deep .mat-stepper-horizontal-line{
+    @media screen and (max-width: 1100px) {
+      max-width: 0.4rem;
+      margin: 0;
+      min-width: 0;
+    }
   }
 }

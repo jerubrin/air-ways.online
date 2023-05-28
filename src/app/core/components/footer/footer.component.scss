@@ -4,6 +4,11 @@
     height: $footer-height;
     border-top: 0.1rem solid $color-secondary-40;
     background-color: $color-neutral-80;
+    @media screen and (max-width: 700px) {
+      min-height: $footer-height;
+      height: auto;
+      padding: 2rem 0;
+    }
   }
   .payment-method {
     gap: 2.7rem;
@@ -21,5 +26,20 @@
     img {
       color: $color-primary;
     }
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .accept-text {
+    display: none;
+  }
+}
+
+.footer-container {
+  @media screen and (max-width: 700px) {
+    align-items: center;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    gap: 0.8rem;
   }
 }

@@ -59,6 +59,11 @@
 }
 
 :host {
+  @media screen and (max-width: 560px) {
+    max-width: 49.4rem;;
+    width: auto;
+    min-width: 0;
+  }
   width: 49.4rem;
   max-height: $sign-in-height;
   background-color: $color-white;
@@ -135,9 +140,13 @@
 }
 
 .auth-button {
-  width: 39.8rem;
+  width: 40rem;
   margin: 1rem auto;
   height: 3.2rem;
+  max-width: calc(100vw - 7rem);
+  justify-content: center;
+  display: flex;
+  overflow: hidden;
 
   &__img {
     width: 1.6rem;
