@@ -1,4 +1,16 @@
-@font-face{font-family:'Google Sans';font-style:normal;font-weight:400;src:url(//fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Owps.ttf)format('truetype');}@font-face{font-family:'Google Sans';font-style:normal;font-weight:500;src:url(//fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94YtzCwM.ttf)format('truetype');}
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url(//fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Owps.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Google Sans';
+  font-style: normal;
+  font-weight: 500;
+  src: url(//fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94YtzCwM.ttf)
+    format('truetype');
+}
 @import 'variables';
 @import 'mixins';
 
@@ -134,7 +146,7 @@
   }
   &__text {
     @include font($font-size-14, $font-weight-500, rgb(60, 64, 67));
-    font-family: "Google Sans" arial sans-serif;
+    font-family: 'Google Sans' arial sans-serif;
     letter-spacing: 0.035rem;
   }
 }
@@ -239,4 +251,16 @@
   font-weight: $font-weight-400;
   letter-spacing: 0.0333333333em;
   padding: 0 1.6rem;
+}
+::ng-deep .mdc-tooltip__surface {
+  background: $color-white !important;
+  color: $color-neutral-0 !important;
+  border-radius: 4px !important;
+  border: 1px solid $color-neutral-60 !important;
+  padding: 1rem 1.5rem !important;
+  font-size: 1.2rem !important;
+  text-align: left !important;
+}
+.icon-error {
+  color: $color-error;
 }
