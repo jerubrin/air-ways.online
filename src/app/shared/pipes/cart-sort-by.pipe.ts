@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import { Cart } from 'src/app/core/interfaces/cart';
-import { SortBy } from '../enum/sort-by';
-import { sortByDate, sortByFlight, sortByNumber, sortByPrice, sortByType } from '../helpers/sort.helpers';
+import { SortBy } from '../../cart/enum/sort-by';
+import { sortByDate, sortByFlight, sortByNumber, sortByPrice, sortByType } from '../../cart/helpers/sort.helpers';
 
 @Pipe({
   name: 'cartSortBy'

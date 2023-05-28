@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { SortBy } from '../../enum/sort-by';
-import { CartService } from '../../services/cart.service';
+import { SortBy } from '../../../cart/enum/sort-by';
+import { CartService } from '../../../cart/services/cart.service';
 
 @Component({
   selector: 'app-sort-title',

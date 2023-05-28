@@ -13,7 +13,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { MessageDialogComponent } from './components/message-dialog/message-dialog.component';
 import { NotFoundPageComponent } from './page/not-found-page/not-found-page.component';
 import { MatBadgeHiddenPipe } from './pipes/mat-badge-hidden.pipe';
-import { PricePipe } from './pipes/price.pipe';
 
 @NgModule({
   declarations: [
@@ -27,10 +26,9 @@ import { PricePipe } from './pipes/price.pipe';
     NotFoundPageComponent,
     FooterComponent,
     MessageDialogComponent,
-    PricePipe,
-    MatBadgeHiddenPipe,
+    MatBadgeHiddenPipe
   ],
   imports: [CommonModule, SharedModule, HttpClientModule],
-  exports: [HeaderComponent, FooterComponent, PricePipe]
+  exports: [HeaderComponent, FooterComponent]
 })
 export class CoreModule {}

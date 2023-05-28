@@ -1,67 +1,6 @@
 <div class="container">
   <div class="cart">
-    <h3 class="cart-title">Cart</h3>
-    <div class="cart-header">
-      <div class="h-col h-col-select-all">
-        <mat-checkbox
-          [checked]="allSelected"
-          color="primary"
-          (change)="selectAll($event.checked)"
-        ></mat-checkbox>
-      </div>
-      <app-sort-title
-        class="h-col h-col-no"
-        title="No."
-        [sortByTypeDown]="SortBy.NumberDown"
-        [sortByTypeUp]="SortBy.NumberUp"
-      ></app-sort-title>
-      <app-sort-title
-        class="h-col h-col-flight"
-        title="Flight"
-        [sortByTypeDown]="SortBy.FlightDown"
-        [sortByTypeUp]="SortBy.FlightUp"
-      ></app-sort-title>
-      <app-sort-title
-        class="h-col h-col-type"
-        title="Type trip"
-        [sortByTypeDown]="SortBy.TypeDown"
-        [sortByTypeUp]="SortBy.TypeUp"
-      ></app-sort-title>
-      <app-sort-title
-        class="h-col h-col-date-time"
-        title="Data & Time"
-        [sortByTypeDown]="SortBy.DataDown"
-        [sortByTypeUp]="SortBy.DataUp"
-      ></app-sort-title>
-      <app-sort-title
-        class="h-col h-col-passengers"
-        title="Passengers"
-        [hideSort]="true"
-      ></app-sort-title>
-      <app-sort-title
-        class="h-col h-col-price"
-        title="Price"
-        [sortByTypeDown]="SortBy.PriceDown"
-        [sortByTypeUp]="SortBy.PriceUp"
-      ></app-sort-title>
-    </div>
-    <div class="cart-item-list">
-      <app-cart-item
-        class="cart-item"
-        *ngFor="let item of store.cart$ | async | cartSortBy:cartService.sortBy$ | async"
-        [item]="item"
-        [select]="item.isChecked"
-        (edit)="edit(item.id)"
-        (delete)="delete(item.id)"
-        (selectEmitter)="selectCartItem(item.id, $event)"
-      ></app-cart-item>
-      <ng-template *ngIf="(store.cart$ | async)?.length; else noCart"></ng-template>
-      <ng-template #noCart>
-        <div class="no-flights">
-          <h2>There is no flights to pay... :(</h2>
-        </div>
-      </ng-template>
-    </div>
+    <app-cart-list></app-cart-list>
     <app-total-price class="price-block" [cart$]="store.cart$" (addNew)="addNew()"></app-total-price>
     <div class="bottom-line"></div>
     <app-promo-and-pay class="bottom-block" [cart$]="store.cart$" (pay)="payment()"></app-promo-and-pay>

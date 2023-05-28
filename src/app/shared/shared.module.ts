@@ -7,10 +7,16 @@ import { PassengersFormFieldComponent } from './components/passengers-form-field
 import { MaterialModule } from './modules/material.module';
 import { OrderByPipe } from './pipes/order-by.pipe';
 
+import { CartItemComponent } from './components/cart-item/cart-item.component';
+import { CartListComponent } from './components/cart-list/cart-list.component';
 import { DatepickerRangeComponent } from './components/datepicker-range/datepicker-range.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 import { DestinationFormFieldComponent } from './components/destination-form-field/destination-form-field.component';
+import { SortTitleComponent } from './components/sort-title/sort-title.component';
 import { AddSubtractHoursPipe } from './pipes/add-subtract-hours.pipe';
+import { CartSortByPipe } from './pipes/cart-sort-by.pipe';
+import { PricePipe } from './pipes/price.pipe';
+import { SelectedCountPipe } from './pipes/selected-count.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +25,13 @@ import { AddSubtractHoursPipe } from './pipes/add-subtract-hours.pipe';
     DatepickerComponent,
     DatepickerRangeComponent,
     DestinationFormFieldComponent,
-    AddSubtractHoursPipe
+    AddSubtractHoursPipe,
+    CartListComponent,
+    SortTitleComponent,
+    PricePipe,
+    SelectedCountPipe,
+    CartSortByPipe,
+    CartItemComponent
   ],
   imports: [CommonModule, MaterialModule, RouterModule, FormsModule, ReactiveFormsModule],
   exports: [
@@ -32,7 +44,13 @@ import { AddSubtractHoursPipe } from './pipes/add-subtract-hours.pipe';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    AddSubtractHoursPipe
+    AddSubtractHoursPipe,
+    CartListComponent,
+    SortTitleComponent,
+    PricePipe,
+    SelectedCountPipe,
+    CartSortByPipe,
+    CartItemComponent
   ]
 })
 export class SharedModule {}
