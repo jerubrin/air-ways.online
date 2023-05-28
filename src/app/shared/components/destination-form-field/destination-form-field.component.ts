@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { debounceTime, Subscription, tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription, debounceTime, tap } from 'rxjs';
 import { FlightsApiService } from 'src/app/core/services/flights-api.service';
 import { Airport } from '../../interfaces/airport.model';
 
@@ -24,7 +25,10 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
-  constructor(private flightsApiService: FlightsApiService) {}
+  constructor(
+    private flightsApiService: FlightsApiService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     if (this.initialValue) {
@@ -80,6 +84,23 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
         )
         .subscribe()
     );
+
+    if (
+      this.route.snapshot.queryParams['fromKey'] === this.route.snapshot.queryParams['toKey'] &&
+      !!this.route.snapshot.queryParams['fromKey']
+    ) {
+      const errors = { required: false, notFound: false, sameCity: true };
+      this.destinationControl.setErrors(errors);
+    }
+
+    this.subscriptions.push(
+      this.route.queryParams.subscribe((param) => {
+        if ((param['fromKey'] === param['toKey']) && !!param['toKey']) {
+          const errors = { required: false, notFound: false, sameCity: true };
+          this.destinationControl.setErrors(errors);
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -103,6 +124,9 @@ export class DestinationFormFieldComponent implements OnInit, OnDestroy {
     }
     if (this.destinationControl.hasError('minlength')) {
       return 'Enter at least 2 characters';
+    }
+    if (this.destinationControl.hasError('sameCity')) {
+      return 'Departure from and destination cannot be the same';
     }
     return '';
   }

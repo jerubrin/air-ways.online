@@ -36,6 +36,9 @@ export class FlightsApiService {
         backDate: params['backDate'] ? params['backDate'].substring(0, 10) : undefined
       })),
       filter((params) => {
+        if (params.fromKey === params.toKey) {
+          return false;
+        }
         if (!this.prevParams) {
           this.prevParams = params;
           return true;
